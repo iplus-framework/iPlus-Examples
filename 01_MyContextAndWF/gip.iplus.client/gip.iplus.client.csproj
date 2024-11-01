@@ -1,0 +1,139 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>https://iplus-framework.com/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <IPlusIncludeDir>..\..\..\iPlus\bin\Release\net8.0-windows7.0</IPlusIncludeDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
+	  <NoWarn>CA1416</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
+	  <NoWarn>CA1416</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\iPlusIconDesktop.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Update="System.Runtime.Serialization">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Update="System.Xml.Linq">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Update="UIAutomationProvider">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ConnectionStrings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Update="VBXMLEditorSchemas\VBDesignEditor.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="VBXMLEditorSchemas\VBReportEditor.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="gip.core.autocomponent">
+      <HintPath>$(IPlusIncludeDir)\gip.core.autocomponent.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.datamodel">
+      <HintPath>$(IPlusIncludeDir)\gip.core.datamodel.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.reporthandler">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(IPlusIncludeDir)\gip.core.reporthandler.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.layoutengine">
+      <HintPath>$(IPlusIncludeDir)\gip.core.layoutengine.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.wpfservices">
+      <HintPath>$(IPlusIncludeDir)\gip.core.wpfservices.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.bso.iplus">
+      <HintPath>$(IPlusIncludeDir)\gip.bso.iplus.dll</HintPath>
+    </Reference> </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iPlusIconDesktop.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CoreWCF.Primitives" Version="1.6.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Resources\Connection.xaml" />
+    <Page Remove="Resources\DesignerItem.xaml" />
+    <Page Remove="Resources\Resources\Button.xaml" />
+    <Page Remove="Resources\Resources\Masterpage.xaml" />
+    <Page Remove="Resources\Resources\Menu.xaml" />
+    <Page Remove="Resources\Resources\Shared.xaml" />
+    <Page Remove="Resources\Resources\TabControl.xaml" />
+    <Page Remove="Resources\Resources\VBVisualGroup.xaml" />
+    <Page Remove="Resources\Styles\Shared.xaml" />
+    <Page Remove="Resources\VBResources.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mycompany.bso.erp\mycompany.bso.erp.csproj" />
+    <ProjectReference Include="..\mycompany.package.datamodel\mycompany.package.datamodel.csproj" />
+    <ProjectReference Include="..\mycompany.package.proc\mycompany.package.proc.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <BaseOutputPath>$(SolutionDir)bin\</BaseOutputPath>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>iplus-framework WPF App</Title>
+    <Description>WPF Program to start iplus-framework</Description>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageTags>iplus-framework</PackageTags>
+    <PackageProjectUrl>https://github.com/iplus-framework</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/iplus-framework/iPlus.git</RepositoryUrl>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+  </PropertyGroup>
+	<!--<Target Name="CopyToNet7Windows" AfterTargets="Build">
+		<Exec Command="xcopy &quot;$(SolutionDir)bin\Debug\net7.0\*.*&quot; &quot;$(SolutionDir)bin\Debug\net7.0-windows\&quot; /Y /I /E" />
+	</Target>-->
+</Project>
