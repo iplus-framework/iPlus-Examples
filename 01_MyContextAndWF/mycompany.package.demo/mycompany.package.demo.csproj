@@ -20,23 +20,12 @@
     <Reference Include="gip.core.datamodel">
       <HintPath>$(IPlusIncludeDir)\gip.core.datamodel.dll</HintPath>
     </Reference>
-    <Reference Include="gip.core.reporthandler">
-      <HintPath>$(IPlusIncludeDir)\gip.core.reporthandler.dll</HintPath>
+    <Reference Include="gip.core.processapplication">
+      <HintPath>$(IPlusIncludeDir)\gip.core.processapplication.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\mycompany.bso.erp\mycompany.bso.erp.csproj" />
     <ProjectReference Include="..\mycompany.package.datamodel\mycompany.package.datamodel.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="VBControlScripts\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.35.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="VBControlScripts\2024-11-01 13-35_developername.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

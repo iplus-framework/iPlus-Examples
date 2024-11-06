@@ -3,6 +3,7 @@ using gip.core.datamodel;
 using System;
 using mycompany.package.datamodel;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace mycompany.package.proc
 {
@@ -184,7 +185,7 @@ namespace mycompany.package.proc
             using (MyCompanyDB dbApp = new MyCompanyDB())
             {
                 return dbApp.InOrder.Where(c => c.InOrderID == inOrderID)
-                                        .SetMergeOption(MergeOption.NoTracking)
+                                        .AsNoTracking()
                                         .FirstOrDefault();
             }
         }

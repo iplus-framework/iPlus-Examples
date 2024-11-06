@@ -119,7 +119,10 @@
     <Resource Include="Images\iPlusIconDesktop.ico" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CoreWCF.Http" Version="1.6.0" />
+    <PackageReference Include="CoreWCF.NetTcp" Version="1.6.0" />
     <PackageReference Include="CoreWCF.Primitives" Version="1.6.0" />
+    <PackageReference Include="CoreWCF.WebHttp" Version="1.6.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +140,7 @@
   <ItemGroup>
     <ProjectReference Include="..\mycompany.bso.erp\mycompany.bso.erp.csproj" />
     <ProjectReference Include="..\mycompany.package.datamodel\mycompany.package.datamodel.csproj" />
+    <ProjectReference Include="..\mycompany.package.demo\mycompany.package.demo.csproj" />
     <ProjectReference Include="..\mycompany.package.proc\mycompany.package.proc.csproj" />
   </ItemGroup>
   <ItemGroup>
