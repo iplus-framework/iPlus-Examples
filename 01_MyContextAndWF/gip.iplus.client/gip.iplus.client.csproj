@@ -83,7 +83,35 @@
     </Reference>
     <Reference Include="gip.bso.iplus">
       <HintPath>$(IPlusIncludeDir)\gip.bso.iplus.dll</HintPath>
-    </Reference> </ItemGroup>
+    </Reference>
+    <Reference Include="gip.core.communication">
+      <HintPath>$(IPlusIncludeDir)\gip.core.communication.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.archiver">
+      <HintPath>$(IPlusIncludeDir)\gip.core.archiver.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.ControlScriptSync">
+      <HintPath>$(IPlusIncludeDir)\gip.core.ControlScriptSync.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.dbsyncer">
+      <HintPath>$(IPlusIncludeDir)\gip.core.dbsyncer.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.manager">
+      <HintPath>$(IPlusIncludeDir)\gip.core.processapplication.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.manager">
+      <HintPath>$(IPlusIncludeDir)\gip.core.processapplication.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.reporthandlerwpf">
+      <HintPath>$(IPlusIncludeDir)\gip.core.reporthandlerwpf.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.visualcontrols">
+      <HintPath>$(IPlusIncludeDir)\gip.core.visualcontrols.dll</HintPath>
+    </Reference>
+    <Reference Include="gip.core.webservices">
+      <HintPath>$(IPlusIncludeDir)\gip.core.webservices.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Login.png" />
   </ItemGroup>
