@@ -32,7 +32,7 @@ These example projects serve to explain the most important programming concepts 
 
 ## Download, Compilation, and Use
 
-1. **Clone all of our git repositories** into a common directory so that the specified relative paths match each other.
+1. **A common directory** Make sure to clone this repository into the same root path as iplus-framework. So that our repositories are all in a common directory, so that the specified relative paths match.
 
 2. **Compile the release version of iplus-framework** ([GitHub Repository][8]), because the example projects use the compiled dll's from the bin directory. Otherwise, you have to adjust the paths in the csproj files.
 
