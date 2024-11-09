@@ -40,7 +40,7 @@ These example projects serve to explain the most important programming concepts 
 
 4. **Adjust the connection string** in the "gip.iplus.client" project and set it as the startup project.
 
-5. **Compile the example and start the application.**
+5. **Compile the example and start the application.** Login with "superuser":"superuser".
 
 ---
 
