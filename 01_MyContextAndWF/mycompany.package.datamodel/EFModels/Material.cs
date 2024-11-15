@@ -101,7 +101,7 @@ public partial class Material : VBEntityObject , IInsertInfo, IUpdateInfo
     {
         get
         {
-            return InOrderPos_Material != null;
+            return _InOrderPos_Material != null;
         }
     }
 

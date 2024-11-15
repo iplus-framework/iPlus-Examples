@@ -101,7 +101,7 @@ public partial class InOrderPos : VBEntityObject , IInsertInfo, IUpdateInfo
     {
         get
         {
-            return InOrder != null;
+            return _InOrder != null;
         }
     }
 
@@ -121,7 +121,7 @@ public partial class InOrderPos : VBEntityObject , IInsertInfo, IUpdateInfo
     {
         get
         {
-            return Material != null;
+            return _Material != null;
         }
     }
 

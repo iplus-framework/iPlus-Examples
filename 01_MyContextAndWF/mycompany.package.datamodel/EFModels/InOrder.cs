@@ -94,7 +94,7 @@ public partial class InOrder : VBEntityObject , IInsertInfo, IUpdateInfo
     {
         get
         {
-            return InOrderPos_InOrder != null;
+            return _InOrderPos_InOrder != null;
         }
     }
 

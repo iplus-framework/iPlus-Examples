@@ -227,7 +227,7 @@ public partial class <#= entityTypeNewName #> : VBEntityObject <#= setInsertUpda
     {
         get
         {
-            return <#= relName #> != null;
+            return _<#= relName #> != null;
         }
     }
 
@@ -270,7 +270,7 @@ public partial class <#= entityTypeNewName #> : VBEntityObject <#= setInsertUpda
     {
         get
         {
-            return <#= navPIdname #> != null;
+            return _<#= navPIdname #> != null;
         }
     }
 

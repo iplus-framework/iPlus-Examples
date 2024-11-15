@@ -31,7 +31,7 @@ namespace mycompany.package.datamodel
                 .UseModel(MyCompanyDBContextModel.Instance)
                 .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning));
             //Uncomment connection string when generating new CompiledModels
-            //.UseSqlServer(ConfigurationManager.ConnectionStrings["MyCompanyDB_Entities"].ConnectionString);
+//.UseSqlServer(ConfigurationManager.ConnectionStrings["MyCompanyDB_Entities"].ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
