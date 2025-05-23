@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-16"?>
+<vb:VBViewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="http://schemas.abtsoftware.co.uk/scichart" xmlns:vbs="http://schemas.abtsoftware.co.uk/scichart/xaml/vbs" xmlns:vb="clr-namespace:gip.core.layoutengine;assembly=gip.core.layoutengine" xmlns:gip="clr-namespace:gip.core.layoutengine;assembly=gip.core.layoutengine">
+  <vb:VBCanvas Background="Transparent" Name="Canvas_0" Width="320" Height="240">
+    <!-- Main scale body with Mettler Toledo styling -->
+    <Path x:Name="ScaleBody" Width="320" Height="240" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" StrokeLineJoin="Round" Stroke="#FF2C3E50" StrokeThickness="2" Fill="#FFF8F9FA" Data="F1 M 10,5 L 310,5 C 315,5 320,10 320,15 L 320,225 C 320,230 315,235 310,235 L 10,235 C 5,235 0,230 0,225 L 0,15 C 0,10 5,5 10,5 Z" />
+    
+    <!-- Display panel -->
+    <Rectangle x:Name="DisplayPanel" Width="280" Height="160" Canvas.Left="20" Canvas.Top="20" Stretch="Fill" Fill="#FF1C2833" Stroke="#FF34495E" StrokeThickness="2" RadiusX="5" RadiusY="5" />
+    
+    <!-- Mettler Toledo logo area -->
+    <TextBlock x:Name="MTLogo" TextAlignment="Center" FontFamily="Segoe UI" FontSize="12" Width="Auto" Height="Auto" Canvas.Top="5" Canvas.Left="20">
+      <TextBlock.RenderTransform>
+        <TransformGroup>
+          <MatrixTransform Matrix="1,0,0,1,120,10" />
+        </TransformGroup>
+      </TextBlock.RenderTransform>
+      <Run Text="METTLER TOLEDO" Foreground="#FF2980B9" FontWeight="Bold" />
+    </TextBlock>
+    
+    <!-- Weight display area -->
+    <Rectangle x:Name="WeightDisplayBg" Width="250" Height="80" Canvas.Left="35" Canvas.Top="35" Fill="#FF000000" Stroke="#FF5D6D7E" StrokeThickness="1" RadiusX="3" RadiusY="3" />
+    
+    <!-- Main weight value display -->
+    <vb:VBTextBlock vb:VBContent="ActualValue" Name="ActualValue_0" Height="Auto" IsEnabled="False" Background="Transparent" Foreground="#FF00FF00" FontWeight="Bold" FontFamily="Consolas" FontSize="32" TextAlignment="Right" vb:StringFormat="F3" Canvas.Left="50" Canvas.Top="45" Width="200">
+      <TextBlock.Effect>
+        <DropShadowEffect Color="#FF00FF00" BlurRadius="2" ShadowDepth="0" Opacity="0.7" />
+      </TextBlock.Effect>
+    </vb:VBTextBlock>
+    
+    <!-- Unit display -->
+    <vb:VBTextBlock vb:VBContent="WeightUnit" Name="WeightUnit_0" Height="Auto" IsEnabled="False" Background="Transparent" Foreground="#FF00FF00" FontWeight="Bold" FontFamily="Consolas" FontSize="16" Canvas.Left="260" Canvas.Top="55" Width="40">
+      <TextBlock.Effect>
+        <DropShadowEffect Color="#FF00FF00" BlurRadius="2" ShadowDepth="0" Opacity="0.7" />
+      </TextBlock.Effect>
+    </vb:VBTextBlock>
+    
+    <!-- Alibi weight display (smaller, secondary) -->
+    <TextBlock x:Name="AlibiLabel" Text="Alibi:" Foreground="#FF85929E" FontSize="10" Canvas.Left="50" Canvas.Top="95" />
+    <vb:VBTextBlock vb:VBContent="AlibiWeight" Name="AlibiWeight_0" Height="Auto" IsEnabled="False" Background="Transparent" Foreground="#FF85929E" FontWeight="Normal" FontFamily="Consolas" FontSize="12" vb:StringFormat="F3" Canvas.Left="90" Canvas.Top="95" Width="120" />
+    
+    <!-- Status indicators panel -->
+    <Rectangle x:Name="StatusPanel" Width="280" Height="40" Canvas.Left="20" Canvas.Top="190" Fill="#FF2C3E50" Stroke="#FF34495E" StrokeThickness="1" RadiusX="3" RadiusY="3" />
+    
+    <!-- Connection status indicator -->
+    <Viewbox Width="30" Height="30" Name="GConnected" Canvas.Top="195" Canvas.Left="30">
+      <Canvas Width="30" Height="30">
+        <Ellipse Name="ConnectedIndicator" Width="30" Height="30" Canvas.Left="0" Canvas.Top="0" Stroke="#FF34495E" StrokeThickness="2">
+          <Ellipse.Style>
+            <Style TargetType="{x:Type Ellipse}">
+              <Setter Property="Fill" Value="#FF95A5A6" />
+              <Style.Triggers>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=IsConnected}" Value="True">
+                  <Setter Property="Fill" Value="#FF27AE60" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Ellipse.Style>
+        </Ellipse>
+        <TextBlock x:Name="ConnectedText" TextAlignment="Center" Width="30" Height="30" Canvas.Left="0" Canvas.Top="8">
+          <Run FontFamily="Segoe UI" FontWeight="Bold" FontSize="12" Text="NET" Foreground="#FFFFFFFF" />
+        </TextBlock>
+      </Canvas>
+    </Viewbox>
+    
+    <!-- Stability indicator -->
+    <Viewbox Width="30" Height="30" Name="GStability" Canvas.Top="195" Canvas.Left="70">
+      <Canvas Width="30" Height="30">
+        <Ellipse Name="StabilityIndicator" Width="30" Height="30" Canvas.Left="0" Canvas.Top="0" Stroke="#FF34495E" StrokeThickness="2">
+          <Ellipse.Style>
+            <Style TargetType="{x:Type Ellipse}">
+              <Setter Property="Fill" Value="#FF27AE60" />
+              <Style.Triggers>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=NotStandStill}" Value="True">
+                  <Setter Property="Fill" Value="#FFF39C12" />
+                  <DataTrigger.EnterActions>
+                    <BeginStoryboard Name="StabilityBlink">
+                      <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" From="0.3" To="1" Duration="0:0:0.8" RepeatBehavior="Forever" AutoReverse="True" />
+                      </Storyboard>
+                    </BeginStoryboard>
+                  </DataTrigger.EnterActions>
+                  <DataTrigger.ExitActions>
+                    <StopStoryboard BeginStoryboardName="StabilityBlink" />
+                  </DataTrigger.ExitActions>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Ellipse.Style>
+        </Ellipse>
+        <TextBlock x:Name="StabilityText" TextAlignment="Center" Width="30" Height="30" Canvas.Left="0" Canvas.Top="8">
+          <Run FontFamily="Segoe UI" FontWeight="Bold" FontSize="10" Text="STAB" Foreground="#FFFFFFFF" />
+        </TextBlock>
+      </Canvas>
+    </Viewbox>
+    
+    <!-- Scale status indicator (based on SICS response) -->
+    <Viewbox Width="30" Height="30" Name="GScaleStatus" Canvas.Top="195" Canvas.Left="110">
+      <Canvas Width="30" Height="30">
+        <Ellipse Name="ScaleStatusIndicator" Width="30" Height="30" Canvas.Left="0" Canvas.Top="0" Stroke="#FF34495E" StrokeThickness="2">
+          <Ellipse.Style>
+            <Style TargetType="{x:Type Ellipse}">
+              <Setter Property="Fill" Value="#FF95A5A6" />
+              <Style.Triggers>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=ScaleStatus}" Value="S">
+                  <Setter Property="Fill" Value="#FF27AE60" />
+                </DataTrigger>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=ScaleStatus}" Value="I">
+                  <Setter Property="Fill" Value="#FFF39C12" />
+                </DataTrigger>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=ScaleStatus}" Value="+">
+                  <Setter Property="Fill" Value="#FFE74C3C" />
+                </DataTrigger>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=ScaleStatus}" Value="-">
+                  <Setter Property="Fill" Value="#FFE74C3C" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Ellipse.Style>
+        </Ellipse>
+        <vb:VBTextBlock vb:VBContent="ScaleStatus" TextAlignment="Center" Width="30" Height="30" Canvas.Left="0" Canvas.Top="8" FontFamily="Segoe UI" FontWeight="Bold" FontSize="14" Foreground="#FFFFFFFF" />
+      </Canvas>
+    </Viewbox>
+    
+    <!-- Reading mode indicator -->
+    <Viewbox Width="40" Height="30" Name="GReading" Canvas.Left="150" Canvas.Top="195">
+      <Canvas Width="40" Height="30">
+        <Rectangle Name="ReadingIndicator" Width="40" Height="30" Canvas.Left="0" Canvas.Top="0" RadiusX="3" RadiusY="3" Stroke="#FF34495E" StrokeThickness="2">
+          <Rectangle.Style>
+            <Style TargetType="{x:Type Rectangle}">
+              <Setter Property="Fill" Value="#FF95A5A6" />
+              <Style.Triggers>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=ScaleMode}" Value="4">
+                  <Setter Property="Fill" Value="#FF27AE60" />
+                  <DataTrigger.EnterActions>
+                    <BeginStoryboard Name="ReadingBlink">
+                      <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" From="0.5" To="1" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True" />
+                      </Storyboard>
+                    </BeginStoryboard>
+                  </DataTrigger.EnterActions>
+                  <DataTrigger.ExitActions>
+                    <StopStoryboard BeginStoryboardName="ReadingBlink" />
+                  </DataTrigger.ExitActions>
+                </DataTrigger>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=ScaleMode}" Value="3">
+                  <Setter Property="Fill" Value="#FFF39C12" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Rectangle.Style>
+        </Rectangle>
+        <TextBlock x:Name="ReadingText" TextAlignment="Center" Width="40" Height="30" Canvas.Left="0" Canvas.Top="8">
+          <Run FontFamily="Segoe UI" FontWeight="Bold" FontSize="10" Text="READ" Foreground="#FFFFFFFF" />
+        </TextBlock>
+      </Canvas>
+    </Viewbox>
+    
+    <!-- Communication alarm indicator -->
+    <Viewbox Width="30" Height="30" Name="GCommAlarm" Canvas.Top="195" Canvas.Left="200">
+      <Canvas Width="30" Height="30">
+        <Ellipse Name="CommAlarmIndicator" Width="30" Height="30" Canvas.Left="0" Canvas.Top="0" Stroke="#FF34495E" StrokeThickness="2">
+          <Ellipse.Style>
+            <Style TargetType="{x:Type Ellipse}">
+              <Setter Property="Fill" Value="#FF95A5A6" />
+              <Style.Triggers>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=CommAlarm}" Value="AlarmOrFault">
+                  <Setter Property="Fill" Value="#FFE74C3C" />
+                  <DataTrigger.EnterActions>
+                    <BeginStoryboard Name="AlarmBlink">
+                      <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)" From="0.2" To="1" Duration="0:0:0.5" RepeatBehavior="Forever" AutoReverse="True" />
+                      </Storyboard>
+                    </BeginStoryboard>
+                  </DataTrigger.EnterActions>
+                  <DataTrigger.ExitActions>
+                    <StopStoryboard BeginStoryboardName="AlarmBlink" />
+                  </DataTrigger.ExitActions>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Ellipse.Style>
+        </Ellipse>
+        <TextBlock x:Name="CommAlarmText" TextAlignment="Center" Width="30" Height="30" Canvas.Left="0" Canvas.Top="6">
+          <Run FontFamily="Segoe UI" FontWeight="Bold" FontSize="10" Text="COMM" Foreground="#FFFFFFFF" />
+        </TextBlock>
+      </Canvas>
+    </Viewbox>
+    
+    <!-- Scale state indicator (overload/underload) -->
+    <Viewbox Width="30" Height="30" Name="GScaleState" Canvas.Top="195" Canvas.Left="240">
+      <Canvas Width="30" Height="30">
+        <Ellipse Name="ScaleStateIndicator" Width="30" Height="30" Canvas.Left="0" Canvas.Top="0" Stroke="#FF34495E" StrokeThickness="2">
+          <Ellipse.Style>
+            <Style TargetType="{x:Type Ellipse}">
+              <Setter Property="Fill" Value="#FF27AE60" />
+              <Style.Triggers>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=StateUL2}" Value="AlarmOrFault">
+                  <Setter Property="Fill" Value="#FFE74C3C" />
+                </DataTrigger>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=StateLL2}" Value="AlarmOrFault">
+                  <Setter Property="Fill" Value="#FFE74C3C" />
+                </DataTrigger>
+                <DataTrigger Binding="{vb:VBBinding vb:VBContent=StateScale}" Value="AlarmOrFault">
+                  <Setter Property="Fill" Value="#FFE74C3C" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </Ellipse.Style>
+        </Ellipse>
+        <TextBlock x:Name="ScaleStateText" TextAlignment="Center" Width="30" Height="30" Canvas.Left="0" Canvas.Top="8">
+          <Run FontFamily="Segoe UI" FontWeight="Bold" FontSize="12" Text="OK" Foreground="#FFFFFFFF" />
+        </TextBlock>
+      </Canvas>
+    </Viewbox>
+    
+    <!-- Information panel for additional data -->
+    <Rectangle x:Name="InfoPanel" Width="280" Height="25" Canvas.Left="20" Canvas.Top="140" Fill="#FF34495E" Stroke="#FF5D6D7E" StrokeThickness="1" RadiusX="2" RadiusY="2" />
+    
+    <!-- Last weight label and value -->
+    <TextBlock x:Name="LastWeightLabel" Text="Last:" Foreground="#FFBDC3C7" FontSize="10" Canvas.Left="30" Canvas.Top="145" />
+    <vb:VBTextBlock vb:VBContent="LastWeight" Name="LastWeight_0" Height="Auto" IsEnabled="False" Background="Transparent" Foreground="#FFBDC3C7" FontWeight="Normal" FontFamily="Consolas" FontSize="10" Canvas.Left="65" Canvas.Top="145" Width="80" />
+    
+    <!-- SICS Level indicator -->
+    <TextBlock x:Name="SICSLabel" Text="SICS Level:" Foreground="#FFBDC3C7" FontSize="10" Canvas.Left="160" Canvas.Top="145" />
+    <vb:VBTextBlock vb:VBContent="SICSLevel" Name="SICSLevel_0" Height="Auto" IsEnabled="False" Background="Transparent" Foreground="#FFBDC3C7" FontWeight="Normal" FontFamily="Consolas" FontSize="10" Canvas.Left="220" Canvas.Top="145" Width="20" />
+    
+    <!-- Glass effect overlay -->
+    <Viewbox x:Name="GlassEffect" Width="320" Height="240" Canvas.Left="0" Canvas.Top="0">
+      <Canvas Width="320" Height="240">
+        <Path x:Name="GlassOverlay" Stretch="Fill" Data="F1 M 10,5 L 310,5 C 315,5 320,10 320,15 L 320,225 C 320,230 315,235 310,235 L 10,235 C 5,235 0,230 0,225 L 0,15 C 0,10 5,5 10,5 Z" StrokeThickness="1">
+          <Path.Stroke>
+            <RadialGradientBrush RadiusX="1" RadiusY="0.6" Center="0.5,0" GradientOrigin="0.5,0">
+              <RadialGradientBrush.GradientStops>
+                <GradientStop Color="#40FFFFFF" Offset="0" />
+                <GradientStop Color="#00FFFFFF" Offset="0.3" />
+                <GradientStop Color="#00FFFFFF" Offset="0.7" />
+                <GradientStop Color="#20FFFFFF" Offset="1" />
+              </RadialGradientBrush.GradientStops>
+            </RadialGradientBrush>
+          </Path.Stroke>
+          <Path.Fill>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+              <LinearGradientBrush.GradientStops>
+                <GradientStop Color="#30FFFFFF" Offset="0" />
+                <GradientStop Color="#00FFFFFF" Offset="0.2" />
+                <GradientStop Color="#00FFFFFF" Offset="0.8" />
+                <GradientStop Color="#10FFFFFF" Offset="1" />
+              </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+          </Path.Fill>
+        </Path>
+        
+        <!-- Top highlight -->
+        <Rectangle x:Name="TopHighlight" Width="280" Height="3" Canvas.Left="20" Canvas.Top="8" RadiusX="2" RadiusY="2">
+          <Rectangle.Fill>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+              <LinearGradientBrush.GradientStops>
+                <GradientStop Color="#00FFFFFF" Offset="0" />
+                <GradientStop Color="#60FFFFFF" Offset="0.5" />
+                <GradientStop Color="#00FFFFFF" Offset="1" />
+              </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+          </Rectangle.Fill>
+        </Rectangle>
+      </Canvas>
+    </Viewbox>
+  </vb:VBCanvas>
+</vb:VBViewbox>
