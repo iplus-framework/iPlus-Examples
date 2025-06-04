@@ -28,7 +28,6 @@
     <ProjectReference Include="..\mycompany.package.datamodel\mycompany.package.datamodel.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.35.1" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.5" />
   </ItemGroup>
 </Project>

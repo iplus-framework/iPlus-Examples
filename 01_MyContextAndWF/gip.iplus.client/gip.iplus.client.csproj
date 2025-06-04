@@ -28,12 +28,12 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
-    <NoWarn>CA1416</NoWarn>
+    <NoWarn>CA1416;VSTHRD100;VSTHRD110;VSTHRD200</NoWarn>
     <IPlusIncludeDir>..\..\..\iPlus\bin\Debug\net8.0-windows7.0</IPlusIncludeDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
-    <NoWarn>CA1416</NoWarn>
+    <NoWarn>CA1416;VSTHRD100;VSTHRD110;VSTHRD200</NoWarn>
     <IPlusIncludeDir>..\..\..\iPlus\bin\Release\net8.0-windows7.0</IPlusIncludeDir>
   </PropertyGroup>
   <PropertyGroup>
@@ -124,7 +124,7 @@
     <PackageReference Include="CoreWCF.NetTcp" Version="1.6.0" />
     <PackageReference Include="CoreWCF.Primitives" Version="1.6.0" />
     <PackageReference Include="CoreWCF.WebHttp" Version="1.6.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.5" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="Resources\Connection.xaml" />
