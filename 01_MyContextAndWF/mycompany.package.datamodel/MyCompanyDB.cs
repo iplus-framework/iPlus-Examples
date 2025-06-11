@@ -164,7 +164,7 @@ namespace mycompany.package.datamodel
                 {
                     try
                     {
-                        ConnectionStringSettings setting = CommandLineHelper.ConfigCurrentDir.ConnectionStrings.ConnectionStrings["MyCompanyDB_Entities"];
+                        ConnectionStringSettings setting = CommandLineHelper.ConfigCurrentDir.ConnectionStrings.ConnectionStrings[C_DefaultContainerName];
                         return setting.ConnectionString;
                     }
                     catch (Exception ec)
@@ -177,7 +177,7 @@ namespace mycompany.package.datamodel
                             gip.core.datamodel.Database.Root.Messages.LogException("MyCompanyDB", "ConnectionString", msg);
                     }
                 }
-                return ConfigurationManager.ConnectionStrings["MyCompanyDB_Entities"].ConnectionString;
+                return ConfigurationManager.ConnectionStrings[C_DefaultContainerName].ConnectionString;
             }
         }
 
@@ -278,12 +278,30 @@ namespace mycompany.package.datamodel
             }
         }
 
+        public const string C_DefaultContainerName = "MyCompanyDB_Entities";
+        /// <summary>
+        /// Compatibility for legacy code that uses EntityKey from EF4
+        /// used in EF4 to identify the context, now it is the namespace of the DbContext to be able to build a assemby qualified name to consturct an assembly qualified name for the EntityKey
+        /// </summary>
         public string DefaultContainerName
         {
             get
             {
-                return this.GetType().Namespace;
+                return this._ObjectContextHelper.DefaultContainerName;
             }
+        }
+
+        public string DefaultContainerNameV4
+        {
+            get
+            {
+                return C_DefaultContainerName;
+            }
+        }
+
+        public string GetQualifiedEntitySetNameForEntityKey(string entitySetName)
+        {
+            return this._ObjectContextHelper.GetQualifiedEntitySetNameForEntityKey(entitySetName);
         }
 
         public event ACChangesEventHandler ACChangesExecuted;
