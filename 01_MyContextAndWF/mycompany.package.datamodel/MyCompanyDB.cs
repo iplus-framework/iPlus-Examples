@@ -698,6 +698,13 @@ namespace mycompany.package.datamodel
             return _ObjectContextHelper.ACUrlBinding(acUrl, ref acTypeInfo, ref source, ref path, ref rightControlMode);
         }
 
+        public bool ACUrlTypeInfo(string acUrl, ref ACUrlTypeInfo acUrlTypeInfo)
+        {
+            if (_ObjectContextHelper == null)
+                return false;
+            return _ObjectContextHelper.ACUrlTypeInfo(acUrl, ref acUrlTypeInfo);
+        }
+
         [ACMethodInfo("", "", 9999)]
         public string GetACUrlComponent(IACObject rootACObject = null)
         {
