@@ -1118,7 +1118,7 @@ namespace gip.iplus.client
             IACComponent bsoAlarmExplorer = ACRoot.SRoot.Businessobjects.FindChildComponents<gip.bso.iplus.BSOAlarmExplorer>().FirstOrDefault();
             if (bsoAlarmExplorer == null)
             {
-                bsoAlarmExplorer = ACRoot.SRoot.Businessobjects.StartComponent("BSOAlarmExplorer", this, null);
+                bsoAlarmExplorer = ACRoot.SRoot.Businessobjects.StartComponent("BSOAlarmExplorer", this, null) as IACComponent;
                 isNewComponent = true;
             }
             if (bsoAlarmExplorer != null)
