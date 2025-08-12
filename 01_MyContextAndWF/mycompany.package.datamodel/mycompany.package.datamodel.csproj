@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<OutputType>Library</OutputType>
-		<IPlusIncludeDir>..\..\..\iPlus\bin\Release\net8.0-windows7.0</IPlusIncludeDir>
+  <PropertyGroup>
+    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>
+    <OutputType>Library</OutputType>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AssemblyTitle>mycompany.package.datamodel</AssemblyTitle>
 		<Product>mycompany.package.datamodel</Product>
@@ -11,10 +10,12 @@
 		<FileVersion>1.0.0.0</FileVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
+    <IPlusIncludeDir>..\..\..\iPlus\bin\Debug\$(DefaultNetCoreTargetFramework)</IPlusIncludeDir>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
+    <IPlusIncludeDir>..\..\..\iPlus\bin\Release\$(DefaultNetCoreTargetFramework)</IPlusIncludeDir>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Remove="mycompany.cs" />
@@ -52,24 +53,43 @@
 			<SubType>Designer</SubType>
 		</Content>
 	</ItemGroup>
-	<ItemGroup>
+  <ItemGroup Condition="'$(UseEFCoreForkIPlus)' == 'True'">
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>$(EFCoreIncludeDir)\EFCore\$(Configuration)\$(EFCoreBuildFramework)\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Abstractions">
+      <HintPath>$(EFCoreIncludeDir)\EFCore.Abstractions\$(Configuration)\$(EFCoreBuildFramework)\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Design">
+      <HintPath>$(EFCoreIncludeDir)\EFCore.Design\$(Configuration)\$(EFCoreBuildFramework)\Microsoft.EntityFrameworkCore.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.SqlServer">
+      <HintPath>$(EFCoreIncludeDir)\EFCore.SqlServer\$(Configuration)\$(EFCoreBuildFramework)\Microsoft.EntityFrameworkCore.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Microsoft.EntityFrameworkCore.Relational">
+      <HintPath>$(EFCoreIncludeDir)\EFCore.Relational\$(Configuration)\$(EFCoreBuildFramework)\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
 		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.5" />
-		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.0" />
+		<PackageReference Condition="'$(UseEFCoreForkIPlus)' == 'False'" Include="Microsoft.EntityFrameworkCore" Version="$(NetCorePackageVersion)" />
+		<PackageReference Condition="'$(UseEFCoreForkIPlus)' == 'False'" Include="Microsoft.EntityFrameworkCore.Design" Version="$(NetCorePackageVersion)">
 			<PrivateAssets>compile</PrivateAssets>
 			<!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.5">
+		<PackageReference Condition="'$(UseEFCoreForkIPlus)' == 'False'" Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(NetCorePackageVersion)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="$(NetCorePackageVersion)">
 			<PrivateAssets>compile</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-	</ItemGroup>
+		<PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
+    <PackageReference Condition="'$(UseEFCoreForkIPlus)' == 'True'" Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(NetCorePackageVersion)" />
+    <PackageReference Condition="'$(UseEFCoreForkIPlus)' == 'True'" Include="Microsoft.Extensions.Logging.Abstractions" Version="$(NetCorePackageVersion)" />
+  </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-		<PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.5" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="$(NetCorePackageVersion)" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="EFModels\" />

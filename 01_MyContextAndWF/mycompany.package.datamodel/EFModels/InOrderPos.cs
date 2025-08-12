@@ -6,7 +6,7 @@ using gip.core.datamodel;
 
 namespace mycompany.package.datamodel;
 
-public partial class InOrderPos : VBEntityObject , IInsertInfo, IUpdateInfo
+public partial class InOrderPos : VBEntityObject, IInsertInfo, IUpdateInfo, ISequence
 {
 
     public InOrderPos()
@@ -31,7 +31,7 @@ public partial class InOrderPos : VBEntityObject , IInsertInfo, IUpdateInfo
     public Guid InOrderID 
     {
         get { return _InOrderID; }
-        set { SetProperty<Guid>(ref _InOrderID, value); }
+        set { SetForeignKeyProperty<Guid>(ref _InOrderID, value, "InOrder", _InOrder, InOrder != null ? InOrder.InOrderID : default(Guid)); }
     }
 
     int _Sequence;
@@ -45,7 +45,7 @@ public partial class InOrderPos : VBEntityObject , IInsertInfo, IUpdateInfo
     public Guid MaterialID 
     {
         get { return _MaterialID; }
-        set { SetProperty<Guid>(ref _MaterialID, value); }
+        set { SetForeignKeyProperty<Guid>(ref _MaterialID, value, "Material", _Material, Material != null ? Material.MaterialID : default(Guid)); }
     }
 
     double _TargetQuantity;
@@ -93,7 +93,7 @@ public partial class InOrderPos : VBEntityObject , IInsertInfo, IUpdateInfo
     private InOrder _InOrder;
     public virtual InOrder InOrder
     { 
-        get { return LazyLoader.Load(this, ref _InOrder); } 
+        get { return LazyLoader.Load(this, ref _InOrder); }
         set { SetProperty<InOrder>(ref _InOrder, value); }
     }
 
@@ -113,7 +113,7 @@ public partial class InOrderPos : VBEntityObject , IInsertInfo, IUpdateInfo
     private Material _Material;
     public virtual Material Material
     { 
-        get { return LazyLoader.Load(this, ref _Material); } 
+        get { return LazyLoader.Load(this, ref _Material); }
         set { SetProperty<Material>(ref _Material, value); }
     }
 

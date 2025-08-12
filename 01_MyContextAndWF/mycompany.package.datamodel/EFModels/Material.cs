@@ -6,7 +6,7 @@ using gip.core.datamodel;
 
 namespace mycompany.package.datamodel;
 
-public partial class Material : VBEntityObject , IInsertInfo, IUpdateInfo
+public partial class Material : VBEntityObject, IInsertInfo, IUpdateInfo, IDeleteInfo
 {
 
     public Material()
@@ -94,7 +94,7 @@ public partial class Material : VBEntityObject , IInsertInfo, IUpdateInfo
     public virtual ICollection<InOrderPos> InOrderPos_Material
     {
         get { return LazyLoader.Load(this, ref _InOrderPos_Material); }
-        set { _InOrderPos_Material = value; }
+        set { SetProperty<ICollection<InOrderPos>>(ref _InOrderPos_Material, value); }
     }
 
     public bool InOrderPos_Material_IsLoaded

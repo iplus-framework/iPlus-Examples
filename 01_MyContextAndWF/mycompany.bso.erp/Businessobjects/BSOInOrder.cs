@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
 using gip.core.autocomponent;
 using gip.core.datamodel;
 using mycompany.package.datamodel;

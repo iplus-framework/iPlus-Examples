@@ -52,30 +52,30 @@ namespace mycompany.package.datamodel
          /// <seealso cref="gip.core.datamodel.IACEntityObjectContext" />
          /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
     [ACClassInfo("mycompany.erp", "en{'Database application'}de{'Datenbank Anwendung'}", Global.ACKinds.TACDBAManager, Global.ACStorableTypes.NotStorable, false, false)]
-    public partial class MyCompanyDB : MyCompanyDBContext, IACEntityObjectContext, INotifyPropertyChanged
+    public partial class MyCompanyDB : ExampleV5Context, IACEntityObjectContext, INotifyPropertyChanged
     {
         #region c'tors
         public MyCompanyDB()
-            : base(EntityObjectExtension.DbContextOptions<MyCompanyDBContext>(ConnectionString))
+            : base(EntityObjectExtension.DbContextOptions<ExampleV5Context>(ConnectionString))
         {
             _ObjectContextHelper = new ACObjectContextHelper(this);
         }
 
         public MyCompanyDB(string connectionString)
-            : base(EntityObjectExtension.DbContextOptions<MyCompanyDBContext>(connectionString))
+            : base(EntityObjectExtension.DbContextOptions<ExampleV5Context>(connectionString))
         {
             _ObjectContextHelper = new ACObjectContextHelper(this);
         }
 
         public MyCompanyDB(Database contextIPlus)
-            : base(EntityObjectExtension.DbContextOptions<MyCompanyDBContext>(ConnectionString))
+            : base(EntityObjectExtension.DbContextOptions<ExampleV5Context>(ConnectionString))
         {
             _ObjectContextHelper = new ACObjectContextHelper(this);
             _ContextIPlus = contextIPlus;
         }
 
         public MyCompanyDB(string connectionString, Database contextIPlus)
-            : base(EntityObjectExtension.DbContextOptions<MyCompanyDBContext>(connectionString))
+            : base(EntityObjectExtension.DbContextOptions<ExampleV5Context>(connectionString))
         {
             _ObjectContextHelper = new ACObjectContextHelper(this);
             _ContextIPlus = contextIPlus;
@@ -92,14 +92,14 @@ namespace mycompany.package.datamodel
         }
 
         public MyCompanyDB(DbConnection connection)
-            : base(EntityObjectExtension.DbContextOptions<MyCompanyDBContext>(connection))
+            : base(EntityObjectExtension.DbContextOptions<ExampleV5Context>(connection))
         {
             _SeparateConnection = connection;
             _ObjectContextHelper = new ACObjectContextHelper(this);
         }
 
         public MyCompanyDB(DbConnection connection, Database contextIPlus)
-            : base(EntityObjectExtension.DbContextOptions<MyCompanyDBContext>(connection))
+            : base(EntityObjectExtension.DbContextOptions<ExampleV5Context>(connection))
         {
             _SeparateConnection = connection;
             _ObjectContextHelper = new ACObjectContextHelper(this);
@@ -274,11 +274,11 @@ namespace mycompany.package.datamodel
         {
             get
             {
-                return IsChanged ? MergeOption.AppendOnly : MergeOption.OverwriteChanges;
+                return IsChanged ? MergeOption.PreserveChanges : MergeOption.OverwriteChanges;
             }
         }
 
-        public const string C_DefaultContainerName = "MyCompanyDB_Entities";
+        public const string C_DefaultContainerName = "ExampleV5_Entities";
         /// <summary>
         /// Compatibility for legacy code that uses EntityKey from EF4
         /// used in EF4 to identify the context, now it is the namespace of the DbContext to be able to build a assemby qualified name to consturct an assembly qualified name for the EntityKey

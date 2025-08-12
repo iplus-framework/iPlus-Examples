@@ -7,15 +7,15 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace mycompany.package.datamodel
 {
-    [DbContext(typeof(MyCompanyDBContext))]
-    public partial class MyCompanyDBContextModel : RuntimeModel
+    [DbContext(typeof(ExampleV5Context))]
+    public partial class ExampleV5ContextModel : RuntimeModel
     {
         private static readonly bool _useOldBehavior31751 =
             System.AppContext.TryGetSwitch("Microsoft.EntityFrameworkCore.Issue31751", out var enabled31751) && enabled31751;
 
-        static MyCompanyDBContextModel()
+        static ExampleV5ContextModel()
         {
-            var model = new MyCompanyDBContextModel();
+            var model = new ExampleV5ContextModel();
 
             if (_useOldBehavior31751)
             {
@@ -34,10 +34,10 @@ namespace mycompany.package.datamodel
             }
 
             model.Customize();
-            _instance = model;
+            _instance = (ExampleV5ContextModel)model.FinalizeModel();
         }
 
-        private static MyCompanyDBContextModel _instance;
+        private static ExampleV5ContextModel _instance;
         public static IModel Instance => _instance;
 
         partial void Initialize();

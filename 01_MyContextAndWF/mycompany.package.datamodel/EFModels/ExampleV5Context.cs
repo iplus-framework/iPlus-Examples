@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
@@ -27,10 +27,12 @@ public partial class ExampleV5Context : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.AddInterceptors(new ACMaterializationInterceptor())
-            .UseModel(MyCompanyDBContextModel.Instance)
+            //.UseLazyLoadingProxies()
+            //.UseChangeTrackingProxies()
+            .UseModel(ExampleV5ContextModel.Instance)
             .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning));
             //Uncomment connection string when generating new CompiledModels
-            //.UseSqlServer(ConfigurationManager.ConnectionStrings["MyCompanyDB_Entities"].ConnectionString);
+//.UseSqlServer(ConfigurationManager.ConnectionStrings["ExampleV5_Entities"].ConnectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -113,6 +115,11 @@ public partial class ExampleV5Context : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.XMLConfig).HasColumnType("text");
         });
+
+        modelBuilder.HasChangeTrackingStrategy(ChangeTrackingStrategy.ChangedNotifications)
+                    // For change tracking proxies if UseChangeTrackingProxies() is set: 
+                    //.HasChangeTrackingStrategy(ChangeTrackingStrategy.ChangingAndChangedNotifications)
+                    .UsePropertyAccessMode(PropertyAccessMode.PreferFieldDuringConstruction);
 
         OnModelCreatingPartial(modelBuilder);
     }

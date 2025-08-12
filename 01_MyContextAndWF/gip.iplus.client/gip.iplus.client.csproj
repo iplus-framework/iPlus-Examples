@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFramework>$(UITargetFramework)</TargetFramework>
     <OutputType>WinExe</OutputType>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -29,12 +29,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
     <NoWarn>CA1416;VSTHRD100;VSTHRD110;VSTHRD200</NoWarn>
-    <IPlusIncludeDir>..\..\..\iPlus\bin\Debug\net8.0-windows7.0</IPlusIncludeDir>
+    <IPlusIncludeDir>..\..\..\iPlus\bin\Debug\$(UITargetFramework)</IPlusIncludeDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
     <NoWarn>CA1416;VSTHRD100;VSTHRD110;VSTHRD200</NoWarn>
-    <IPlusIncludeDir>..\..\..\iPlus\bin\Release\net8.0-windows7.0</IPlusIncludeDir>
+    <IPlusIncludeDir>..\..\..\iPlus\bin\Release\$(UITargetFramework)</IPlusIncludeDir>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Images\iPlusIconDesktop.ico</ApplicationIcon>
@@ -120,11 +120,11 @@
     <Resource Include="Images\iPlusIconDesktop.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CoreWCF.Http" Version="1.6.0" />
-    <PackageReference Include="CoreWCF.NetTcp" Version="1.6.0" />
-    <PackageReference Include="CoreWCF.Primitives" Version="1.6.0" />
-    <PackageReference Include="CoreWCF.WebHttp" Version="1.6.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.5" />
+    <PackageReference Include="CoreWCF.Http" Version="$(CoreWCFVersion)" />
+    <PackageReference Include="CoreWCF.NetTcp" Version="$(CoreWCFVersion)" />
+    <PackageReference Include="CoreWCF.Primitives" Version="$(CoreWCFVersion)" />
+    <PackageReference Include="CoreWCF.WebHttp" Version="$(CoreWCFVersion)" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="$(NetCorePackageVersion)" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +139,11 @@
     <Page Remove="Resources\Styles\Shared.xaml" />
     <Page Remove="Resources\VBResources.xaml" />
   </ItemGroup>
+  <ItemGroup Condition="'$(UseEFCoreForkIPlus)' == 'True'">
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>$(EFCoreIncludeDir)\EFCore\$(Configuration)\$(EFCoreBuildFramework)\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+  </ItemGroup> 
   <ItemGroup>
     <ProjectReference Include="..\mycompany.bso.erp\mycompany.bso.erp.csproj" />
     <ProjectReference Include="..\mycompany.package.datamodel\mycompany.package.datamodel.csproj" />
