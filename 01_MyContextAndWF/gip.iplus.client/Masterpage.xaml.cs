@@ -348,7 +348,12 @@ namespace gip.iplus.client
             {
                 return App._GlobalApp;
             }
-        } 
+        }
+
+        public object DispatcherInvoke(Action action)
+        {
+            return Dispatcher.Invoke(DispatcherPriority.Normal, action);
+        }
 
         public void StartBusinessobjectByACCommand(ACCommand acCommand)
         {
