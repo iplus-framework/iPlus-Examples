@@ -173,6 +173,6 @@
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 	<!--<Target Name="CopyToNet7Windows" AfterTargets="Build">
-		<Exec Command="xcopy &quot;$(SolutionDir)bin\Debug\net7.0\*.*&quot; &quot;$(SolutionDir)bin\Debug\net7.0-windows\&quot; /Y /I /E" />
+		<Exec Command="xcopy &quot;$(SolutionDir)bin\Debug\net7.0\*.*&quot; &quot;$(SolutionDir)bin\Debug\net7.0-windows\&quot; /Y /I /E /EXCLUDE:$(ProjectDir)\AfterBuildCopyExclude.txt" />
 	</Target>-->
 </Project>

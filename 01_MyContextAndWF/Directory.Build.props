@@ -1,7 +1,7 @@
 <Project>
   <Import Project="..\..\iPlus\Directory.Build.props" />
   <PropertyGroup>
-    <EFCoreRootDir>..\..\..\efcore9</EFCoreRootDir>
+    <EFCoreRootDir>..\..\..\ef_90_iPlus</EFCoreRootDir>
     <EFCoreIncludeDir>$(EFCoreRootDir)\artifacts\bin</EFCoreIncludeDir>
     <EFCoreToolsDir>$(EFCoreRootDir)\src\EFCore.Tools</EFCoreToolsDir>
   </PropertyGroup>
