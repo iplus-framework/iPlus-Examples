@@ -15,3 +15,9 @@ You must run Copilot in agent mode and also use the following MCP server:
 https://github.com/descriptor/AvaloniaUI.MCP
 In the root directory of iplusAvaloniaUI.sln (Solution Items) change the path in .mcp.json to the location where you have cloned AvaloniaUI.MCP.
 Afterwards you should be able to see the Tools in Copilot. 
+
+For comparison, here are two videos of Claude Sonnet performing the code transformation for the same files very accurately: 
+https://gipsoftdoo2014-my.sharepoint.com/:v:/g/personal/damir_lisak_iplus-framework_com/EfbCMx2tZVRPpZb4JIcO8EcBOaTi2OlcbI1ZoQFPrE4phg?e=Bhvm7O
+https://gipsoftdoo2014-my.sharepoint.com/:v:/g/personal/damir_lisak_iplus-framework_com/ERXu73rF2n1CleEfUJZIb48BGgqCXfMebsKCLSQeqAu9vA?e=IRzykx
+It also leaves the positions of the methods where they were before. Grok, on the other hand, often rebuilds the entire structure.
+It requires fewer iterations and fixes all compilation issues. Despite the longer thinking phase, it ultimately finishes twice as fast as Grok.
