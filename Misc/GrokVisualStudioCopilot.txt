@@ -1,0 +1,17 @@
+Here the video:
+https://gipsoftdoo2014-my.sharepoint.com/:v:/g/personal/damir_lisak_iplus-framework_com/ERmMFFD2zGBHnwdYdcdrx5wBN7SYvYpE8FMUFpUlYtfzog?e=OISZs1
+
+Unfortunately, I couldn't reproduce the deletion of the code sections this morning. Yesterday, it DEFINITELY reduced the XAML and the c# code by 50%! 
+However, I should mention that I ran the conversion in the afternoon during European time, when workload is very high because the US also uses the GitHub models at the same time. Even with Claude Sonnet, you have to expect processing to be aborted due to the high number of users.
+Nevertheless, Grok Fast requires a lot of runs and doesn't fix all compilation errors. Sonnet is much more thorough and doesn't require as many runs.
+
+Here is the link to the repository:
+https://github.com/iplus-framework/iPlus
+Clone it an open the solution file iplusAvaloniaUI.sln
+The sample files shown in the video are located in the project
+gip.core.layoutengine.avui.csproj
+
+You must run Copilot in agent mode and also use the following MCP server:
+https://github.com/descriptor/AvaloniaUI.MCP
+In the root directory of iplusAvaloniaUI.sln (Solution Items) change the path in .mcp.json to the location where you have cloned AvaloniaUI.MCP.
+Afterwards you should be able to see the Tools in Copilot. 
