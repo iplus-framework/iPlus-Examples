@@ -1,0 +1,58 @@
+# Extra Utilities
+
+## 1. Wine
+For running simple Windows tools without a full VM.
+
+[Wine Installation Guide (Ubuntu Users)](https://wiki.ubuntuusers.de/Wine/)
+
+```bash
+sudo apt-get install wine-stable 
+sudo apt install winetricks ttf-mscorefonts-installer
+```
+
+### Install newest Version of wine:
+https://ubuntuhandbook.org/index.php/2026/01/wine-11-0-released-how-to-install/
+```bash
+sudo mkdir -p /etc/apt/keyrings
+wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo gpg --dearmor -o /etc/apt/keyrings/winehq-archive.key
+sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources
+sudo apt update
+sudo apt install --install-recommends winehq-stable
+```
+### NET Framework 4.8 Compatibitlity
+Running net 4.8 applications in Wine by creating a separate wine prefix with win32. 
+Microsoft Data Access components must also be installed otherwise mono uses a Oracle provider when connecting to an SQL-Server. 
+
+```bash
+WINEPREFIX="$HOME/.wine-dotnet48" WINEARCH=win32 winecfg
+WINEPREFIX="$HOME/.wine-dotnet48" winetricks -q dotnet48
+WINEPREFIX="$HOME/.wine-dotnet48" winetricks mdac28
+```
+
+### Important notes for using iPlus-framework applications V4 (net48)
+There is an issue when iPlus is started and have to read the metadata files. To get it running the absolute path to the metadata has to be set. And backslashes must be set twice because linux interprets it as an escape character! Here an example:
+
+```
+    <add name="iPlusMESV4_Entities" connectionString="metadata=C:\\iPlus\V4\\Dostofarm\\Debug\\iplusmesv4.csdl|C:\\iPlus\V4\\\Dostofarm\\\Debug\\iplusmesv4.ssdl|C:\\iPlus\V4\\Dostofarm\\Debug\\iplusmesv4.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=gipDLVmSQL1.incus;initial catalog=DostofarmV4;persist security info=True;user id=gip;password=netspirit;MultipleActiveResultSets=True;Asynchronous Processing=True;App=iPlus_dbApp&quot;"
+    providerName="System.Data.EntityClient" />
+```
+
+### Starting applications
+- **Run**
+    ```bash
+    WINEPREFIX="/home/damir/.wine-dotnet48" wine gip.variobatch.client.exe
+    ```
+- **Read or log debug output examples**
+    ```bash
+    WINEPREFIX="/home/damir/.wine-dotnet48" WINEDEBUG=+file wine gip.variobatch.client.exe 2>&1 | grep "csdl|ssl|msl"
+    WINEPREFIX="/home/damir/.wine-dotnet48" WINEDEBUG=+file wine gip.variobatch.client.exe > debug_paths.log 2>&1
+    ```
+#
+
+## 2. Microsoft Teams
+Use the unofficial "Teams for Linux" client which wraps the web version effectively.
+[GitHub: Teams for Linux](https://github.com/IsmaelMartinez/teams-for-linux)
+
+## 3. Thunderbird
+Standard email client setup.
+[Mozilla Support](https://support.mozilla.org/en-US/kb/installing-thunderbird-linux)
