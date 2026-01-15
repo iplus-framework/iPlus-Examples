@@ -53,6 +53,30 @@ There is an issue when iPlus is started and have to read the metadata files. To 
     ```bash
     WINEPREFIX="/home/damir/.wine-dotnet48" winetricks ddr=gdi
     ```
+### Printing
+- **PDF and XPS-Utils**
+   XPS-Utils are needed, because iPlus prints with XPS:
+    ```bash
+    sudo apt install printer-driver-cups-pdf
+    sudo apt install libcups2:i386
+    sudo apt install libgxps-utils
+    sudo apt install libcups2:i386 libpaper1:i386 libpango-1.0-0:i386
+    ```
+- **GENERIC CUPS-PDF Printer**
+  Open Printer Settings and select "GENERIC CUPS-PDF Printer (no options)" as driver
+
+### Scaling
+Open Wine config and set scaling to 120dpi:
+```bash
+WINEPREFIX="/home/damir/.wine-dotnet48" winecfg
+```
+### iPlus in Startmenu
+1. Open KDE Menu Editor
+2. Add a new entry
+3. Set Parameters (example)
+   - Environment: WINEPREFIX=/home/damir/.wine-dotnet48/
+   - Application: wine
+   - Arguments: '/home/damir/SHARED/Devel/iPlusGit/V4/iPlusMES/bin/Debug/gip.mes.client.exe'
     
 ## 2. Microsoft Teams
 Use the unofficial "Teams for Linux" client which wraps the web version effectively.
