@@ -49,6 +49,11 @@ There is an issue when iPlus is started and have to read the metadata files. To 
     ```
 #
 
+### Issues with Rendering KDE/Wayland (Black Context Menu)
+    ```bash
+    WINEPREFIX="/home/damir/.wine-dotnet48" winetricks ddr=gdi
+    ```
+    
 ## 2. Microsoft Teams
 Use the unofficial "Teams for Linux" client which wraps the web version effectively.
 [GitHub: Teams for Linux](https://github.com/IsmaelMartinez/teams-for-linux)
