@@ -69,6 +69,7 @@ There is an issue when iPlus is started and have to read the metadata files. To 
 Open Wine config and set scaling to 120dpi:
 ```bash
 WINEPREFIX="/home/damir/.wine-dotnet48" winecfg
+WINEPREFIX="/home/damir/.wine-dotnet48" winetricks settings fontsmooth=rgb
 ```
 ### iPlus in Startmenu
 1. Open KDE Menu Editor
