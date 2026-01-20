@@ -104,7 +104,7 @@ apt install rocm rocm-hip-runtime rocm-hip-libraries
 Configure the library path and force the graphics version (required for Radeon 890M / gfx1150 support). Add these lines to your `~/.bashrc` to make them persistent:
 
 ```bash
-export LD_LIBRARY_PATH=/opt/rocm/lib:/opt/rocm/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/rocm/lib:/usr/local/share/lemonade-server/llama/rocm:/opt/rocm/lib64:$LD_LIBRARY_PATH
 export HSA_OVERRIDE_GFX_VERSION=11.5.0
 ```
 
@@ -177,6 +177,36 @@ Qwen 3 works well with ROCm and supports reasoning features.
 ```bash
 lemonade-server pull Qwen3-30B-A3B-Instruct-2507-GGUF
 lemonade-server run Qwen3-30B-A3B-Instruct-2507-GGUF --host 0.0.0.0 --port 8080 --log-level debug --llamacpp rocm --llamacpp-args "-c 16384 --reasoning-budget -1"
+```
+
+**3. Directly usage of llama.cpp** 
+To load a model directly with llama.cpp find the snapshot location where the model is downloaded from huggingface: 
+```bash
+find ~/.cache/huggingface/hub -name "*.gguf"
+```
+Then decide if you want to use the vulkan or ROCm backend, which are installed in different locations of lemonade.   
+With Vulkan (replace the snapshot id with yours!):
+```bash
+/usr/local/share/lemonade-server/llama/vulkan/build/bin/llama-server -m /root/.cache/huggingface/hub/models--unsloth--Nemotron-3-Nano-30B-A3B-GGUF/snapshots/9ad8b366c308f931b2a96b9306f0b41aef9cd405/Nemotron-3-Nano-30B-A3B-UD-Q4_K_XL.gguf --ctx-size 32768 --temp 0.6 --top-p 0.9 --host 0.0.0.0
+```
+With ROCm (replace the snapshot id with yours!):
+```bash
+/usr/local/share/lemonade-server/llama/rocm/llama-server -m /root/.cache/huggingface/hub/models--unsloth--Nemotron-3-Nano-30B-A3B-GGUF/snapshots/9ad8b366c308f931b2a96b9306f0b41aef9cd405/Nemotron-3-Nano-30B-A3B-UD-Q4_K_XL.gguf --ctx-size 32768 --temp 0.6 --top-p 0.9 --host 0.0.0.0
+```
+
+**4. glm-4.7-flash from hugging face**
+```bash
+lemonade-server pull user.GLM-4.7-Flash-GGUF --checkpoint unsloth/GLM-4.7-Flash-GGUF:UD-Q4_K_XL --recipe llamacpp
+lemonade-server run user.GLM-4.7-Flash-GGUF --host 0.0.0.0 --port 8080 --log-level debug --llamacpp rocm --llamacpp-args "-c 32768 --temp 0.7 --min-p 0.01 --top-p 1.00 --dry-multiplier 1.1 --fit on"
+```
+For function calling --jinja has to be used. Unfortunately this is currently not supported by the lemonade-server. This will not work:
+```bash
+lemonade-server run user.GLM-4.7-Flash-GGUF --host 0.0.0.0 --port 8080 --log-level debug --llamacpp rocm --llamacpp-args "-c 32768 --chat-template-file /root/glm4_template.jinja  --jinja --temp 0.7 --min-p 0.01 --top-p 1.00 --reasoning-budget -1 --dry-multiplier 1.1 --fit on"
+```
+You only can run it directly with llama-server at the moment:
+```bash
+/usr/local/share/lemonade-server/llama/vulkan/build/bin/llama-server -m /root/.cache/huggingface/hub/models--unsloth--GLM-4.7-Flash-GGUF/snapshots/218bcb725e428c5b8c4153bcf5bf7ead738a9799/GLM-4.7-Flash-UD-Q4_K_XL.gguf --jinja --threads -1 --ctx-size 32768 --temp 0.7 --min-p 0.01 --top-p 1.00 --dry-multiplier 1.1 --fit on --host 0.0.0.0
+/usr/local/share/lemonade-server/llama/rocm/llama-server -m /root/.cache/huggingface/hub/models--unsloth--GLM-4.7-Flash-GGUF/snapshots/218bcb725e428c5b8c4153bcf5bf7ead738a9799/GLM-4.7-Flash-UD-Q4_K_XL.gguf --jinja --threads -1 --ctx-size 32768 --temp 0.7 --min-p 0.01 --top-p 1.00 --dry-multiplier 1.1 --fit on --host 0.0.0.0
 ```
 
 ### Client Integration
