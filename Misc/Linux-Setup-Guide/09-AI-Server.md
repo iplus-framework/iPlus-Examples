@@ -104,7 +104,7 @@ apt install rocm rocm-hip-runtime rocm-hip-libraries
 Configure the library path and force the graphics version (required for Radeon 890M / gfx1150 support). Add these lines to your `~/.bashrc` to make them persistent:
 
 ```bash
-export LD_LIBRARY_PATH=/opt/rocm/lib:/usr/local/share/lemonade-server/llama/rocm:/opt/rocm/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/rocm/lib:$LD_LIBRARY_PATH
 export HSA_OVERRIDE_GFX_VERSION=11.5.0
 ```
 
@@ -192,6 +192,11 @@ With Vulkan (replace the snapshot id with yours!):
 With ROCm (replace the snapshot id with yours!):
 ```bash
 /usr/local/share/lemonade-server/llama/rocm/llama-server -m /root/.cache/huggingface/hub/models--unsloth--Nemotron-3-Nano-30B-A3B-GGUF/snapshots/9ad8b366c308f931b2a96b9306f0b41aef9cd405/Nemotron-3-Nano-30B-A3B-UD-Q4_K_XL.gguf --ctx-size 32768 --temp 0.6 --top-p 0.9 --host 0.0.0.0
+```
+The Server may not start if the ROCm libraries are not found. Either you switch to the '/usr/local/share/lemonade-server/llama/rocm/' directory and run the llama-server command there.   
+Or you temprary set environment variables of the library path to:
+```bash
+export LD_LIBRARY_PATH=/opt/rocm/lib:/usr/local/share/lemonade-server/llama/rocm:
 ```
 
 **4. glm-4.7-flash from hugging face**
