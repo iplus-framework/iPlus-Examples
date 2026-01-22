@@ -92,6 +92,9 @@ iPlus uses [Manages Esent](https://github.com/microsoft/ManagedEsent) for loggin
 4. Type esent in the "New override for library" box and click Add.
 5. Ensure it is set to (native, builtin). This tells Wine to use the real Windows file you just provided instead of its own stub.
 
+### DEBUGGING 🐞
+1. Download [dnSpy](https://github.com/dnSpy/dnSpy/releases)
+2. Start dnSpy ( in the same wine-prefix as you have started iPlus. For iPlus V5 (net core) you must use the win64 Version. For iPlus V4 you can also use the win64 Version or the netframework version of dnSpy.
     
 ## 2. Microsoft Teams
 Use the unofficial "Teams for Linux" client which wraps the web version effectively.
