@@ -78,6 +78,20 @@ WINEPREFIX="/home/damir/.wine-dotnet48" winetricks settings fontsmooth=rgb
    - Environment: WINEPREFIX=/home/damir/.wine-dotnet48/
    - Application: wine
    - Arguments: '/home/damir/SHARED/Devel/iPlusGit/V4/iPlusMES/bin/Debug/gip.mes.client.exe'
+  
+### Fonts
+If you have a Windows Installation just copy the fonts from "C:\Windows\Fonts" to your linux folder "/usr/local/share/fonts/". (According to MS EULA this is not allowed 🙈)
+
+### iPlus Property log
+iPlus uses [Manages Esent](https://github.com/microsoft/ManagedEsent) for logging of property values. Therefore the Esent.Interop.dll needs the esent.dll from the System32 Directory. This esent.dll is a complex database engine core to Windows. Wine's version of this DLL is often a "stub," meaning the file exists but the actual code inside JetCreateInstance is empty or just returns an error code that .NET then translates into an exception. 
+1. Therefore copy the original esent.dll from a Win 10 or Win 11 installation into the directory of your wine prefix. For instance 
+    - in the example prefix from above "/home/damir/.wine-dotnet48/drive_c/windows/system32/" (legacy V4 Version of iplus) 
+    - or the standard prefix "/home/damir/.wine/drive_c/windows/system32/" if you run there the net core Version V5 of iPlus.
+2. Then run winecfg in your wine prefix. 
+3. Go to the Libraries tab.
+4. Type esent in the "New override for library" box and click Add.
+5. Ensure it is set to (native, builtin). This tells Wine to use the real Windows file you just provided instead of its own stub.
+
     
 ## 2. Microsoft Teams
 Use the unofficial "Teams for Linux" client which wraps the web version effectively.
