@@ -20,11 +20,21 @@ sudo apt update
 sudo apt install --install-recommends winehq-stable
 ```
 ### NET Framework 4.8 Compatibitlity
-Running net 4.8 applications in Wine by creating a separate wine prefix with win32. 
+Running net 4.8 applications in Wine by creating a separate wine prefix with win32 or win64. (We recommend win64). 
 Microsoft Data Access components must also be installed otherwise mono uses a Oracle provider when connecting to an SQL-Server. 
 
+32-bit OS:
 ```bash
 WINEPREFIX="$HOME/.wine-dotnet48" WINEARCH=win32 winecfg
+```
+
+64-bit OS:
+```bash
+WINEPREFIX="$HOME/.wine-dotnet48" WINEARCH=win64 winecfg
+```
+
+Install dotnet (don't use the default wine-mono, because it lacks of 100% compatibility!)
+```bash
 WINEPREFIX="$HOME/.wine-dotnet48" winetricks -q dotnet48
 WINEPREFIX="$HOME/.wine-dotnet48" winetricks mdac28
 ```
