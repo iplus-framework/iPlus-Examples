@@ -34,6 +34,7 @@ We use **Incus** as the virtualization manager because it unifies the management
 7. [Developer Tools](07-developer-tools.md) - Git configuration, VS Code, and .NET SDK setup.
 8. [Extra Utilities](08-extras.md) - Wine, Teams, Thunderbird.
 9. [AI Server Setup](09-AI-Server.md) - Setting up a local AI server with Lemonade, ROCm, and GPU passthrough.
+10. [Waydroid Setup](10-waydroid.md) - Running Android on Linux for testing .NET MAUI and Avalonia apps.
 
 ---
 

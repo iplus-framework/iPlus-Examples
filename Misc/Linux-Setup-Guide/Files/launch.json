@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        // {
+        //     "name": "Android: Build, Install & Run",
+        //     "type": "coreclr",
+        //     "request": "launch",
+        //     "preLaunchTask": "start-android",
+        //     "program": "${workspaceFolder}/gip.iplus.client.avui.Android/obj/Debug/net9.0-android/android/assets/gip.iplus.client.avui.dll",
+        //     "cwd": "${workspaceFolder}",
+        //     "console": "internalConsole",
+        //     "internalConsoleOptions": "openOnSessionStart",
+        //     "presentation": {
+        //         "hidden": true
+        //     }
+        // },
+        {
+			"name": "Debug - Android",
+			"type": "mono",
+			"preLaunchTask": "run-debug-android",
+			"request": "attach",
+      			"address": "192.168.240.112",
+      			"port": 5555
+		},
+		{
+			"name": "Attach - Android",
+			"type": "mono",
+			"request": "attach",
+			"address": "192.168.240.112",
+			"port": 5555
+		}
+        
+    ]
+}

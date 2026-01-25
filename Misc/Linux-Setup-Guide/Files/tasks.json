@@ -1,0 +1,90 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+    {
+            "label": "build-android",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "--no-restore",
+                "${workspaceFolder}/gip.iplus.client.avui.Android/gip.iplus.client.avui.Android.csproj",
+                "-p:TargetFramework=net9.0-android",
+                "-p:Configuration=Debug"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        // {
+        //     "label": "build-android",
+        //     "command": "dotnet",
+        //     "type": "process",
+        //     "args": [
+        //         "build",
+        //         "${workspaceFolder}/gip.iplus.client.avui.Android/gip.iplus.client.avui.Android.csproj",
+        //         "-c",
+        //         "Debug",
+        //         "-f",
+        //         "net9.0-android"
+        //     ],
+        //     "problemMatcher": "$msCompile"
+        // },
+        // {
+        //     "label": "publish-android",
+        //     "command": "dotnet",
+        //     "type": "process",
+        //     "args": [
+        //         "publish",
+        //         "${workspaceFolder}/gip.iplus.client.avui.Android/gip.iplus.client.avui.Android.csproj",
+        //         "-c",
+        //         "Debug",
+        //         "-f",
+        //         "net9.0-android"
+        //     ],
+        //     "problemMatcher": "$msCompile",
+        //     "dependsOn": "build-android"
+        // },
+        // {
+        //     "label": "install-android",
+        //     "command": "adb",
+        //     "type": "shell",
+        //     "args": [
+        //         "install",
+        //         "-r",
+        //         "${workspaceFolder}/gip.iplus.client.avui.Android/bin/Debug/net9.0-android/com.CompanyName.gip.iplus.client.avui-Signed.apk"
+        //     ],
+        //     "dependsOn": "publish-android",
+        //     "problemMatcher": []
+        // },
+        // {
+        //     "label": "start-android",
+        //     "command": "adb",
+        //     "type": "shell",
+        //     "args": [
+        //         "shell",
+        //         "monkey",
+        //         "-p",
+        //         "com.CompanyName.gip.iplus.client.avui",
+        //         "1"
+        //     ],
+        //     "problemMatcher": [],
+        //     "dependsOn": "install-android"
+        // },
+        {
+			"label": "run-debug-android",
+			"command": "dotnet",
+			"type": "shell",
+			"args": [
+				"build",
+				"--no-restore",
+				"-t:Run",
+				"${workspaceFolder}/gip.iplus.client.avui.Android/gip.iplus.client.avui.Android.csproj",
+				"-p:TargetFramework=net9.0-android",
+				"-p:Configuration=Debug",
+				"-p:AndroidAttachDebugger=true",
+				"-p:AndroidSdbHostPort=5555",
+				"-p:AndroidSdbTargetPort=5555"
+			],
+			"problemMatcher": "$msCompile"
+		}
+    ]
+}
