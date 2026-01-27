@@ -103,5 +103,9 @@ Normally, you can't compile WPF projects with VS Code because Microsoft doesn't 
    * omnisharp.enableMsBuildLoadProjectsOnDemand = true
 
 4. Restart VS Code.
-5. If you encounter error messages (NU3028 and NU3037) during compilation, you will need to copy the nuget packages yourself into the nuget packages folder.
+5. Modify your csproj ot Directory.Build.props and add
+   ```
+   <EnableWindowsTargeting>true</EnableWindowsTargeting>
+   ```
+7. If you encounter error messages (NU3028 and NU3037) during compilation, you will need to copy the nuget packages yourself into the nuget packages folder.
 
