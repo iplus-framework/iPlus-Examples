@@ -89,3 +89,19 @@ systemctl restart systemd-networkd
 References:
 *   [VS Community](https://zomro.com/blog/faq/471-changing-priority-from-ipv6-to-ipv4-in-ubuntu-and-centos-a-complete-guide)
 
+### Building WPF project on Linux with VS Code
+Normally, you can't compile WPF projects with VS Code because Microsoft doesn't provide the Microsoft.WindowsDesktop.App package for Linux. However, with a few tricks, it's possible to compile the iPlus WPF version and even develop it in VS Code (using Code IntelliSense...). Read Chapter [Extra Utilities](08-extras.md) first.
+
+1. [Download SDK for Windows x64](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) because it contains the Microsoft.WindowsDesktop.App package.
+2. Copy the Microsoft.WindowsDesktop.App to the dotnet packs folder of linux:
+   ```bash
+   cp -r ~/".wine/drive_c/Program Files/dotnet/packs/Microsoft.WindowsDesktop.App.Ref" ~/.dotnet/packs/
+   ```
+3. Open Settings in VS Code and search and set this parameter:
+   * dotnet.server.useOmnisharp = true
+   * omnisharp.useModernNet = true
+   * omnisharp.enableMsBuildLoadProjectsOnDemand = true
+
+4. Restart VS Code.
+5. If you encounter error messages (NU3028 and NU3037) during compilation, you will need to copy the nuget packages yourself into the nuget packages folder.
+
