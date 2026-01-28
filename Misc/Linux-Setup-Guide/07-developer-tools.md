@@ -108,4 +108,5 @@ Normally, you can't compile WPF projects with VS Code because Microsoft doesn't 
    <EnableWindowsTargeting>true</EnableWindowsTargeting>
    ```
 7. If you encounter error messages (NU3028 and NU3037) during compilation, you will need to copy the nuget packages yourself into the nuget packages folder.
+8. For launching iPlus WPF-App you have to [add a launch.json and tasks.json into you .vscode directory](/Misc/Linux-Setup-Guide/Files). 
 
