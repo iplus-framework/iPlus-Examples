@@ -14,61 +14,6 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        // {
-        //     "label": "build-android",
-        //     "command": "dotnet",
-        //     "type": "process",
-        //     "args": [
-        //         "build",
-        //         "${workspaceFolder}/gip.iplus.client.avui.Android/gip.iplus.client.avui.Android.csproj",
-        //         "-c",
-        //         "Debug",
-        //         "-f",
-        //         "net9.0-android"
-        //     ],
-        //     "problemMatcher": "$msCompile"
-        // },
-        // {
-        //     "label": "publish-android",
-        //     "command": "dotnet",
-        //     "type": "process",
-        //     "args": [
-        //         "publish",
-        //         "${workspaceFolder}/gip.iplus.client.avui.Android/gip.iplus.client.avui.Android.csproj",
-        //         "-c",
-        //         "Debug",
-        //         "-f",
-        //         "net9.0-android"
-        //     ],
-        //     "problemMatcher": "$msCompile",
-        //     "dependsOn": "build-android"
-        // },
-        // {
-        //     "label": "install-android",
-        //     "command": "adb",
-        //     "type": "shell",
-        //     "args": [
-        //         "install",
-        //         "-r",
-        //         "${workspaceFolder}/gip.iplus.client.avui.Android/bin/Debug/net9.0-android/com.CompanyName.gip.iplus.client.avui-Signed.apk"
-        //     ],
-        //     "dependsOn": "publish-android",
-        //     "problemMatcher": []
-        // },
-        // {
-        //     "label": "start-android",
-        //     "command": "adb",
-        //     "type": "shell",
-        //     "args": [
-        //         "shell",
-        //         "monkey",
-        //         "-p",
-        //         "com.CompanyName.gip.iplus.client.avui",
-        //         "1"
-        //     ],
-        //     "problemMatcher": [],
-        //     "dependsOn": "install-android"
-        // },
         {
 			"label": "run-debug-android",
 			"command": "dotnet",
@@ -85,6 +30,37 @@
 				"-p:AndroidSdbTargetPort=5555"
 			],
 			"problemMatcher": "$msCompile"
-		}
+		},
+                {
+            "label": "Build Windows (wine)",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/gip.iplus.client/gip.iplus.client.csproj",
+                "-r",
+                "win-x64",
+                "/p:Configuration=Debug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Build Windows Release (wine)",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/gip.iplus.client/gip.iplus.client.csproj",
+                "-r",
+                "win-x64",
+                "/p:Configuration=Release"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        }
     ]
 }
