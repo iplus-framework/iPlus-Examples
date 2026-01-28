@@ -1,19 +1,6 @@
 {
     "version": "0.2.0",
     "configurations": [
-        // {
-        //     "name": "Android: Build, Install & Run",
-        //     "type": "coreclr",
-        //     "request": "launch",
-        //     "preLaunchTask": "start-android",
-        //     "program": "${workspaceFolder}/gip.iplus.client.avui.Android/obj/Debug/net9.0-android/android/assets/gip.iplus.client.avui.dll",
-        //     "cwd": "${workspaceFolder}",
-        //     "console": "internalConsole",
-        //     "internalConsoleOptions": "openOnSessionStart",
-        //     "presentation": {
-        //         "hidden": true
-        //     }
-        // },
         {
 			"name": "Debug - Android",
 			"type": "mono",
@@ -28,7 +15,30 @@
 			"request": "attach",
 			"address": "192.168.240.112",
 			"port": 5555
-		}
-        
+		},
+        {
+            "name": "Launch with Wine (Debug)",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "wine",
+            "args": [
+                "${workspaceFolder}/bin/Debug/net9.0-windows7.0/win-x64/gip.iplus.client.exe"
+            ],
+            "cwd": "${workspaceFolder}/bin/Debug/net9.0-windows7.0/win-x64",
+            "preLaunchTask": "Build Windows (wine)",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch with Wine (Release)",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "/usr/bin/wine",
+            "args": [
+                "${workspaceFolder}/bin/Release/net9.0-windows7.0/win-x64/gip.iplus.client.exe"
+            ],
+            "cwd": "${workspaceFolder}/bin/Release/net9.0-windows7.0/win-x64",
+            "preLaunchTask": "Build Windows Release (wine)",
+            "console": "integratedTerminal"
+        }                
     ]
 }
