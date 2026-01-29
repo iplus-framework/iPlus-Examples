@@ -181,7 +181,11 @@ source ~/.bashrc
 ```
 
 ### 5. VS Code Configuration
-1. Install the **Mono Debug** extension (`ms-vscode.mono-debug`) from the VS Code Marketplace.
-2. Create or update the `tasks.json` and `launch.json` files in your project's `.vscode` folder.
+1. Install the **Mono Debug** extension (`ms-vscode.mono-debug`) from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode.mono-debug).
+2. **IMPORTANT! Don't forget to install the Linux package.** The VS Code extension requires a basic Linux installation. Otherwise, the Mono debugger won't be able to connect to the process on the Android device via ADB!
+3. ```bash
+   sudo apt-get install mono-complete
+   ```
+4. Create or update the `tasks.json` and `launch.json` files in your project's `.vscode` folder.
 
 > **Note:** Sample `launch.json` and `tasks.json` configurations are provided in the `Files/` subdirectory of this guide.
