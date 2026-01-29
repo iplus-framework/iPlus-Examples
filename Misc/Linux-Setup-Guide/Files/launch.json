@@ -6,15 +6,15 @@
 			"type": "mono",
 			"preLaunchTask": "run-debug-android",
 			"request": "attach",
-      			"address": "192.168.240.112",
-      			"port": 5555
+      			"address": "localhost",
+      			"port": 10000
 		},
-		{
+        {
 			"name": "Attach - Android",
 			"type": "mono",
 			"request": "attach",
-			"address": "192.168.240.112",
-			"port": 5555
+			"address": "127.0.0.1",
+			"port": 10000
 		},
         {
             "name": "Launch with Wine (Debug)",
