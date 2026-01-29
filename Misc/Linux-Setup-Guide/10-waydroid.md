@@ -189,3 +189,12 @@ source ~/.bashrc
 4. Create or update the `tasks.json` and `launch.json` files in your project's `.vscode` folder.
 
 > **Note:** Sample `launch.json` and `tasks.json` configurations are provided in the `Files/` subdirectory of this guide.
+
+### 6. Connecting via ADB
+1. In VS Code open the Terminal Window (bash).
+2. Connect to the Waydroid instance (Waydroid IP):
+   ```cmd
+   adb connect <WAYDROID_IP>:5555
+   ```
+3. Allow the connection inside the Waydroid UI if prompted.
+4. Unfortunately, VS Code doesn't show that the device is now reachable. Open "Run and Debug" (Ctrl+Shift+D) in the left-hand panel. Select the "Debug - Android" option (the name comes from launch.json) and start the build debug process.
