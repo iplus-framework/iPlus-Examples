@@ -1,6 +1,12 @@
 # Developer Tools Setup
+## 1. Git Installation
+```bash
+sudo apt update
+sudo apt install git
+sudo apt install git-lfs
+```
 
-## 1. Git Configuration
+## 2. Git Configuration
 
 Handling Personal vs. Work identities correctly using Git.
 
@@ -52,7 +58,7 @@ Host github.com
     AddKeysToAgent yes
 ```
 
-## 2. VS Code & .NET
+## 3. VS Code & .NET
 
 ### Install .NET SDK
 For native Linux development (Avalonia, Console, Web API):
