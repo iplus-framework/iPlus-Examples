@@ -7,7 +7,6 @@
             "type": "shell",
             "args": [
                 "build",
-                "--no-restore",
                 "-t:Run",
                 "${workspaceFolder}/gip.iplus.client.avui.Android/gip.iplus.client.avui.Android.csproj",
                 "-p:TargetFramework=net9.0-android",
