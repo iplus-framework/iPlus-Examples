@@ -130,49 +130,63 @@ adb disconnect <WAYDROID_IP>:5555
 
 ## 6. VS Code Integration (Linux Host)
 
-For developing with **Avalonia UI** or .NET Android natively on Linux, follow these setup steps.
+For developing with **Avalonia UI (.NET 9)** or **.NET MAUI (.NET 10)** natively on Linux, follow these setup steps. Note that different .NET versions may have strict requirements for specific JDK and Android Build Tools versions.
 
-### 1. Install Java Development Kit (JDK)
+### 1. Install Microsoft .NET SDK (Official)
+Do **not** use the Ubuntu repository versions (e.g., `dotnet-sdk-9.0` from apt), as they often lack proper Workload support. Install the official Microsoft .NET SDK.
+
 ```bash
-sudo apt install default-jre
-sudo apt install openjdk-21-jdk
+# Example for Ubuntu (check microsoft.com for your specific distro instructions)
+sudo apt-get update && \
+  sudo apt-get install -y dotnet-sdk-9.0
 ```
-Verify the installation:
+*Note: If you are developing with .NET 10 (Preview), install that SDK as well.*
+
+Install the Android workload:
 ```bash
-java -version
+dotnet workload install android
 ```
 
-### 2. Install Android Command Line Tools
-Install the command-line tools (no need for the full Android Studio):
+### 2. Install Java Development Kits (JDK)
+You will likely need multiple JDK versions:
+*   **.NET 9 (Avalonia iPlus):** Requires **OpenJDK 17**.
+*   **.NET 10 (MAUI):** May require **OpenJDK 21**.
+
+Install both to be safe:
+```bash
+sudo apt install openjdk-17-jdk openjdk-21-jdk
+```
+
+### 3. Install Android SDK & Tools
+You can install the command-line tools via the package manager to avoid a full Android Studio installation.
 
 ```bash
 sudo apt install sdkmanager
-# As of 2026, you may need a specific installer package:
-# sudo apt install google-android-cmdline-tools-13.0-installer
 ```
 
-### 3. Install SDK Platforms and Build Tools
-Identify the required Android API levels from your project's `.csproj` file (look for `<SupportedOSPlatformVersion>`).
+**Important:** System-installed SDKs (in `/usr/lib/android-sdk`) are root-owned. You may run into permission issues or version conflicts. It is often recommended to use a user-local SDK (e.g., `~/Android/Sdk`), but if you prefer the system setup, ensure you explicitly install the required versions.
 
-Search for available packages:
+Install the platforms and build tools for **both** frameworks:
+
 ```bash
-sdkmanager --list
-```
+# For .NET 9 (Avalonia iPlus) - STRICT REQUIREMENT:
+sudo sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-Install the required platforms and build tools (quoting is required to prevent shell expansion):
-```bash
-sudo sdkmanager "platforms;android-21"
-sudo sdkmanager "platforms;android-35"
-sudo sdkmanager "build-tools;36.1.0"
+# For .NET 10 (MAUI) - Newer versions:
+sudo sdkmanager "platforms;android-36" "build-tools;36.1.0"
 ```
+**Important:** If you decide for a full [Android Studio](https://developer.android.com/studio/install?hl=en#linux) installation (e.g. if you need an emulator), you don't have to do these steps above because the installer and the Android Studio Application does these steps via UI.
+
 
 ### 4. Configure Environment Variables
 VS Code requires environment variables to locate the Android SDK.
 
 Add the following to your `~/.bashrc`:
 ```bash
-export ANDROID_HOME=/usr/lib/android-sdk/
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+export ANDROID_HOME=~/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 ```
 
 Apply the changes:
@@ -180,7 +194,40 @@ Apply the changes:
 source ~/.bashrc
 ```
 
-### 5. VS Code Configuration
+### 5. VS Code & Project Configuration (Critical)
+VS Code often struggles when multiple SDK paths exist or when projects require different JDKs. Only perform these steps if you receive error messages during compilation:
+
+**Step A: Configure VS Code (`.vscode/settings.json`)**
+Create this file in your workspace root to stop VS Code from asking about the Android SDK path. Point it to your chosen SDK location (system or user-local).
+
+```json
+{
+    // Disable auto-detection to prevent prompts
+    "dotnet.autoConfigureAndroidSdk": false,
+    
+    // Explicitly set the path (USE ONE):
+    // Option 1: System-installed (via apt install sdkmanager)
+    "maui.android.sdkPaths": [ "/usr/lib/android-sdk" ], 
+    
+    // Option 2: User-local (if you manually installed command-line tools)
+    // "maui.android.sdkPaths": [ "~/Android/Sdk" ]
+}
+```
+
+**Step B - OPTIONAL: Configure Build Properties (`Directory.Build.props`)**
+To ensure the correct JDK is used for the iPlus (Avalonia) project, edit the `Directory.Build.props` in the solution root to force JDK 17, while leaving other projects to use the default.
+
+```xml
+<PropertyGroup>
+    <!-- Force .NET 9 projects to use JDK 17 -->
+    <JavaSdkDirectory Condition="'$(TargetFramework)' == 'net9.0-android'">/usr/lib/jvm/java-17-openjdk-amd64</JavaSdkDirectory>
+    
+    <!-- Optional: Explicitly point to SDK if auto-detect fails -->
+    <!-- <AndroidSdkDirectory>/usr/lib/android-sdk</AndroidSdkDirectory> -->
+</PropertyGroup>
+```
+
+### 6. VS Code Extensions
 1. Install the **Mono Debug** extension (`ms-vscode.mono-debug`) from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode.mono-debug).
 2. **IMPORTANT! Don't forget to install the Linux package.** The VS Code extension requires a basic Linux installation. Otherwise, the Mono debugger won't be able to connect to the process on the Android device via ADB!
 3. ```bash
@@ -190,7 +237,7 @@ source ~/.bashrc
 
 > **Note:** Sample `launch.json` and `tasks.json` configurations are provided in the `Files/` subdirectory of this guide.
 
-### 6. Connecting via ADB
+### 7. Connecting via ADB
 1. In VS Code open the Terminal Window (bash).
 2. Connect to the Waydroid instance (Waydroid IP):
    ```cmd
