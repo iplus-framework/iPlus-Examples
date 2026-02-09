@@ -87,6 +87,12 @@ sudo incus profile assign gipDLVmWin11 default,LANofHost
 ```
 *(Make sure to remove the network config from the default profile or override it).*
 
+## Example Scripts
+In the files folder you can find example scripts that automates switching between Bridged Mode or NAT Mode:
+- switch-to-host-network.sh
+- switch-to-incus-nat.sh
+- switch-to-macvlan.sh
+
 ## 3. Firewall & Troubleshooting
 
 ### VM has no internet in Bridged Mode?
