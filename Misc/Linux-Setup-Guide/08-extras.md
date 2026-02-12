@@ -50,18 +50,18 @@ There is an issue when iPlus is started and have to read the metadata files. To 
 ### Starting applications
 - **Run**
     ```bash
-    WINEPREFIX="/home/damir/.wine-dotnet48" wine gip.variobatch.client.exe
+    WINEPREFIX="/home/yourusername/.wine-dotnet48" wine gip.variobatch.client.exe
     ```
 - **Read or log debug output examples**
     ```bash
-    WINEPREFIX="/home/damir/.wine-dotnet48" WINEDEBUG=+file wine gip.variobatch.client.exe 2>&1 | grep "csdl|ssl|msl"
-    WINEPREFIX="/home/damir/.wine-dotnet48" WINEDEBUG=+file wine gip.variobatch.client.exe > debug_paths.log 2>&1
+    WINEPREFIX="/home/yourusername/.wine-dotnet48" WINEDEBUG=+file wine gip.variobatch.client.exe 2>&1 | grep "csdl|ssl|msl"
+    WINEPREFIX="/home/yourusername/.wine-dotnet48" WINEDEBUG=+file wine gip.variobatch.client.exe > debug_paths.log 2>&1
     ```
 #
 
 ### Issues with Rendering KDE/Wayland (Black Context Menu)
     ```bash
-    WINEPREFIX="/home/damir/.wine-dotnet48" winetricks ddr=gdi
+    WINEPREFIX="/home/yourusername/.wine-dotnet48" winetricks ddr=gdi
     ```
 ### Printing
 - **PDF and XPS-Utils**
@@ -74,20 +74,25 @@ There is an issue when iPlus is started and have to read the metadata files. To 
     ```
 - **GENERIC CUPS-PDF Printer**
   Open Printer Settings and select "GENERIC CUPS-PDF Printer (no options)" as driver
+- **DISABLE XPS Object Model**
+  This is necessary if you have set WINEs Windows Profile to >= Win 10. Modern Windows versions (10/11) enable the XPS OM path by default because they support the underlying COM interfaces. Wine's implementation of these newer interfaces (likely in prntvpt.dll or similar) may be incomplete, leading to a CreateXpsOMSerializationManager() exception. Set this registry key in wine:
+    ```bash 
+    WINEPREFIX="/home/yourusername/.wine-dotnet48" wine reg add "HKCU\Software\Microsoft\DotNet\Printing" /v DisableXpsOmPrinting /t REG_DWORD /d 1 /f
+    ```
 
 ### Scaling
 Open Wine config and set scaling to 120dpi:
 ```bash
-WINEPREFIX="/home/damir/.wine-dotnet48" winecfg
-WINEPREFIX="/home/damir/.wine-dotnet48" winetricks settings fontsmooth=rgb
+WINEPREFIX="/home/yourusername/.wine-dotnet48" winecfg
+WINEPREFIX="/home/yourusername/.wine-dotnet48" winetricks settings fontsmooth=rgb
 ```
 ### iPlus in Startmenu
 1. Open KDE Menu Editor
 2. Add a new entry
 3. Set Parameters (example)
-   - Environment: WINEPREFIX=/home/damir/.wine-dotnet48/
+   - Environment: WINEPREFIX=/home/yourusername/.wine-dotnet48/
    - Application: wine
-   - Arguments: '/home/damir/SHARED/Devel/iPlusGit/V4/iPlusMES/bin/Debug/gip.mes.client.exe'
+   - Arguments: '/home/yourusername/SHARED/Devel/iPlusGit/V4/iPlusMES/bin/Debug/gip.mes.client.exe'
   
 ### Fonts
 If you have a Windows Installation just copy the fonts from "C:\Windows\Fonts" to your linux folder "/usr/local/share/fonts/". (According to MS EULA this is not allowed 🙈)
@@ -95,8 +100,8 @@ If you have a Windows Installation just copy the fonts from "C:\Windows\Fonts" t
 ### iPlus Property log
 iPlus uses [Manages Esent](https://github.com/microsoft/ManagedEsent) for logging of property values. Therefore the Esent.Interop.dll needs the esent.dll from the System32 Directory. This esent.dll is a complex database engine core to Windows. Wine's version of this DLL is often a "stub," meaning the file exists but the actual code inside JetCreateInstance is empty or just returns an error code that .NET then translates into an exception. 
 1. Therefore copy the original esent.dll from a Win 10 or Win 11 installation into the directory of your wine prefix. For instance 
-    - in the example prefix from above "/home/damir/.wine-dotnet48/drive_c/windows/system32/" (legacy V4 Version of iplus) 
-    - or the standard prefix "/home/damir/.wine/drive_c/windows/system32/" if you run there the net core Version V5 of iPlus.
+    - in the example prefix from above "/home/yourusername/.wine-dotnet48/drive_c/windows/system32/" (legacy V4 Version of iplus) 
+    - or the standard prefix "/home/yourusername/.wine/drive_c/windows/system32/" if you run there the net core Version V5 of iPlus.
 2. Then run winecfg in your wine prefix. 
 3. Go to the Libraries tab.
 4. Type esent in the "New override for library" box and click Add.
