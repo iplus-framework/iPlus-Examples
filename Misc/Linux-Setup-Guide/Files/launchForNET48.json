@@ -1,0 +1,89 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "CORE Launch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "Build Solution", 
+            "program": "${workspaceFolder}bin/Debug/gip.iplus.client.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": "DNSPY Launch",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "${workspaceFolder}/../wine_debug_dnspy.sh \"${workspaceFolder}/bin/Debug/gip.iplus.client.exe\"",
+            "cwd": "${workspaceFolder}"
+        }
+        /*{
+            "name": "CLR Launch iPlus (.NET Framework)",
+            "type": "clr",
+            "request": "launch",
+            "preLaunchTask": "Build Solution", 
+            "program": "${workspaceFolder}\\bin\\Debug\\gip.iplus.client.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}\\bin\\Debug",
+            "stopAtEntry": true,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            "logging": {
+                "engineLogging": true,
+                "trace": true,
+                "moduleLoad": true
+            }
+        },
+        {
+            "name": "Attach to iPlus (Wine)",
+            "type": "mono",
+            "request": "attach",
+            "address": "localhost",
+            "port": 55555 // Or the port your app is listening on
+        },
+        {
+            "justMyCode": false,
+            "symbolOptions": {
+                    "searchPaths": [],
+                    "searchMicrosoftSymbolServer": false
+                },
+            "enableStepFiltering": false,
+            "name": "CLR Bridge launch",
+            "type": "clr",
+            "request": "launch",
+            "program": "D:\\Devel\\iPlusGit\\V4\\iPlus\\bin\\Debug\\gip.iplus.client.exe", // Windows path inside Wine
+            "cwd": "D:\\Devel\\iPlusGit\\V4\\iPlus\\bin\\Debug",
+            "pipeTransport": {
+                "pipeProgram": "${workspaceFolder}/../wine_debug_vscode.sh",
+                "pipeArgs": [],
+                "debuggerPath": "C:\\users\\damir\\.vscode\\extensions\\ms-dotnettools.csharp-1.24.4-win32-x64\\.debugger\\vsdbg.exe",
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": true
+            },
+            "logging": {
+                "engineLogging": true
+            }
+        },
+        {
+            "name": "MONO Launch iPlus (.NET Framework)",
+            "type": "mono",
+            "request": "launch",
+            "preLaunchTask": "Build Solution",
+            "program": "${workspaceFolder}/bin/Debug/gip.iplus.client.exe",
+            //"program": "D:\\Devel\\iPlusGit\\V4\\iPlus\\bin\\Debug\\gip.iplus.client.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "C:\\Program Files\\Mono\\bin\\mono.exe",
+            //"stopAtEntry": false,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            //"env": {
+                //"WINEPREFIX": "$HOME/.wine-dotnet48-64",
+                //"PATH": "C:\\Program Files\\Mono\\bin;%PATH%"
+            //}
+        },*/
+    ]
+}
