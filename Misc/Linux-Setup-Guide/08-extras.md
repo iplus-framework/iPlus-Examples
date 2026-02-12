@@ -86,6 +86,17 @@ Open Wine config and set scaling to 120dpi:
 WINEPREFIX="/home/yourusername/.wine-dotnet48" winecfg
 WINEPREFIX="/home/yourusername/.wine-dotnet48" winetricks settings fontsmooth=rgb
 ```
+
+### Useful wine commands
+- **wineserver -k**: Kills all Windows apps (simulates a hard power-off/reboot).
+- **wineserver -w**: Waits until all Windows apps in the prefix have exited. 
+- **wineboot -r**: Simulates a reboot of the Windows system. 
+- **wineboot -i**: Initializes the wineprefix. (resets settings!)
+- **winecfg**: Opens the configuration dialog for wine
+- **wine regedit**: Opens the registry editor
+- **wine cmd**: Opens the command window
+- **wine control**: Opens the control panel (Internet options, installed software)
+
 ### iPlus in Startmenu
 1. Open KDE Menu Editor
 2. Add a new entry

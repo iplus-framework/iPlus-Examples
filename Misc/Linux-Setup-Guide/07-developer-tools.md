@@ -212,7 +212,7 @@ Unfortunately there is no possibility to debug netframework 4.8 WPF Applications
     WINEPREFIX="$HOME/.wine-dotnet48-64" wine mono-6.12.0.206-x64-0.msi
     WINEPREFIX="$HOME/.wine-dotnet48-64" wine regedit
     # Edit HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment\Path and Append C:\Program Files\Mono\bin
-    WINEPREFIX="$HOME/.wine-dotnet48-64" wineboot
+    WINEPREFIX="$HOME/.wine-dotnet48-64" wineboot -r
     ```   
     Then install the **ms-vscode.mono-debug** extension in VS code. Now your debugger is able to debug. IMPORTANT: You can only debug projects that have a portable pdb format. Therefore change in all your *csproj files the Debug-Type:
     ```xml
