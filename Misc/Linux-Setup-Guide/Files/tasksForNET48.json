@@ -1,0 +1,56 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Solution",
+            "type": "process",
+            "command": "C:\\users\\yourusername\\.vscode\\extensions\\ms-dotnettools.csharp-1.24.4-win32-x64\\.omnisharp\\1.38.2\\.msbuild\\Current\\Bin\\MSBuild.exe",
+            "args": [
+                "${workspaceFolder}\\iPlusMESNoTools.sln",
+                "/p:Configuration=Debug",
+                "/nr:false",
+                "/m",
+                "/verbosity:normal"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Rebuild Solution",
+            "type": "process",
+            "command": "C:\\users\\yourusername\\.vscode\\extensions\\ms-dotnettools.csharp-1.24.4-win32-x64\\.omnisharp\\1.38.2\\.msbuild\\Current\\Bin\\MSBuild.exe",
+            "args": [
+                "${workspaceFolder}\\iPlusMESNoTools.sln",
+                "/p:Configuration=Debug",
+                "/nr:false",
+                "/m",
+                "/t:Rebuild",
+                "/verbosity:normal"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        }        
+    ]
+}
