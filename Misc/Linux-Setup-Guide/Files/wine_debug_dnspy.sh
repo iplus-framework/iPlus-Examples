@@ -20,8 +20,9 @@ fi
 DLL_LIST=$(find "$LINUX_EXE_DIR" -maxdepth 1 -name "gip.*.dll" -exec winepath -w {} +)
 
 # 5. Launch
+export DOTNET_ROOT=""
 wine "$EXE_PATH" &
 sleep 2
 
-DNSPY_BIN="/home/damir/SHARED/Devel/Tools/dnSpy/dnSpy-netframework/dnSpy.exe"
+DNSPY_BIN="/home/damir/SHARED/Devel/Tools/dnSpy/dnSpy-net-win64/dnSpy.exe"
 wine "$DNSPY_BIN" -pn "$EXE_NAME" "$EXE_PATH" $DLL_LIST
