@@ -44,6 +44,9 @@ These example projects serve to explain the most important programming concepts 
 
 ---
 
+## VS Code on Linux
+[Read this Guide](./Misc/Linux-Setup-Guide)
+
 ## Footnotes
 
 [1]: https://iplus-framework.com/en/documentation/Read/Index/View/6a220db6-a767-40bb-bf95-395e4a289881?chapterID=55619434-4ba5-4f48-8692-439b6f5f3343
