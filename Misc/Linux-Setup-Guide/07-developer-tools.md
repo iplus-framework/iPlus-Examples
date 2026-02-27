@@ -184,7 +184,23 @@ Solution 3 has the disadvantage that you cannot compile WPF projects. Therefore,
     Add-Content -Path $PROFILE -Value 'Set-Alias -Name msbuild -Value "C:\users\yourusername\.vscode\extensions\ms-dotnettools.csharp-1.24.4-win32-x64\.omnisharp\1.38.2\.msbuild\Current\Bin\MSBuild.exe" -Force'
     ```   
     Reload powershell terminal.
-7. If your build your solution e.g. **"msbuild iPlusNoTools.sln -m"** you may get an version mismatch of the installed assemblies of omnisharp. Therefore check for each error if the version number of the assembly is the same as declared in the MSBuild.exe.config. You find it in the this under this location:   
+   This powershell settings are stored in the users profile: /home/damir/{wineprefix}/drive_c/users/{username}/Documents/PowerShell/Microsoft.PowerShell_profile.ps1
+   You can query it with:   
+   ```bash
+   $PROFILE.CurrentUserCurrentHost
+   ```
+   If you have problems with cryptic letters in the output while typing then you should append these rows into Microsoft.PowerShell_profile.ps1
+    ```bash
+    # 1. Stop the "disappearing text" bug by disabling the interactive input handler
+    if (Get-Module PSReadLine) { Remove-Module PSReadLine }
+
+    # 2. Stop the "cryptic letters" by forcing plain text output
+    $PSStyle.OutputRendering = [System.Management.Automation.OutputRendering]::PlainText
+
+    # 3. Optional: Fix encoding for special characters (slashes, dots, etc.)
+    [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+    ```   
+8. If your build your solution e.g. **"msbuild iPlusNoTools.sln -m"** you may get an version mismatch of the installed assemblies of omnisharp. Therefore check for each error if the version number of the assembly is the same as declared in the MSBuild.exe.config. You find it in the this under this location:   
     /home/yourusername/.wine-yourprefix/drive_c/users/yourusername/.vscode/extensions/ms-dotnettools.csharp-1.24.4-win32-x64/.omnisharp/1.38.2/.msbuild/Current/Bin/MSBuild.exe.config   
     Open the MSBuild.exe.config and search for the Asslembly. In Version 1.24.4 are these assemblies which are wrong. This is the fix:
     ```xml
