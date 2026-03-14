@@ -2,7 +2,7 @@
 
 This guide covers setting up a high-performance local AI server using **Lemonade** inside an Incus container. The critical factor for performance is successfully passing through the GPU and NPU to the container.
 
-> **Note:** Currently, AMD provides limited NPU support for Linux on the Strix Halo platform. The Lemonade server with `llama.cpp` primarily utilizes the GPU (via Vulkan or ROCm). However, we configure the NPU passthrough anticipating future updates.
+> **Update (March 2026):** Linux NPU support is now available for **AMD XDNA 2** devices through **FastFlowLM**. On current Ryzen AI Linux systems, the practical setup is to keep **Lemonade + llama.cpp** for GPU-backed serving and add **FastFlowLM** when you want to run supported models directly on the NPU. See the FastFlowLM Linux guides for the current support matrix and package sources.
 
 ## 1. Container Configuration
 
@@ -32,6 +32,7 @@ sudo incus config device add gipDLVmAIServ mygpu gpu
 sudo incus config set gipDLVmAIServ security.privileged true
 sudo incus config set gipDLVmAIServ security.syscalls.intercept.mknod true
 sudo incus config set gipDLVmAIServ security.syscalls.intercept.setxattr true
+sudo incus config set gipDLVmAIServ limits.kernel.memlock unlimited
 ```
 
 ### Resource Limits (CPU/RAM)
@@ -47,6 +48,7 @@ config:
   image.os: Ubuntu
   image.release: noble
   limits.cpu: '6'
+  limits.kernel.memlock: unlimited
   limits.memory: 54GiB
   security.privileged: 'true'
   security.syscalls.intercept.mknod: 'true'
@@ -75,6 +77,93 @@ devices:
 ## 2. Server Installation
 
 Start the container and open a shell session inside it.
+
+### FastFlowLM NPU Runtime
+FastFlowLM can now use the AMD XDNA 2 NPU directly on Linux. This is separate from the ROCm/Vulkan path used by Lemonade with `llama.cpp`.
+
+**References:**
+- [Lemonade: LLMs on Linux with FastFlowLM](https://lemonade-server.ai/flm_npu_linux.html)
+- [FastFlowLM Linux install docs](https://fastflowlm.com/docs/install_lin/)
+- [FastFlowLM releases](https://github.com/FastFlowLM/FastFlowLM/releases)
+
+#### Host prerequisites
+Install the AMD XRT and XDNA kernel driver packages on the **host** so the NPU device is available and passed through to the container:
+
+```bash
+sudo add-apt-repository ppa:amd-team/xrt
+sudo apt update
+sudo apt install libxrt-npu2 amdxdna-dkms
+sudo reboot
+```
+
+#### Container prerequisites
+Install the NPU runtime package inside the **Incus container** as well:
+
+```bash
+sudo add-apt-repository ppa:amd-team/xrt
+sudo apt update
+sudo apt install libxrt-npu2
+sudo reboot
+```
+
+#### Install FastFlowLM
+Download the current Ubuntu package from the FastFlowLM releases page. For example:
+
+```bash
+wget https://github.com/FastFlowLM/FastFlowLM/releases/download/v0.9.35/fastflowlm_0.9.35_ubuntu24.04_amd64.deb
+sudo apt install ./fastflowlm*.deb
+```
+
+#### Required memlock configuration
+FastFlowLM validation will fail if the container cannot lock enough memory for NPU execution.
+
+Check the current limit:
+
+```bash
+ulimit -l
+```
+
+If it is not `unlimited`, configure all of the following inside the container:
+
+1. Ensure the Incus container has the kernel memlock limit enabled:
+
+```bash
+sudo incus config set gipDLVmAIServ limits.kernel.memlock unlimited
+```
+
+2. Edit `/etc/security/limits.conf` and add:
+
+```text
+* soft memlock unlimited
+* hard memlock unlimited
+```
+
+3. Edit `/etc/systemd/system.conf` and `/etc/systemd/user.conf`, then set:
+
+```text
+DefaultLimitMEMLOCK=infinity
+```
+
+4. Reboot the container after changing the limits.
+
+#### Validate NPU access
+After reboot, verify that the NPU, firmware, driver, and memlock settings are all detected:
+
+```bash
+flm validate
+```
+
+Example output:
+
+```text
+[Linux]  Kernel: 6.17.0-108014-tuxedo
+[Linux]  NPU: /dev/accel/accel0 with 8 columns
+[Linux]  NPU FW Version: 1.1.2.64
+[Linux]  amdxdna version: 0.6
+[Linux]  Memlock Limit: infinity
+```
+
+If `flm validate` does not report the NPU or shows a finite memlock limit, re-check the host driver installation, the Incus device passthrough, and the systemd/limits configuration above before troubleshooting FastFlowLM itself.
 
 ### ROCm Drivers
 Install the AMD ROCm drivers (essential for GPU acceleration).
@@ -119,8 +208,8 @@ Download and install the minimal Lemonade server.
 
 ```bash
 apt install unzip
-wget https://github.com/lemonade-sdk/lemonade/releases/latest/download/lemonade-server-minimal_9.1.3_amd64.deb
-sudo dpkg -i lemonade-server-minimal_9.1.3_amd64.deb
+wget https://github.com/lemonade-sdk/lemonade/releases/latest/download/lemonade-server_10.0.0_amd64.deb
+sudo apt install ./lemonade-server_10.0.0_amd64.deb
 sudo update-pciids
 ```
 
