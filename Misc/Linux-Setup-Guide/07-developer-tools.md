@@ -61,11 +61,19 @@ Host github.com
 ## 3. VS Code & .NET
 
 ### Install .NET SDK
-For native Linux development (Avalonia, Console, Web API):
+For native Linux development (Avalonia, Console, Web API) VS Code needs the installation in the home directory **~/.dotnet/**. This is the recommended way.  
+[Use this manual for scripted install](https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual)
 
+Alternative way via system package management, which installs dotnet in **/usr/lib/dotnet**:
 ```bash
 sudo apt-get update && sudo apt-get install -y dotnet-sdk-8.0
 # Or specific version like 6.0 / 9.0
+```
+
+Important: If you have installed both yand you want to use the **~/.dotnet/** installation you have to edit **~/.bashrc** to set the DOTNET_ROOT environment variable:
+```bash
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$DOTNET_ROOT:$PATH
 ```
 
 ### VS Code Extensions
