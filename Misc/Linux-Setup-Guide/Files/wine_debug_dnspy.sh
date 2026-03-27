@@ -10,11 +10,20 @@ LINUX_EXE_DIR=$(dirname "$LINUX_FULL_PATH")
 EXE_PATH=$(winepath -w "$INPUT_PATH")
 EXE_NAME=$(basename "$LINUX_FULL_PATH")
 
-# 3. Clear dnSpy session
+# 3. Clear dnSpy session only if target changed
 DNSPY_CONFIG_DIR="$WINEPREFIX/drive_c/users/$USER/AppData/Roaming/dnSpy"
-if [ -d "$DNSPY_CONFIG_DIR" ]; then
-    rm -rf "$DNSPY_CONFIG_DIR"/*
+LAST_TARGET_FILE="$WINEPREFIX/.wine_debug_dnspy_last_target"
+LAST_TARGET=""
+
+if [ -f "$LAST_TARGET_FILE" ]; then
+    LAST_TARGET=$(cat "$LAST_TARGET_FILE")
 fi
+
+if [ "$LINUX_FULL_PATH" != "$LAST_TARGET" ] && [ -d "$DNSPY_CONFIG_DIR" ]; then
+    find "$DNSPY_CONFIG_DIR" -mindepth 1 -delete
+fi
+
+printf '%s\n' "$LINUX_FULL_PATH" > "$LAST_TARGET_FILE"
 
 # 4. Find all gip DLLs
 DLL_LIST=$(find "$LINUX_EXE_DIR" -maxdepth 1 -name "gip.*.dll" -exec winepath -w {} +)
