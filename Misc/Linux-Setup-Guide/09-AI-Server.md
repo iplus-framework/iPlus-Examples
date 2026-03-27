@@ -314,3 +314,131 @@ You only can run it directly with llama-server at the moment:
 - **iPlus Framework:**
   - **Endpoint:** `http://<IP>:8080/api/v1/chat/completions`
   - **Prerequisite:** The OpenAI client within the ChatBot requires **Node.js**. Download the `.msi` installer from [nodejs.org](https://nodejs.org/en/download) and install it within your WINE environment if running legacy Windows components.
+
+
+## 5. HTTPS Setup with Nginx (for GitHub Copilot Compatibility)
+
+Since GitHub Copilot only supports HTTPS connections to OpenAI-compatible endpoints, an HTTPS proxy is required to expose the Lemonade AI server securely. This section guides you through installing and configuring **Nginx** to proxy traffic from HTTPS (`https://<domain>:8081`) to the internal Lemonade server running on port `8080`.
+
+### Prerequisites
+Ensure the following are installed and configured:
+- `apt` package manager
+- `mkcert` for generating self-signed TLS certificates
+- A local domain name (e.g., <yourhostname> `gipDLVmAIServ.incus`) pointing to your host system
+
+### Step-by-Step Setup
+
+1. **Update package list and install Nginx**
+   ```bash
+   sudo apt update
+   sudo apt install nginx -y
+   ```
+
+2. **Generate self-signed TLS certificate using mkcert**
+   ```bash
+   mkcert -install
+   mkcert localhost 127.0.0.1 ::1
+   ```
+
+3. **Move generated certificate and key to Nginx SSL directory**
+   ```bash
+   sudo mv localhost+2.pem /etc/ssl/certs/
+   sudo mv localhost+2-key.pem /etc/ssl/private/
+   ```
+
+4. **Create Nginx configuration file for Lemonade server**
+   Create the configuration file at `/etc/nginx/sites-available/lemonade`:
+   ```nginx
+   server {
+       listen 8081 ssl;
+       server_name gipDLVmAIServ.incus;
+       
+       ssl_certificate /etc/ssl/certs/localhost+2.pem;
+       ssl_certificate_key /etc/ssl/private/localhost+2-key.pem;
+       
+       location / {
+           # Forward requests to the internal Lemonade server (port 8080)
+           proxy_pass http://127.0.0.1:8080;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+           
+           # Disable buffering to ensure real-time streaming of LLM responses
+           proxy_buffering off;
+           proxy_cache off;
+           proxy_read_timeout 300s;
+       }
+   }
+   ```
+
+5. **Configure Nginx to use the new site**
+   - Remove the default site:
+     ```bash
+     sudo rm /etc/nginx/sites-available/default
+     ```
+   - Create a symbolic link to enable the new configuration:
+     ```bash
+     sudo ln -s /etc/nginx/sites-available/lemonade /etc/nginx/sites-enabled/
+     ```
+
+6. **Test Nginx configuration for syntax errors**
+   ```bash
+   sudo nginx -t
+   ```
+
+7. **Restart Nginx to apply changes**
+   ```bash
+   sudo systemctl restart nginx
+   ```
+
+8. **Disable Nginx from starting on boot (optional)**
+   ```bash
+   sudo systemctl disable nginx
+   ```
+
+9. **Stop Lemonade server service (to avoid conflicts)**
+   ```bash
+   sudo systemctl disable lemonade-server.service
+   sudo systemctl stop lemonade-server.service
+   ```
+
+### Start Script: `start-lemonade-nginx.sh`
+
+To ensure the Lemonade server starts before Nginx, create a startup script:
+
+```bash
+nano /home/user/start-lemonade-nginx.sh
+```
+
+Add the following content:
+```bash
+#!/bin/bash
+# 1. Start Lemonade Server in the background
+echo "Starting Lemonade Server on port 8080..."
+lemonade-server serve --host 0.0.0.0 --port 8080 --global-timeout 2400 &
+# 2. Wait a few seconds for Lemonade to initialize
+sleep 5
+# 3. Start Nginx in foreground mode (to keep process alive)
+echo "Starting Nginx HTTPS Proxy on port 8081..."
+sudo nginx -g "daemon off;"
+```
+
+Make the script executable and run it:
+```bash
+chmod +x start-lemonade-nginx.sh
+./start-lemonade-nginx.sh
+```
+
+### Accessing the Server
+
+Once configured, access your AI server via HTTPS using the following URL:
+```
+https://gipDLVmAIServ.incus:8081
+https://<yourhostname>:8081
+```
+OpenAI compatible API:
+```
+https://gipDLVmAIServ.incus:8081/api/v1
+https://<yourhostname>:8081/api/v1
+```
