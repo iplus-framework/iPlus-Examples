@@ -207,11 +207,12 @@ Download and install the minimal Lemonade server.
 *Reference: [Lemonade Server Docs](https://lemonade-server.ai/docs/server/)*
 
 ```bash
-apt install unzip
-wget https://github.com/lemonade-sdk/lemonade/releases/latest/download/lemonade-server_10.0.0_amd64.deb
-sudo apt install ./lemonade-server_10.0.0_amd64.deb
+sudo add-apt-repository ppa:lemonade-team/stable
+sudo apt install lemonade-server
 sudo update-pciids
 ```
+
+Arrows fixed, async Dialog, TimeSeries with OxyPlot, FillLevel still bugy
 
 ## 3. BIOS & System Tuning (Optional / Troubleshooting)
 
@@ -246,11 +247,28 @@ rocm-smi --showmeminfo vram
 
 ## 4. Usage
 
-Lemonade can run in **Service Mode** (awaits client requests to load models) or **Run Mode** (pre-loads a specific model).
+Lemonade can run in **Service Mode** (awaits client requests to load models) or **Run Mode** (pre-loads a specific model).   
+   
+Configuration and model locations:
+```bash
+~/.cache/lemonade/recipe_options.json
+~/.cache/lemonade/user_models.json
+/etc/lemonade/lemonade.conf
+/root/.cache/huggingface/hub/
+/var/lib/lemonade/.cache/huggingface/hub/
+```
 
-Ensure you expose the server to the network with `--host 0.0.0.0`.
+Ensure you expose the server to the network with `--host 0.0.0.0`.   
 
-### Examples
+Starting Server
+```bash
+# As service
+systemctl start lemonade-server.service
+# Or from shell
+lemonade-server serve --host 0.0.0.0 --port 8080 --global-timeout 2400
+```
+
+### Optional: Examples manual run of an explicit model
 
 **1. Nemotron (Vulkan Backend)**
 ROCm may be unstable with certain models like Nemotron. Use Vulkan in these cases. Note that "Reasoning" features are currently disabled (`--reasoning-budget 0`) for stability.
