@@ -17,17 +17,10 @@ sealed class Program
             BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
         }
-        catch (Exception)
-        
+        catch (Exception ex)
         {
-            // here we can work with the exception, for example add it to our log file
-            //Log.Fatal(e, "Something very bad happened");            
-        }
-        finally
-        {
-            // This block is optional. 
-            // Use the finally-block if you need to clean things up or similar
-            //Log.CloseAndFlush();
+            Console.Error.WriteLine(ex);
+            throw;
         }
     }
 

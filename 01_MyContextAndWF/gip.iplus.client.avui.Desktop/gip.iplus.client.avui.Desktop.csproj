@@ -1,153 +1,275 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <!--If you are willing to use Windows/MacOS native APIs you will need to create 3 projects.
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<!--If you are willing to use Windows/MacOS native APIs you will need to create 3 projects.
     One for Windows with net9.0-windows TFM, one for MacOS with net9.0-macos and one with net9.0 TFM for Linux.-->
-    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>
-    <Nullable>enable</Nullable>
-    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-  </PropertyGroup>
+		<TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>
+		<Nullable>enable</Nullable>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>Assets\iPlusIconDesktop.ico</ApplicationIcon>
-  </PropertyGroup>
+	<PropertyGroup>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<ApplicationIcon>Assets\iPlusIconDesktop.ico</ApplicationIcon>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <!-- Explicitly exclude the regular Linux native assets to ensure that the right version from skiasharp.nativeassets.linux.nodependencies/3.119.0 is taken 
+	<ItemGroup>
+		<!-- Explicitly exclude the regular Linux native assets to ensure that the right version from skiasharp.nativeassets.linux.nodependencies/3.119.0 is taken 
     and not the wrong from skiasharp.nativeassets.linux/2.88.9  -->
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux">
-      <ExcludeAssets>all</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" />
-    <PackageReference Include="ReactiveUI" />
-    <PackageReference Include="ReactiveUI.Avalonia" Condition="'$(UseAvaloniaFork)' == 'False'" />
-    <PackageReference Include="ReactiveUI.Avalonia" Condition="'$(UseAvaloniaFork)' == 'True'" GeneratePathProperty="true">
-      <ExcludeAssets>compile;build;buildTransitive;analyzers</ExcludeAssets>
-    </PackageReference>
-  </ItemGroup>
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux">
+			<ExcludeAssets>all</ExcludeAssets>
+		</PackageReference>
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" />
+		<PackageReference Include="ReactiveUI" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(UseAvaloniaFork)' == 'True'">
-    <Reference Include="ReactiveUI.Avalonia" Condition="Exists('$(PkgReactiveUI_Avalonia)/lib/net10.0/ReactiveUI.Avalonia.dll')">
-      <HintPath>$(PkgReactiveUI_Avalonia)/lib/net10.0/ReactiveUI.Avalonia.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<!-- Use Avalonia Nuget -->
+	<ItemGroup Condition="'$(UseAvaloniaFork)' == 'False'">
+		<PackageReference Include="Avalonia" />
+		<PackageReference Include="Avalonia.Controls.ColorPicker"  />
+		<PackageReference Include="Avalonia.Controls.DataGrid"  />
+		<PackageReference Include="ReactiveUI.Avalonia"  />
+		<PackageReference Include="Avalonia.Labs.CommandManager"  />
+		<PackageReference Include="Avalonia.Desktop" />
+		<PackageReference Include="Avalonia.Themes.Fluent" />
+		<PackageReference Include="Avalonia.Fonts.Inter" />
+		<PackageReference Include="Dock.Avalonia.Themes.Fluent" />
+		<PackageReference Include="Avalonia.AvaloniaEdit" />
+		<PackageReference Include="Dock.Avalonia" />
+		<PackageReference Include="Dock.Model.Avalonia" />
+		<PackageReference Include="OxyPlot.Avalonia" />
+		<PackageReference Include="Markdown.Avalonia" />
+		<PackageReference Include="MessageBox.Avalonia" />
+		<PackageReference Include="iPlus.RoslynPad.Editor.Avalonia" />
+		<PackageReference Include="iPlus.RoslynPad.Roslyn.Avalonia" />
+		<PackageReference Include="Avalonia.Markup.Xaml.Loader"  />
+		<PackageReference Include="Simplecto.Avalonia.RichTextBox"  />
+		<PackageReference Include="Tmds.DBus.Protocol" />
+		<PackageReference Include="Xaml.Behaviors"  />
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Include="Avalonia.Diagnostics">
+			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <!-- Use Avalonia Nuget -->
-  <ItemGroup Condition="'$(UseAvaloniaFork)' == 'False'">
-    <PackageReference Include="Avalonia.Desktop" />
-    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Include="Avalonia.Diagnostics">
-      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
-      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
+	<!-- Use Avalonia Fork -->
+	<ItemGroup Condition="'$(UseAvaloniaFork)' == 'true'">
+		<PackageReference Include="Avalonia.Angle.Windows.Natives" />
+		<Reference Include="ReactiveUI.Avalonia" Condition="Exists('$(PkgReactiveUI_Avalonia)/lib/net10.0/ReactiveUI.Avalonia.dll')">
+			<HintPath>$(PkgReactiveUI_Avalonia)/lib/net10.0/ReactiveUI.Avalonia.dll</HintPath>
+		</Reference>
+		<PackageReference Include="ReactiveUI.Avalonia" GeneratePathProperty="true">
+			<ExcludeAssets>compile;build;buildTransitive;analyzers</ExcludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaInclude.props" />
+	<Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaBaseFreeDesktopInclude.props" />
+	<Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaBaseReactiveInclude.props" />
+	<Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaRoslynPadInclude.props" />
 
-  <!-- Use Avalonia Fork -->
-  <ItemGroup Condition="'$(UseAvaloniaFork)' == 'true'">
-    <PackageReference Include="Avalonia.Angle.Windows.Natives" />
-  </ItemGroup>
-  <Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaInclude.props" />
-  <Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaBaseFreeDesktopInclude.props" />
-  <Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaBaseReactiveInclude.props" />
-  <Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaRoslynPadInclude.props" />
+	<ItemGroup Condition="'$(UseProjectReferences)' == 'true'">
+		<ProjectReference Include="../../../iPlus/gip.iplus.client.avui/gip.iplus.client.avui.csproj">
+			<!-- Exclude the conflicting SkiaSharp.NativeAssets.Linux package -->
+			<ExcludeAssets>SkiaSharp.NativeAssets.Linux</ExcludeAssets>
+		</ProjectReference>
+	</ItemGroup>
 
-  <ItemGroup>
-   <ProjectReference Include="../../../iPlus/gip.iplus.client.avui/gip.iplus.client.avui.csproj">
-      <!-- Exclude the conflicting SkiaSharp.NativeAssets.Linux package -->
-      <ExcludeAssets>SkiaSharp.NativeAssets.Linux</ExcludeAssets>
-     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="../mycompany.bso.erp/mycompany.bso.erp.csproj" />
-    <ProjectReference Include="../mycompany.package.datamodel/mycompany.package.datamodel.csproj" />
-    <ProjectReference Include="../mycompany.package.demo/mycompany.package.demo.csproj" />
-    <ProjectReference Include="../mycompany.package.proc/mycompany.package.proc.csproj" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(UseProjectReferences)' == 'false'">
+		<Reference Include="gip.iplus.client.avui">
+			<HintPath>..\..\..\iPlus\gip.iplus.client.avui\bin\$(Configuration)\$(DefaultNetCoreTargetFramework)\gip.iplus.client.avui.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="../mycompany.bso.erp/mycompany.bso.erp.csproj" />
+		<ProjectReference Include="../mycompany.package.datamodel/mycompany.package.datamodel.csproj" />
+		<ProjectReference Include="../mycompany.package.demo/mycompany.package.demo.csproj" />
+		<ProjectReference Include="../mycompany.package.proc/mycompany.package.proc.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="ConnectionStrings.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="ConnectionStrings.config">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <!-- Conditional App.config selection -->
-  <ItemGroup Condition="'$(UseAvaloniaFork)' == 'True'">
-    <None Include="App.Fork.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>$(AssemblyName).dll.config</TargetPath>
-    </None>
-  </ItemGroup>
+	<!-- Conditional App.config selection -->
+	<ItemGroup Condition="'$(UseAvaloniaFork)' == 'True'">
+		<None Include="App.Fork.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>$(AssemblyName).dll.config</TargetPath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(UseAvaloniaFork)' == 'False'">
-    <None Include="App.NuGet.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>$(AssemblyName).dll.config</TargetPath>
-    </None>
-  </ItemGroup>
+	<ItemGroup Condition="'$(UseAvaloniaFork)' == 'False'">
+		<None Include="App.NuGet.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>$(AssemblyName).dll.config</TargetPath>
+		</None>
+	</ItemGroup>
 
-  <!-- Remove the default App.config -->
-  <ItemGroup>
-    <None Remove="App.config" />
-  </ItemGroup>
+	<!-- Remove the default App.config -->
+	<ItemGroup>
+		<None Remove="App.config" />
+	</ItemGroup>
 
-  <PropertyGroup>
-    <IPlusIncludeDir Condition="'$(Configuration)' == 'Debug'">..\..\..\iPlus\bin\Debug\$(UITargetFramework)</IPlusIncludeDir>
-    <IPlusIncludeDir Condition="'$(Configuration)' == 'Release'">..\..\..\iPlus\bin\Release\$(UITargetFramework)</IPlusIncludeDir>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(UseProjectReferences)' == 'true'">
+		<IPlusIncludeDir Condition="'$(Configuration)' == 'Debug'">..\..\..\iPlus\bin\Debug\$(UITargetFramework)</IPlusIncludeDir>
+		<IPlusIncludeDir Condition="'$(Configuration)' == 'Release'">..\..\..\iPlus\bin\Release\$(UITargetFramework)</IPlusIncludeDir>
+	</PropertyGroup>
 
-  <Target Name="CopyIPlusFiles" AfterTargets="Build">
-    <Message Text="IPlusIncludeDir: $(IPlusIncludeDir)" Importance="high" />
-    <Message Text="OutDir: $(OutDir)" Importance="high" />
+	<PropertyGroup Condition="'$(UseProjectReferences)' == 'false'">
+		<IPlusIncludeDir Condition="'$(Configuration)' == 'Debug'">..\..\..\iPlus\bin\Debug\$(DefaultNetCoreTargetFramework)</IPlusIncludeDir>
+		<IPlusIncludeDir Condition="'$(Configuration)' == 'Release'">..\..\..\iPlus\bin\Release\$(DefaultNetCoreTargetFramework)</IPlusIncludeDir>
+		<IPlusBaseBinDir Condition="'$(Configuration)' == 'Debug'">..\..\..\iPlus\bin\Debug</IPlusBaseBinDir>
+		<IPlusBaseBinDir Condition="'$(Configuration)' == 'Release'">..\..\..\iPlus\bin\Release</IPlusBaseBinDir>
+		<IPlusAvuiOutputDir Condition="'$(Configuration)' == 'Debug'">..\..\..\iPlus\gip.iplus.client.avui\bin\Debug\$(DefaultNetCoreTargetFramework)</IPlusAvuiOutputDir>
+		<IPlusAvuiOutputDir Condition="'$(Configuration)' == 'Release'">..\..\..\iPlus\gip.iplus.client.avui\bin\Release\$(DefaultNetCoreTargetFramework)</IPlusAvuiOutputDir>
+	</PropertyGroup>
 
-    <Copy SourceFiles="$(IPlusIncludeDir)\MATRIX32.dll" DestinationFolder="$(OutDir)"
-      OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"
-      Condition="Exists('$(IPlusIncludeDir)\MATRIX32.dll')" />
-    <Copy SourceFiles="$(IPlusIncludeDir)\MATRIX64.dll" DestinationFolder="$(OutDir)"
-      OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"
-      Condition="Exists('$(IPlusIncludeDir)\MATRIX64.dll')" />
-    <Copy SourceFiles="$(IPlusIncludeDir)\matrix.ini" DestinationFolder="$(OutDir)"
-      OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"
-      Condition="Exists('$(IPlusIncludeDir)\matrix.ini')" />
+	<ItemGroup Condition="'$(UseProjectReferences)' == 'false'">
+		<Reference Include="gip.core.autocomponent">
+			<HintPath>$(IPlusIncludeDir)\gip.core.autocomponent.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.datamodel">
+			<HintPath>$(IPlusIncludeDir)\gip.core.datamodel.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.reporthandler">
+			<SpecificVersion>False</SpecificVersion>
+			<HintPath>$(IPlusIncludeDir)\gip.core.reporthandler.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.layoutengine.avui">
+			<HintPath>$(IPlusIncludeDir)\gip.core.layoutengine.avui.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.wpfservices.avui">
+			<HintPath>$(IPlusIncludeDir)\gip.core.wpfservices.avui.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.bso.iplus">
+			<HintPath>$(IPlusIncludeDir)\gip.bso.iplus.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.communication">
+			<HintPath>$(IPlusIncludeDir)\gip.core.communication.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.archiver">
+			<HintPath>$(IPlusIncludeDir)\gip.core.archiver.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.ControlScriptSync">
+			<HintPath>$(IPlusIncludeDir)\gip.core.ControlScriptSync.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.dbsyncer">
+			<HintPath>$(IPlusIncludeDir)\gip.core.dbsyncer.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.processapplication">
+			<HintPath>$(IPlusIncludeDir)\gip.core.processapplication.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.manager">
+			<HintPath>$(IPlusIncludeDir)\gip.core.manager.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.reporthandler.avui">
+			<HintPath>$(IPlusIncludeDir)\gip.core.reporthandler.avui.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.visualcontrols">
+			<HintPath>$(IPlusIncludeDir)\gip.core.visualcontrols.avui.dll</HintPath>
+		</Reference>
+		<Reference Include="gip.core.webservices">
+			<HintPath>$(IPlusIncludeDir)\gip.core.webservices.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup Condition="'$(UseProjectReferences)' == 'true'">
+		<ProjectReference Include="..\..\..\iPlus\gip.core.reporthandler.avui\gip.core.reporthandler.avui.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.archiver\gip.core.archiver.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.autocomponent\gip.core.autocomponent.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.communication\gip.core.communication.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.ControlScriptSync\gip.core.ControlScriptSync.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.crypto\gip.core.crypto.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.datamodel\gip.core.datamodel.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.dbsyncer\gip.core.dbsyncer.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.layoutengine.avui\gip.core.layoutengine.avui.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.manager\gip.core.manager.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.processapplication\gip.core.processapplication.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.visualcontrols.avui\gip.core.visualcontrols.avui.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.webservices\gip.core.webservices.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.wpfservices.avui\gip.core.wpfservices.avui.csproj" />
+	</ItemGroup>
 
-    <Message Text="Checking for VBControlScripts at: $(IPlusIncludeDir)\VBControlScripts"
-      Importance="high" />
-    <CreateItem Include="$(IPlusIncludeDir)\VBControlScripts\*.*"
-      Condition="Exists('$(IPlusIncludeDir)\VBControlScripts')">
-      <Output TaskParameter="Include" ItemName="VBControlScripts" />
-    </CreateItem>
-    <Copy SourceFiles="@(VBControlScripts)" DestinationFolder="$(OutDir)VBControlScripts"
-      OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"
-      Condition="'@(VBControlScripts)' != ''" />
 
-    <Message Text="Checking for DbScripts at: $(IPlusIncludeDir)\DbScripts" Importance="high" />
-    <CreateItem Include="$(IPlusIncludeDir)\DbScripts\**\*.*"
-      Condition="Exists('$(IPlusIncludeDir)\DbScripts')">
-      <Output TaskParameter="Include" ItemName="DbScriptsFiles" />
-    </CreateItem>
-    <Message Text="Found DbScripts files: @(DbScriptsFiles->Count())" Importance="high"
-      Condition="'@(DbScriptsFiles)' != ''" />
-    <Copy SourceFiles="@(DbScriptsFiles)" DestinationFolder="$(OutDir)DbScripts\%(RecursiveDir)"
-      OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"
-      Condition="'@(DbScriptsFiles)' != ''" />
-    <Warning Text="DbScripts folder not found at: $(IPlusIncludeDir)\DbScripts"
-      Condition="!Exists('$(IPlusIncludeDir)\DbScripts')" />
-  </Target>
+	<Target Name="CopyIPlusFiles" AfterTargets="Build">
+		<Message Text="IPlusIncludeDir: $(IPlusIncludeDir)" Importance="high" />
+		<Message Text="OutDir: $(OutDir)" Importance="high" />
+
+		<Copy SourceFiles="$(IPlusIncludeDir)\MATRIX32.dll" DestinationFolder="$(OutDir)"
+		  OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"
+		  Condition="Exists('$(IPlusIncludeDir)\MATRIX32.dll')" />
+		<Copy SourceFiles="$(IPlusIncludeDir)\MATRIX64.dll" DestinationFolder="$(OutDir)"
+		  OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"
+		  Condition="Exists('$(IPlusIncludeDir)\MATRIX64.dll')" />
+		<Copy SourceFiles="$(IPlusIncludeDir)\matrix.ini" DestinationFolder="$(OutDir)"
+		  OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"
+		  Condition="Exists('$(IPlusIncludeDir)\matrix.ini')" />
+
+		<Message Text="Checking for VBControlScripts at: $(IPlusIncludeDir)\VBControlScripts"
+		  Importance="high" />
+		<CreateItem Include="$(IPlusIncludeDir)\VBControlScripts\*.*"
+		  Condition="Exists('$(IPlusIncludeDir)\VBControlScripts')">
+			<Output TaskParameter="Include" ItemName="VBControlScripts" />
+		</CreateItem>
+		<Copy SourceFiles="@(VBControlScripts)" DestinationFolder="$(OutDir)VBControlScripts"
+		  OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"
+		  Condition="'@(VBControlScripts)' != ''" />
+
+		<Message Text="Checking for DbScripts at: $(IPlusIncludeDir)\DbScripts" Importance="high" />
+		<CreateItem Include="$(IPlusIncludeDir)\DbScripts\**\*.*"
+		  Condition="Exists('$(IPlusIncludeDir)\DbScripts')">
+			<Output TaskParameter="Include" ItemName="DbScriptsFiles" />
+		</CreateItem>
+		<Message Text="Found DbScripts files: @(DbScriptsFiles->Count())" Importance="high"
+		  Condition="'@(DbScriptsFiles)' != ''" />
+		<Copy SourceFiles="@(DbScriptsFiles)" DestinationFolder="$(OutDir)DbScripts\%(RecursiveDir)"
+		  OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"
+		  Condition="'@(DbScriptsFiles)' != ''" />
+		<Warning Text="DbScripts folder not found at: $(IPlusIncludeDir)\DbScripts"
+		  Condition="!Exists('$(IPlusIncludeDir)\DbScripts')" />
+	</Target>
+
+	<Target Name="CopyIPlusAvuiRuntimeFiles" AfterTargets="Build" Condition="'$(UseProjectReferences)' == 'false' and Exists('$(IPlusAvuiOutputDir)')">
+		<ItemGroup>
+			<_IPlusAvuiRuntimeFiles Include="$(IPlusAvuiOutputDir)\*.dll" />
+			<_IPlusAvuiRuntimeFiles Include="$(IPlusAvuiOutputDir)\*.json" />
+			<_IPlusAvuiRuntimeFiles Include="$(IPlusAvuiOutputDir)\*.pdb" Condition="'$(Configuration)' == 'Debug'" />
+		</ItemGroup>
+		<Copy SourceFiles="@(_IPlusAvuiRuntimeFiles)"
+			  DestinationFiles="@(_IPlusAvuiRuntimeFiles->'$(OutDir)%(Filename)%(Extension)')"
+			  SkipUnchangedFiles="true"
+			  OverwriteReadOnlyFiles="true" />
+	</Target>
+
+	<Target Name="CopyIPlusBaseRuntimeFiles" AfterTargets="Build" Condition="'$(UseProjectReferences)' == 'false' and Exists('$(IPlusBaseBinDir)')">
+		<ItemGroup>
+			<_IPlusBaseRuntimeFiles Include="$(IPlusBaseBinDir)\*.dll" />
+			<_IPlusBaseRuntimeFiles Include="$(IPlusBaseBinDir)\*.json" />
+			<_IPlusBaseRuntimeFiles Include="$(IPlusBaseBinDir)\*.pdb" Condition="'$(Configuration)' == 'Debug'" />
+			<_IPlusBaseRuntimeFilesToCopy Include="@(_IPlusBaseRuntimeFiles)" Condition="!Exists('$(OutDir)%(Filename)%(Extension)')" />
+		</ItemGroup>
+		<Copy SourceFiles="@(_IPlusBaseRuntimeFilesToCopy)"
+			  DestinationFiles="@(_IPlusBaseRuntimeFilesToCopy->'$(OutDir)%(Filename)%(Extension)')"
+			  SkipUnchangedFiles="true"
+			  OverwriteReadOnlyFiles="true" />
+	</Target>
 
 
 </Project>

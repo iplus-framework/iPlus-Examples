@@ -2,6 +2,7 @@
   <Folder Name="/Solution Items/">
     <File Path="Directory.Build.props" />
   </Folder>
+  <Project Path="gip.iplus.client.avui.Desktop/gip.iplus.client.avui.Desktop.csproj" />
   <Project Path="gip.iplus.client/gip.iplus.client.csproj" />
   <Project Path="mycompany.bso.erp/mycompany.bso.erp.csproj" />
   <Project Path="mycompany.package.datamodel/mycompany.package.datamodel.csproj" />
