@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-16"?>
+<FlowDocument FontFamily="Calibri" ColumnWidth="798" PageWidth="799" PageHeight="599" PagePadding="20,20,20,20" AllowDrop="True" NumberSubstitution.CultureSource="User" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:vbr="http://www.iplus-framework.com/report/xaml" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Paragraph FontSize="40">
+    <vbr:InlineDocumentValue VBContent="CurrentFacilityCharge\Material\MaterialName1" AggregateGroup="{x:Null}" XPos="30" YPos="25" FontWeight="Bold" xml:space="preserve"></vbr:InlineDocumentValue>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="25">
+    <Run xml:lang="de-de">Lager:</Run>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="35">
+    <vbr:InlineDocumentValue VBContent="CurrentFacilityCharge\Facility\FacilityName" AggregateGroup="{x:Null}" XPos="35" FontWeight="Bold" xml:space="preserve"></vbr:InlineDocumentValue>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="25">
+    <Run xml:lang="de-de">Material Nr:</Run>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="35">
+    <vbr:InlineDocumentValue VBContent="CurrentFacilityCharge\Material\MaterialNo" AggregateGroup="{x:Null}" XPos="35" FontWeight="Bold" xml:space="preserve"></vbr:InlineDocumentValue>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="25">
+    <Run xml:lang="de-de">Chargenummer:</Run>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="35">
+    <vbr:InlineDocumentValue VBContent="CurrentFacilityCharge\FacilityLot\LotNo" AggregateGroup="{x:Null}" XPos="35" FontWeight="Bold" xml:space="preserve"></vbr:InlineDocumentValue>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="25">
+    <Run xml:lang="de-de">Fülldatum:</Run>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="35">
+    <vbr:InlineDocumentValue VBContent="CurrentFacilityCharge\FillingDate" AggregateGroup="{x:Null}" XPos="35" StringFormat="dd.MM.yyyy." FontWeight="Bold" xml:space="preserve"></vbr:InlineDocumentValue>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="25">
+    <Run xml:lang="de-de">MHD:</Run>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="35">
+    <vbr:InlineDocumentValue VBContent="CurrentFacilityCharge\FacilityLot\ExpirationDate" AggregateGroup="{x:Null}" XPos="35" StringFormat="dd.MM.yyyy." xml:space="preserve"></vbr:InlineDocumentValue>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="25">
+    <Run xml:lang="de-de">Splitnr:</Run>
+  </Paragraph>
+  <Paragraph TextAlignment="Left" FontSize="25">
+    <vbr:InlineDocumentValue VBContent="CurrentFacilityCharge\SplitNo" AggregateGroup="{x:Null}" XPos="35" xml:space="preserve"></vbr:InlineDocumentValue>
+  </Paragraph>
+  <Paragraph TextAlignment="Center">
+    <vbr:InlineBarcode BarcodeType="QRCODE" BarcodeHeight="8" QRPixelsPerModule="20" XPos="500" YPos="250" VBContent="CurrentFacilityCharge.FacilityChargeID" AggregateGroup="{x:Null}" Child="{x:Null}">
+      <vbr:InlineBarcode.BarcodeValues>
+        <vbr:BarcodeValueCollection Capacity="0" />
+      </vbr:InlineBarcode.BarcodeValues>
+    </vbr:InlineBarcode>
+  </Paragraph>
+</FlowDocument>
