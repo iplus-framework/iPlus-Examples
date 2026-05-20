@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>$(UITargetFramework)</TargetFramework>
-    <OutputType>WinExe</OutputType>
+	  <SolutionDir Condition="'$(SolutionDir)' == '' OR '$(SolutionDir)' == '*Undefined*'">$(MSBuildProjectDirectory)/../</SolutionDir>
+	  <TargetFramework>$(UITargetFramework)</TargetFramework>
+	  <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == '' and '$(OS)' != 'Windows_NT'">win-x64</RuntimeIdentifier>    <OutputType>WinExe</OutputType>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -120,12 +121,10 @@
     <Resource Include="Images\iPlusIconDesktop.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CoreWCF.Http" Version="$(CoreWCFVersion)" />
-    <PackageReference Include="CoreWCF.NetTcp" Version="$(CoreWCFVersion)" />
-    <PackageReference Include="CoreWCF.Primitives" Version="$(CoreWCFVersion)" />
-    <PackageReference Include="CoreWCF.WebHttp" Version="$(CoreWCFVersion)" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="$(NetCorePackageVersion)" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+    <PackageReference Include="CoreWCF.Primitives" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" />
+    <PackageReference Include="System.Drawing.Common" />
+	<PackageReference Include="Microsoft.VisualStudio.Threading" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="Resources\Connection.xaml" />

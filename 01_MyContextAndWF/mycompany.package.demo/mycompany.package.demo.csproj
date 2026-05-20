@@ -25,11 +25,6 @@
       <HintPath>$(IPlusIncludeDir)\gip.core.processapplication.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup Condition="'$(UseEFCoreForkIPlus)' == 'True'">
-    <Reference Include="Microsoft.EntityFrameworkCore">
-      <HintPath>$(EFCoreIncludeDir)\EFCore\$(Configuration)\$(EFCoreBuildFramework)\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mycompany.bso.erp\mycompany.bso.erp.csproj" />
     <ProjectReference Include="..\mycompany.package.datamodel\mycompany.package.datamodel.csproj" />

@@ -15,9 +15,11 @@ using System.Text;
 using System.Diagnostics;
 using System.Windows.Data;
 using gip.core.wpfservices;
+using Microsoft.VisualStudio.Threading;
 
 namespace gip.iplus.client
 {
+
     /// <summary>
     /// Anwendungsweiter Delegat zum aktualisieren der UI-Elemente auf dem UI-Thread.
     /// </summary>
@@ -31,15 +33,17 @@ namespace gip.iplus.client
     {
         static ACStartUpRoot _StartUpManager = null;
         public static App _GlobalApp = null;
+        private static JoinableTaskContext _uiThreadingContext;
+        internal static JoinableTaskFactory UiJtf => _uiThreadingContext.Factory;
 
         #region internal Delegates
 
         /// <summary>
-        /// Delegate zum initialisieren der VarioiplusLogin-Klasse.
+        /// Delegate zum initialisieren der VarioBatchLogin-Klasse.
         /// </summary>
-        /// <param name="VarioiplusLogin">Eine Instanz der VarioiplusLogin-Klasse.</param>
+        /// <param name="VarioBatchLogin">Eine Instanz der VarioBatchLogin-Klasse.</param>
         /// <remarks>n/a</remarks>
-        internal delegate void ApplicationInitializeDelegate(Login VarioiplusLogin);
+        internal delegate void ApplicationInitializeDelegate(Login VarioBatchLogin);
 
         /// <summary>
         /// Hält eine Instanz des ApplicationInitializeDelegate.
@@ -63,6 +67,11 @@ namespace gip.iplus.client
         #region c'tors
         public App()
         {
+            // Bind JTF explicitly to the WPF UI thread to ensure SwitchToMainThreadAsync targets Dispatcher thread.
+            _uiThreadingContext = new JoinableTaskContext(Thread.CurrentThread, new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
+
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
             // Die Initialisierungs-Methode an den Delegaten übergeben.
             ApplicationInitialize = applicationInitialize;
 
@@ -130,13 +139,7 @@ namespace gip.iplus.client
         #endregion
 
         #region Startup
-        /// <summary>
-        /// Lädt die VarioiplusLogin- und Window1-Klasse und stellt die Interaktionslogik
-        /// für das UI der VarioiplusLogin-Klasse.
-        /// </summary>
-        /// <param name="VarioiplusLogin">Eine Instanz der VarioiplusLogin-Klasse</param>
-        /// <remarks>Wird in einer Instanz des ApplicationInitializeDelegate verarbeitet.</remarks>
-        private void applicationInitialize(Login VarioiplusLogin)
+        public void applicationInitialize(Login loginWindow)
         {
             string[] cmLineArg = System.Environment.GetCommandLineArgs();
 
@@ -148,6 +151,8 @@ namespace gip.iplus.client
             string UserName = "";
             string PassWord = "";
             eWpfTheme wpfTheme = gip.iplus.client.Properties.Settings.Default.WpfTheme;
+            ControlManager.RestoreWindowsOnSameScreen = gip.iplus.client.Properties.Settings.Default.RestoreWindowsOnSameScreen;
+            ControlManager.TouchScreenMode = gip.iplus.client.Properties.Settings.Default.TouchScreenMode;
 
             if (!cmLineArg.Contains("/autologin"))
             {
@@ -158,18 +163,18 @@ namespace gip.iplus.client
             }
 
             if (cmLineArg.Contains("-controlLoad=True"))
-                VarioiplusLogin.IsLoginWithControlLoad = true;
+                loginWindow.IsLoginWithControlLoad = true;
 
             String errorMsg = "";
             for (int i = 0; i < 3; i++)
             {
                 if (!cmLineArg.Contains("/autologin") || i > 0)
                 {
-                    VarioiplusLogin.DisplayLogin(true, UserName, PassWord, wpfTheme, errorMsg);
-                    VarioiplusLogin.GetLoginResult(ref UserName, ref PassWord, ref RegisterACObjects, ref PropPersistenceOff);
-                    wpfTheme = VarioiplusLogin.WpfTheme;
+                    loginWindow.DisplayLogin(true, UserName, PassWord, wpfTheme, errorMsg);
+                    loginWindow.GetLoginResult(ref UserName, ref PassWord, ref RegisterACObjects, ref PropPersistenceOff);
+                    wpfTheme = loginWindow.WpfTheme;
                     errorMsg = "";
-                    VarioiplusLogin.DisplayLogin(false, "", "", wpfTheme, errorMsg);
+                    loginWindow.DisplayLogin(false, "", "", wpfTheme, errorMsg);
                 }
                 else
                 {
@@ -190,6 +195,8 @@ namespace gip.iplus.client
                         gip.iplus.client.Properties.Settings.Default.Password = PassWord;
 #endif
                         gip.iplus.client.Properties.Settings.Default.WpfTheme = wpfTheme;
+                        gip.iplus.client.Properties.Settings.Default.RestoreWindowsOnSameScreen = ControlManager.RestoreWindowsOnSameScreen;
+                        gip.iplus.client.Properties.Settings.Default.TouchScreenMode = ControlManager.TouchScreenMode;
                         gip.iplus.client.Properties.Settings.Default.Save();
                     }
 
@@ -204,10 +211,11 @@ namespace gip.iplus.client
                 ACRoot.SRoot.Environment.License.PropertyChanged += License_PropertyChanged;
 
             // Initialisierung abgeschlossen, Hauptfenster laden
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Invoker)delegate
+            UiJtf.RunAsync(async delegate
             {
+                await UiJtf.SwitchToMainThreadAsync();
                 ControlManager.RegisterImplicitStyles(this);
-                Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                //Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 if (ACRoot.SRoot == null)
                 {
                     Shutdown();
@@ -217,15 +225,21 @@ namespace gip.iplus.client
                 Application.Current.MainWindow = new Masterpage();
                 UpdateLicenseTitle();
                 Application.Current.MainWindow.Show();
+
+                if (loginWindow != null && loginWindow.IsVisible)
+                    loginWindow.Close();
+
             });
         }
+
 
         private void License_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e != null && e.PropertyName == "IsTrial")
             {
-                Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Invoker)delegate
+                UiJtf.RunAsync(async delegate
                 {
+                    await UiJtf.SwitchToMainThreadAsync();
                     UpdateLicenseTitle();
                 });
             }
@@ -245,7 +259,7 @@ namespace gip.iplus.client
                 info = "Remote development";
 #endif
 
-            Application.Current.MainWindow.Title = String.Format("iPlus{3}({0}, {1}) {2}", ACRoot.SRoot.Environment.User.VBUserName,
+            Application.Current.MainWindow.Title = String.Format("iPlus.MES{3}({0}, {1}) {2}", ACRoot.SRoot.Environment.User.VBUserName,
                                                                       ACRoot.SRoot.Environment.DatabaseName, info, ACRoot.SRoot.Environment.License.LicensedToTitle);
         }
 
@@ -265,5 +279,6 @@ namespace gip.iplus.client
         }
 
         #endregion
+
     }
 }

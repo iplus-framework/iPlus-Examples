@@ -4,6 +4,7 @@ using System.Linq;
 using mycompany.package.datamodel;
 using gip.core.datamodel;
 using gip.core.autocomponent;
+using System.Threading.Tasks;
 
 namespace mycompany.bso.erp
 {
@@ -24,12 +25,12 @@ namespace mycompany.bso.erp
             return true;
         }
 
-        public override bool ACDeInit(bool deleteACClassTask = false)
+        public override async Task<bool> ACDeInit(bool deleteACClassTask = false)
         {
-            bool result = base.ACDeInit(deleteACClassTask);
+            bool result = await base.ACDeInit(deleteACClassTask);
             if (_AccessPrimary != null)
             {
-                _AccessPrimary.ACDeInit(false);
+                await _AccessPrimary.ACDeInit(false);
                 _AccessPrimary = null;
             }
             return result;
@@ -228,12 +229,12 @@ namespace mycompany.bso.erp
             return CurrentMaterial != null;
         }
 
-        public override void OnDelete(bool softDelete)
+        public override async void OnDelete(bool softDelete)
         {
             Msg msg = CurrentMaterial.DeleteACObject(DatabaseApp, true, softDelete);
             if (msg != null)
             {
-                Root.Messages.Msg(msg);
+                await Root.Messages.MsgAsync(msg);
                 return;
             }
 

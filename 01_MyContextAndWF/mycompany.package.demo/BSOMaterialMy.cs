@@ -3,6 +3,7 @@ using gip.core.datamodel;
 using mycompany.bso.erp;
 using mycompany.package.datamodel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace mycompany.package.demo
 {
@@ -16,14 +17,14 @@ namespace mycompany.package.demo
 
         private ACRef<IACComponent> _RefToComp = null;
 
-        public override bool ACDeInit(bool deleteACClassTask = false)
+        public override async Task<bool> ACDeInit(bool deleteACClassTask = false)
         {
             if (_RefToComp != null)
             {
                 _RefToComp.Detach();
                 _RefToComp = null;
             }
-            return base.ACDeInit(deleteACClassTask);
+            return await base.ACDeInit(deleteACClassTask);
         }
 
         [ACMethodCommand("", "en{'My Method'}de{'Meine Methode'}", 100, true)]

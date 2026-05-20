@@ -1,0 +1,3 @@
+<Project>
+  <Import Project="..\..\iPlus\Directory.Packages.props" />
+</Project>

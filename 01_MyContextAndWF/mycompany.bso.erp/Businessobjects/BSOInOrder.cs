@@ -1,12 +1,13 @@
+using gip.core.autocomponent;
+using gip.core.datamodel;
+using Microsoft.EntityFrameworkCore;
+using mycompany.package.datamodel;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
-using gip.core.autocomponent;
-using gip.core.datamodel;
-using mycompany.package.datamodel;
-using Microsoft.EntityFrameworkCore;
 
 namespace mycompany.bso.erp
 {
@@ -33,7 +34,7 @@ namespace mycompany.bso.erp
             return true;
         }
 
-        public override bool ACDeInit(bool deleteACClassTask = false)
+        public override async Task<bool> ACDeInit(bool deleteACClassTask = false)
         {
             // Detach references
             if (_InOrderManager != null)
@@ -48,10 +49,10 @@ namespace mycompany.bso.erp
             if (_AccessPrimary != null)
                 _AccessPrimary.NavSearchExecuting -= _AccessPrimary_NavSearchExecuting;
 
-            bool result = base.ACDeInit(deleteACClassTask);
+            bool result = await base.ACDeInit(deleteACClassTask);
             if (_AccessPrimary != null)
             {
-                _AccessPrimary.ACDeInit(false);
+                await _AccessPrimary.ACDeInit(false);
                 _AccessPrimary = null;
             }
             return result;
@@ -293,12 +294,12 @@ namespace mycompany.bso.erp
         }
 
         [ACMethodInteraction(nameof(InOrder), "en{'Delete'}de{'Löschen'}", (short)MISort.Delete, true, "CurrentInOrder", Global.ACKinds.MSMethodPrePost)]
-        public void Delete()
+        public virtual async Task Delete()
         {
             Msg msg = CurrentInOrder.DeleteACObject(DatabaseApp, true);
             if (msg != null)
             {
-                Messages.Msg(msg);
+                await Messages.MsgAsync(msg);
                 return;
             }
             if (AccessPrimary == null)
@@ -345,7 +346,7 @@ namespace mycompany.bso.erp
             Msg msg = CurrentInOrderPos.DeleteACObject(DatabaseApp, true);
             if (msg != null)
             {
-                Messages.Msg(msg);
+                Messages.MsgAsync(msg);
                 return;
             }
             OnPropertyChanged("InOrderPosList");
@@ -363,7 +364,7 @@ namespace mycompany.bso.erp
             {
                 // Usage if InOrderManager is configured as local service object
                 double sum = InOrderManager.SumLines(this.DatabaseApp, this.CurrentInOrder);
-                Messages.Info(this, String.Format("Local invocation: Sum is {0}", sum), true);
+                Messages.InfoAsync(this, String.Format("Local invocation: Sum is {0}", sum), true);
             }
 
             if (InOrderManagerNet != null)
@@ -371,7 +372,7 @@ namespace mycompany.bso.erp
                 // Usage if InOrderManager is a network service
                 object netResult = InOrderManagerNet.ACUrlCommand("!SumLinesByID", this.CurrentInOrder.InOrderID);
                 if (netResult != null)
-                    Messages.Info(this, String.Format("Remote invocation: Sum is {0}", (double)netResult), true);
+                    Messages.InfoAsync(this, String.Format("Remote invocation: Sum is {0}", (double)netResult), true);
             }
         }
 

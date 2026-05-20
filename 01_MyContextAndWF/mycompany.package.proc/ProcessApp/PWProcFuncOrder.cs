@@ -1,9 +1,10 @@
 ﻿using gip.core.autocomponent;
 using gip.core.datamodel;
-using System;
-using mycompany.package.datamodel;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using mycompany.package.datamodel;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace mycompany.package.proc
 {
@@ -37,7 +38,7 @@ namespace mycompany.package.proc
         {
         }
 
-        public override bool ACDeInit(bool deleteACClassTask = false)
+        public override async Task<bool> ACDeInit(bool deleteACClassTask = false)
         {
             // 9. Reset local members to make this instance reusable before it will be added to the component pool
             using (ACMonitor.Lock(_20015_LockValue))
@@ -45,7 +46,7 @@ namespace mycompany.package.proc
                 _CurrentInOrder = null;
             }
 
-            if (!base.ACDeInit(deleteACClassTask))
+            if (!await base.ACDeInit(deleteACClassTask))
                 return false;
 
             return true;

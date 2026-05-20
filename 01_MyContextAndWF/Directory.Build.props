@@ -1,8 +1,12 @@
 <Project>
-  <Import Project="..\..\iPlus\Directory.Build.props" />
-  <PropertyGroup>
-    <EFCoreRootDir>..\..\..\ef_90_iPlus</EFCoreRootDir>
-    <EFCoreIncludeDir>$(EFCoreRootDir)\artifacts\bin</EFCoreIncludeDir>
-    <EFCoreToolsDir>$(EFCoreRootDir)\src\EFCore.Tools</EFCoreToolsDir>
-  </PropertyGroup>
+	<Import Project="..\..\iPlus\Directory.Build.props" />
+	<PropertyGroup>
+		<SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)</SolutionDir>
+
+		<!-- Default to true for VS Code/OmniSharp (better IntelliSense and Go-to-Definition) -->
+		<UseProjectReferences Condition="'$(UseProjectReferences)' == ''">true</UseProjectReferences>
+
+		<!-- Override to false when building in Visual Studio (iPlusMES base projects aren't in .sln) -->
+		<UseProjectReferences Condition="'$(UseProjectReferences)' == 'true' AND '$(BuildingInsideVisualStudio)' == 'true'">false</UseProjectReferences>
+	</PropertyGroup>
 </Project>

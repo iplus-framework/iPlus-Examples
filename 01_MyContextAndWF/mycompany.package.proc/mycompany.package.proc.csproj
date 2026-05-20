@@ -25,15 +25,7 @@
       <HintPath>$(IPlusIncludeDir)\gip.core.processapplication.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup Condition="'$(UseEFCoreForkIPlus)' == 'True'">
-    <Reference Include="Microsoft.EntityFrameworkCore">
-      <HintPath>$(EFCoreIncludeDir)\EFCore\$(Configuration)\$(EFCoreBuildFramework)\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mycompany.package.datamodel\mycompany.package.datamodel.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.5" />
   </ItemGroup>
 </Project>

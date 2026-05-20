@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace mycompany.package.proc
 {
@@ -36,14 +37,14 @@ namespace mycompany.package.proc
         {
         }
 
-        public override bool ACDeInit(bool deleteACClassTask = false)
+        public override async Task<bool> ACDeInit(bool deleteACClassTask = false)
         {
             // 15. Reset local members to make this instance reusable before it will be added to the component pool
             using (ACMonitor.Lock(_20015_LockValue))
             {
                 _CountLines = 0;
             }
-            return base.ACDeInit(deleteACClassTask);
+            return await base.ACDeInit(deleteACClassTask);
         }
 
         public override void Recycle(IACObject content, IACObject parentACObject, ACValueList parameter, string acIdentifier = "")

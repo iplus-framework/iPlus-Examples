@@ -28,6 +28,7 @@ using Microsoft.Win32;
 using System.Windows.Threading;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace gip.iplus.client
 {
@@ -130,7 +131,11 @@ namespace gip.iplus.client
 
         public void CloseWindowFromThread()
         {
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Invoker)delegate { Close(); });
+            App.UiJtf.RunAsync(async delegate
+            {
+                await App.UiJtf.SwitchToMainThreadAsync();
+                Close();
+            });
         }
 
         private bool _InFullscreen = false;
@@ -275,7 +280,11 @@ namespace gip.iplus.client
         {
             if (!this.WarningIcon.CheckAccess())
             {
-                this.WarningIcon.Dispatcher.BeginInvoke(DispatcherPriority.Send, new Action(RefreshWarningIcon));
+                App.UiJtf.RunAsync(async delegate
+                {
+                    await App.UiJtf.SwitchToMainThreadAsync();
+                    RefreshWarningIcon();
+                });
                 return;
             }
 
@@ -352,7 +361,12 @@ namespace gip.iplus.client
 
         public object DispatcherInvoke(Action action)
         {
-            return Dispatcher.Invoke(DispatcherPriority.Normal, action);
+            return App.UiJtf.Run(async delegate
+            {
+                await App.UiJtf.SwitchToMainThreadAsync();
+                action();
+                return (object)null;
+            });
         }
 
         public object DispatcherInvokeRemoteCmd(Action action, string acUrl, IACInteractiveObject obj = null, bool isMethodInvoc = true)
@@ -1143,5 +1157,43 @@ namespace gip.iplus.client
                 bsoAlarmExplorer.Stop();
         }
 
+        public async Task<Global.MsgResult> ShowMsgBoxAsync(Msg msg, Global.MsgResult defaultResult, eMsgButton msgButton)
+        {
+            // Workaround: Wenn MessageBox in OnApplyTemplate aufgerufen wird, dann findet eine Exception statt weil die Nachrichtenverarbeitungsschleife des Dispatchers noch deaktiviert ist
+            // Das findet man über den Zugriff auf eine interne Member heraus:
+            //System.Reflection.MemberInfo[] infos = typeof(Dispatcher).GetMember("_disableProcessingCount", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            Type typeDispatcher = typeof(Dispatcher);
+            FieldInfo fieldInfo = typeDispatcher.GetField("_disableProcessingCount", BindingFlags.NonPublic | BindingFlags.Instance);
+            int _disableProcessingCount = 0;
+            if (fieldInfo != null)
+            {
+                _disableProcessingCount = (int)fieldInfo.GetValue(this.Dispatcher);
+            }
+            if (_disableProcessingCount <= 0)
+            {
+                try
+                {
+                    return ShowMsgBoxIntern(msg, msgButton);
+                }
+                catch (InvalidOperationException)
+                {
+                    _ = App.UiJtf.RunAsync(async delegate
+                    {
+                        await App.UiJtf.SwitchToMainThreadAsync();
+                        ShowMsgBoxIntern(msg, msgButton);
+                    });
+                    return Global.MsgResult.None;
+                }
+            }
+            else
+            {
+                _ = App.UiJtf.RunAsync(async delegate
+                {
+                    await App.UiJtf.SwitchToMainThreadAsync();
+                    ShowMsgBoxIntern(msg, msgButton);
+                });
+                return Global.MsgResult.None;
+            }
+        }
     }
 }

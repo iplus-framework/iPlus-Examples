@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Project Path="gip.iplus.client/gip.iplus.client.csproj" />
+  <Project Path="mycompany.bso.erp/mycompany.bso.erp.csproj" />
+  <Project Path="mycompany.package.datamodel/mycompany.package.datamodel.csproj" />
+  <Project Path="mycompany.package.demo/mycompany.package.demo.csproj" />
+  <Project Path="mycompany.package.proc/mycompany.package.proc.csproj" />
+</Solution>
