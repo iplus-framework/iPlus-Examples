@@ -1,0 +1,77 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug gip.iplus.client (.NET)",
+      "type": "dotnet",
+      "request": "launch",
+      "projectPath": "${workspaceFolder}/gip.iplus.client/gip.iplus.client.csproj"
+    },
+    {
+      "name": "Debug gip.iplus.client (CoreCLR fallback)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build gip.iplus.client",
+      "program": "${workspaceFolder}/bin/Debug/${config:iplus.uiTargetFramework}/gip.iplus.client.dll",
+      "cwd": "${workspaceFolder}/gip.iplus.client",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Launch with Wine",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "wine",
+      "args": [
+        "${workspaceFolder}/bin/Debug/${config:iplus.uiTargetFramework}/win-x64/gip.iplus.client.exe"
+      ],
+      "cwd": "${workspaceFolder}/bin/Debug/${config:iplus.uiTargetFramework}/win-x64",
+      "preLaunchTask": "Build Windows (wine)",
+      "console": "integratedTerminal",
+      "env": {
+        //"WINEPREFIX": "${env:HOME}/.wine-netcore-64",
+        // Ensure that Wine uses the correct .NET runtime and not from ~/.bashrc where "export DOTNET_ROOT=$HOME/.dotnet" is set
+        "DOTNET_ROOT": ""
+      }
+    },
+    {
+      "name": "Launch with Wine (Release)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "/usr/bin/wine",
+      "args": [
+        "${workspaceFolder}/Release/${config:iplus.uiTargetFramework}/win-x64/gip.iplus.client.exe"
+      ],
+      "cwd": "${workspaceFolder}/Release/${config:iplus.uiTargetFramework}/win-x64",
+      "preLaunchTask": "Build Windows Release (wine)",
+      "console": "integratedTerminal",
+      "env": {
+        //"WINEPREFIX": "${env:HOME}/.wine-netcore-64",
+        // Ensure that Wine uses the correct .NET runtime and not from ~/.bashrc where "export DOTNET_ROOT=$HOME/.dotnet" is set
+        "DOTNET_ROOT": ""
+      }
+    },
+    {
+      "name": "DNSPY Launch",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "${workspaceFolder}/../../wine_debug_dnspy.sh \"${workspaceFolder}/bin/Debug/${config:iplus.uiTargetFramework}/win-x64/gip.iplus.client.exe\"",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        //"WINEPREFIX": "${env:HOME}/.wine-netcore-64",
+        // Ensure that Wine uses the correct .NET runtime and not from ~/.bashrc where "export DOTNET_ROOT=$HOME/.dotnet" is set
+        "DOTNET_ROOT": ""
+      }
+    },
+    {
+      "name": "Launch Avalonia Desktop",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "Build Avalonia Desktop",
+      "program": "${workspaceFolder}/gip.iplus.client.avui.Desktop/bin/Debug/${config:iplus.defaultNetCoreTargetFramework}/gip.iplus.client.avui.Desktop.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/gip.iplus.client.avui.Desktop",
+      "console": "integratedTerminal"
+    }
+  ]
+}

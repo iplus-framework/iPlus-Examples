@@ -1,0 +1,73 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build gip.iplus.client",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/gip.iplus.client/gip.iplus.client.csproj",
+        "-c",
+        "Debug"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Build Avalonia Desktop",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "build",
+        "${workspaceFolder}/gip.iplus.client.avui.Desktop/gip.iplus.client.avui.Desktop.csproj",
+        "/p:Configuration=Debug"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+        "label": "Build Avalonia Desktop Release",
+        "command": "dotnet",
+        "type": "shell",
+        "args": [
+            "build",
+            "${workspaceFolder}/gip.iplus.client.avui.Desktop/gip.iplus.client.avui.Desktop.csproj",
+            "/p:Configuration=Release"
+        ],
+        "group": "build",
+        "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Build Windows (wine)",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "build",
+        "${workspaceFolder}/gip.iplus.client/gip.iplus.client.csproj",
+        "-r",
+        "win-x64",
+        "/p:Configuration=Debug"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Build Windows Release (wine)",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "build",
+        "${workspaceFolder}/gip.iplus.client/gip.iplus.client.csproj",
+        "-r",
+        "win-x64",
+        "/p:Configuration=Release"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

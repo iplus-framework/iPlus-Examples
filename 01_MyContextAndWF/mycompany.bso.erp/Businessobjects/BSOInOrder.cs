@@ -294,7 +294,7 @@ namespace mycompany.bso.erp
         }
 
         [ACMethodInteraction(nameof(InOrder), "en{'Delete'}de{'Löschen'}", (short)MISort.Delete, true, "CurrentInOrder", Global.ACKinds.MSMethodPrePost)]
-        public virtual async Task Delete()
+        public virtual async void Delete()
         {
             Msg msg = CurrentInOrder.DeleteACObject(DatabaseApp, true);
             if (msg != null)

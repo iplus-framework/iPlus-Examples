@@ -27,30 +27,67 @@
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
-    <NoWarn>CA1416;VSTHRD100;VSTHRD110;VSTHRD200</NoWarn>
-    <IPlusIncludeDir>..\..\..\iPlus\bin\Debug\$(UITargetFramework)</IPlusIncludeDir>
+  <PropertyGroup>
+    <BaseOutputPath>$(SolutionDir)bin\</BaseOutputPath>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title>iplus-framework WPF App</Title>
+    <Description>WPF Program to start iplus-framework</Description>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageTags>iplus-framework</PackageTags>
+    <PackageProjectUrl>https://github.com/iplus-framework</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/iplus-framework/iPlus.git</RepositoryUrl>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
-    <NoWarn>CA1416;VSTHRD100;VSTHRD110;VSTHRD200</NoWarn>
-    <IPlusIncludeDir>..\..\..\iPlus\bin\Release\$(UITargetFramework)</IPlusIncludeDir>
-  </PropertyGroup>
+  <ItemGroup>
+    <None Update="readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\iPlusIconDesktop.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Resources\Connection.xaml" />
+    <Page Remove="Resources\DesignerItem.xaml" />
+    <Page Remove="Resources\Resources\Button.xaml" />
+    <Page Remove="Resources\Resources\Masterpage.xaml" />
+    <Page Remove="Resources\Resources\Menu.xaml" />
+    <Page Remove="Resources\Resources\Shared.xaml" />
+    <Page Remove="Resources\Resources\TabControl.xaml" />
+    <Page Remove="Resources\Resources\VBVisualGroup.xaml" />
+    <Page Remove="Resources\Styles\Shared.xaml" />
+    <Page Remove="Resources\VBResources.xaml" />
+  </ItemGroup>  
   <PropertyGroup>
     <ApplicationIcon>Images\iPlusIconDesktop.ico</ApplicationIcon>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Update="System.Runtime.Serialization">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Update="System.Xml.Linq">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Update="UIAutomationProvider">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-  </ItemGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\$(TargetFramework)\</OutputPath>
+		<OutputPath Condition="'$(RuntimeIdentifier)' != ''">$(MSBuildThisFileDirectory)..\bin\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\</OutputPath>
+		<OutDir>$(OutputPath)</OutDir>
+		<NoWarn>CA1416;VSTHRD100;VSTHRD110;VSTHRD200;NU1510;VSTHRD001</NoWarn>
+		<IPlusIncludeDir>..\..\..\iPlus\bin\Debug\$(UITargetFramework)</IPlusIncludeDir>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<OutputPath>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\$(TargetFramework)\</OutputPath>
+		<OutputPath Condition="'$(RuntimeIdentifier)' != ''">$(MSBuildThisFileDirectory)..\bin\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\</OutputPath>
+		<OutDir>$(OutputPath)</OutDir>
+		<NoWarn>CA1416;VSTHRD100;VSTHRD110;VSTHRD200;NU1510;VSTHRD001</NoWarn>
+		<IPlusIncludeDir>..\..\..\iPlus\bin\Release\$(UITargetFramework)</IPlusIncludeDir>
+	</PropertyGroup>
   <ItemGroup>
     <None Update="ConnectionStrings.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -66,7 +103,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
+ 	<ItemGroup Condition="'$(UseProjectReferences)' == 'false'">
     <Reference Include="gip.core.autocomponent">
       <HintPath>$(IPlusIncludeDir)\gip.core.autocomponent.dll</HintPath>
     </Reference>
@@ -114,64 +151,88 @@
       <HintPath>$(IPlusIncludeDir)\gip.core.webservices.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Login.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\iPlusIconDesktop.ico" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(UseProjectReferences)' == 'true'">
+		<ProjectReference Include="..\..\..\iPlus\gip.core.reporthandlerwpf\gip.core.reporthandlerwpf.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.archiver\gip.core.archiver.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.autocomponent\gip.core.autocomponent.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.communication\gip.core.communication.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.ControlScriptSync\gip.core.ControlScriptSync.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.crypto\gip.core.crypto.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.datamodel\gip.core.datamodel.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.dbsyncer\gip.core.dbsyncer.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.layoutengine\gip.core.layoutengine.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.manager\gip.core.manager.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.processapplication\gip.core.processapplication.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.reporthandlerwpf\gip.core.reporthandlerwpf.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.scichart\gip.core.scichart.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.visualcontrols\gip.core.visualcontrols.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.webservices\gip.core.webservices.csproj" />
+		<ProjectReference Include="..\..\..\iPlus\gip.core.wpfservices\gip.core.wpfservices.csproj" />	
+	</ItemGroup>  
   <ItemGroup>
     <PackageReference Include="CoreWCF.Primitives" />
     <PackageReference Include="System.Configuration.ConfigurationManager" />
     <PackageReference Include="System.Drawing.Common" />
 	<PackageReference Include="Microsoft.VisualStudio.Threading" />
   </ItemGroup>
-  <ItemGroup>
-    <Page Remove="Resources\Connection.xaml" />
-    <Page Remove="Resources\DesignerItem.xaml" />
-    <Page Remove="Resources\Resources\Button.xaml" />
-    <Page Remove="Resources\Resources\Masterpage.xaml" />
-    <Page Remove="Resources\Resources\Menu.xaml" />
-    <Page Remove="Resources\Resources\Shared.xaml" />
-    <Page Remove="Resources\Resources\TabControl.xaml" />
-    <Page Remove="Resources\Resources\VBVisualGroup.xaml" />
-    <Page Remove="Resources\Styles\Shared.xaml" />
-    <Page Remove="Resources\VBResources.xaml" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(UseEFCoreForkIPlus)' == 'True'">
-    <Reference Include="Microsoft.EntityFrameworkCore">
-      <HintPath>$(EFCoreIncludeDir)\EFCore\$(Configuration)\$(EFCoreBuildFramework)\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-  </ItemGroup> 
+	<ItemGroup Condition="'$(UseEFCoreForkIPlus)' == 'False'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(UseEFCoreForkIPlus)' == 'True'">
+		<PackageReference Include="iPlus.EntityFrameworkCore" />
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mycompany.bso.erp\mycompany.bso.erp.csproj" />
     <ProjectReference Include="..\mycompany.package.datamodel\mycompany.package.datamodel.csproj" />
     <ProjectReference Include="..\mycompany.package.demo\mycompany.package.demo.csproj" />
     <ProjectReference Include="..\mycompany.package.proc\mycompany.package.proc.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="readme.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="icon.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-  <PropertyGroup>
-    <BaseOutputPath>$(SolutionDir)bin\</BaseOutputPath>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Title>iplus-framework WPF App</Title>
-    <Description>WPF Program to start iplus-framework</Description>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <PackageTags>iplus-framework</PackageTags>
-    <PackageProjectUrl>https://github.com/iplus-framework</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/iplus-framework/iPlus.git</RepositoryUrl>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
-  </PropertyGroup>
-	<!--<Target Name="CopyToNet7Windows" AfterTargets="Build">
-		<Exec Command="xcopy &quot;$(SolutionDir)bin\Debug\net7.0\*.*&quot; &quot;$(SolutionDir)bin\Debug\net7.0-windows\&quot; /Y /I /E /EXCLUDE:$(ProjectDir)\AfterBuildCopyExclude.txt" />
-	</Target>-->
+
+	<Target Name="CopyIPlusFiles" AfterTargets="Build">
+		<Message Text="IPlusIncludeDir: $(IPlusIncludeDir)" Importance="high" />
+		<Message Text="OutDir: $(OutDir)" Importance="high" />
+
+		<Copy SourceFiles="$(IPlusIncludeDir)\MATRIX32.dll" DestinationFolder="$(OutDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" Condition="Exists('$(IPlusIncludeDir)\MATRIX32.dll')" />
+		<Copy SourceFiles="$(IPlusIncludeDir)\MATRIX64.dll" DestinationFolder="$(OutDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" Condition="Exists('$(IPlusIncludeDir)\MATRIX64.dll')" />
+		<Copy SourceFiles="$(IPlusIncludeDir)\matrix.ini" DestinationFolder="$(OutDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" Condition="Exists('$(IPlusIncludeDir)\matrix.ini')" />
+
+		<Message Text="Checking for VBControlScripts at: $(IPlusIncludeDir)\VBControlScripts" Importance="high" />
+		<CreateItem Include="$(IPlusIncludeDir)\VBControlScripts\*.*" Condition="Exists('$(IPlusIncludeDir)\VBControlScripts')">
+			<Output TaskParameter="Include" ItemName="VBControlScripts" />
+		</CreateItem>
+		<Copy SourceFiles="@(VBControlScripts)" DestinationFolder="$(OutDir)VBControlScripts" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" Condition="'@(VBControlScripts)' != ''" />
+
+		<Message Text="Checking for DbScripts at: $(IPlusIncludeDir)\DbScripts" Importance="high" />
+		<CreateItem Include="$(IPlusIncludeDir)\DbScripts\**\*.*" Condition="Exists('$(IPlusIncludeDir)\DbScripts')">
+			<Output TaskParameter="Include" ItemName="DbScriptsFiles" />
+		</CreateItem>
+		<Message Text="Found DbScripts files: @(DbScriptsFiles-&gt;Count())" Importance="high" Condition="'@(DbScriptsFiles)' != ''" />
+		<Copy SourceFiles="@(DbScriptsFiles)" DestinationFolder="$(OutDir)DbScripts\%(RecursiveDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" Condition="'@(DbScriptsFiles)' != ''" />
+		<Warning Text="DbScripts folder not found at: $(IPlusIncludeDir)\DbScripts" Condition="!Exists('$(IPlusIncludeDir)\DbScripts')" />
+	</Target>
+	<Target Name="CopyToNet7Windows" AfterTargets="Build" Condition="'$(OS)' == 'Windows_NT'">
+   <ItemGroup>
+      <_CopyToUiFiles Include="$(SolutionDir)bin\$(Configuration)\$(DefaultNetCoreTargetFramework)\**\*.*"
+                      Exclude="$(SolutionDir)bin\$(Configuration)\$(DefaultNetCoreTargetFramework)\ConnectionStrings.config;$(SolutionDir)bin\$(Configuration)\$(DefaultNetCoreTargetFramework)\System.Composition.AttributedModel.dll;$(SolutionDir)bin\$(Configuration)\$(DefaultNetCoreTargetFramework)\System.Composition.Convention.dll;$(SolutionDir)bin\$(Configuration)\$(DefaultNetCoreTargetFramework)\System.Composition.Hosting.dll;$(SolutionDir)bin\$(Configuration)\$(DefaultNetCoreTargetFramework)\System.Composition.Runtime.dll;$(SolutionDir)bin\$(Configuration)\$(DefaultNetCoreTargetFramework)\System.Composition.TypedParts.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_CopyToUiFiles)"
+          DestinationFiles="@(_CopyToUiFiles->'$(SolutionDir)bin\$(Configuration)\$(UITargetFramework)\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+	</Target>
+	<Target Name="CopyToNet7Linux" AfterTargets="Build" Condition="'$(OS)' != 'Windows_NT'">
+		<Exec
+			Command="cp -r --update=none &quot;$(SolutionDir)bin/$(Configuration)/$(DefaultNetCoreTargetFramework)/.&quot; &quot;$(OutDir)&quot;" />
+		<Exec
+			Command="cp -r &quot;$(SolutionDir)bin/$(Configuration)/$(DefaultNetCoreTargetFramework)/VBControlScripts&quot; &quot;$(OutDir)&quot;"
+			Condition="Exists('$(SolutionDir)bin/$(Configuration)/$(DefaultNetCoreTargetFramework)/VBControlScripts')" />
+		<Exec
+			Command="cp -r &quot;$(SolutionDir)bin/$(Configuration)/$(DefaultNetCoreTargetFramework)/DbScripts&quot; &quot;$(OutDir)&quot;"
+			Condition="Exists('$(SolutionDir)bin/$(Configuration)/$(DefaultNetCoreTargetFramework)/DbScripts')" />
+		<Exec
+			Command="cp --update=none &quot;$(SolutionDir)bin/$(Configuration)/$(UITargetFramework)/&quot;*.dll &quot;$(OutDir)&quot;"
+			Condition="'$(RuntimeIdentifier)' != ''" />
+		<Exec
+			Command="cp -f &quot;$(ProjectDir)ConnectionStrings.config&quot; &quot;$(OutDir)ConnectionStrings.config&quot;"
+			Condition="Exists('$(ProjectDir)ConnectionStrings.config')" />
+	</Target>
 </Project>
