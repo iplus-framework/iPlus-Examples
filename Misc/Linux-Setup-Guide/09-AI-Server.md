@@ -278,7 +278,7 @@ Copy this text and save:
 ```
 [Service]
 User=root
-Environment="LD_LIBRARY_PATH=/opt/rocm/lib:/usr/local/share/lemonade-server/llama/rocm:"
+Environment="LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib:/opt/rocm/lib:/usr/local/share/lemonade-server/llama/roc:/root/.cache/lemonade/bin/llamacpp/vulkan"
 Environment="HSA_OVERRIDE_GFX_VERSION=11.5.0"
 Environment="HIP_VISIBLE_DEVICES=0"
 LimitMEMLOCK=infinity
