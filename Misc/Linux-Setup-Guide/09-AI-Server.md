@@ -361,12 +361,64 @@ You only can run it directly with llama-server at the moment:
 
 **Tools:**
 - **VS Code:**
-  - Use the [VS Code Insiders Version](https://code.visualstudio.com/insiders/) and Copilot with a [custom endpoint Model](https://code.visualstudio.com/docs/copilot/customization/language-models#_add-a-custom-endpoint-model)
-  - The Standard VS Code Version doesn't support custom models with Copiplot but there are two alternatives:
+  - Use the [VS Code Insiders Version](https://code.visualstudio.com/insiders/) and Copilot with a [custom endpoint Model](https://code.visualstudio.com/docs/copilot/customization/language-models#_add-a-custom-endpoint-model). Unfortunately the native Copilot provider sends a richer request with additional fields that lemonades llama.cpp's server doesn't recognize for `"apiType": "chat-completions"`. Maybe the future vllm backed will support it. Example setting chatLanguageModels.json:
+    ```json
+    	{
+		"name": "lemonade-local",
+		"vendor": "customendpoint",
+		"apiType": "chat-completions",
+		"models": [
+			{
+				"id": "Qwen3.6-35B-A3B-MTP-GGUF",
+				"name": "lemonade-local-Qwen3.6",
+				"url": "http://myhost:8080/api/v1/chat/completions",
+				"toolCalling": true,
+				"vision": false,
+				"maxInputTokens": 131072,
+				"maxOutputTokens": 16000,
+				"settings": {
+					"temperature": 0.6,
+					"top_p": 0.95,
+					"top_k": 20,
+					"frequency_penalty": 1.0,
+					"presence_penalty": 0.0
+				}
+			}
+		]
+	},
+    ```
+  - The Standard VS Code Version doesn't support custom models with Copilot but there are two alternatives:
   - Use the [unify chat provider](https://marketplace.visualstudio.com/items?itemName=SmallMain.vscode-unify-chat-provider) extension.
+  Example setting settings.json:
+    ```json
+    "unifyChatProvider.endpoints": [
+        {
+            "models": [
+                {
+                    "id": "Qwen3.6-35B-A3B-MTP-GGUF",
+                    "capabilities": {
+                        "toolCalling": true
+                    },
+                    "name": "lemonade-local-Qwen3.6",
+                    "maxInputTokens": 131072,
+                    "settings": {
+                        "temperature": 0.6,
+                        "top_p": 0.95,
+                        "top_k": 20,
+                        "frequency_penalty": 1.0,
+                        "presence_penalty": 0.0
+                    }                   
+                }
+            ],
+            "type": "openai-chat-completion",
+            "baseUrl": "http://myhost:8080/v1",
+            "name": "lemonade-local"
+        }
+    ],
+    ```
   - Or the [lemonade extension](https://marketplace.visualstudio.com/items?itemName=lemonade-sdk.lemonade-sdk) for copilot.
 - **iPlus Framework:**
-  - **Endpoint:** `http://<IP>:8080/api/v1/chat/completions`
+  - **Endpoint:** `http://myhost:8080/api/v1/chat/completions`
 
 
 
