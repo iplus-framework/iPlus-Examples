@@ -35,6 +35,16 @@ Type=simple
 Restart=always
 RestartSec=10
 Environment="VLLM_SLEEP_WHEN_IDLE=1"
+Environment="HF_HOME=/root/.cache/huggingface"
+
+# Override NVIDIA Container Runtime cgroup restrictions
+Environment="NVIDIA_VISIBLE_DEVICES=all"
+Environment="NVIDIA_DRIVER_CAPABILITIES=all"
+
+# Ensure typical systemd execution space constraints are relaxed
+LimitNOFILE=65536
+TimeoutStartSec=0
+
 ExecStartPre=-/usr/bin/docker stop vllm-server
 ExecStartPre=-/usr/bin/docker rm vllm-server
 ExecStart=/usr/bin/docker run --rm \
@@ -91,6 +101,16 @@ Type=simple
 Restart=always
 RestartSec=10
 Environment="VLLM_SLEEP_WHEN_IDLE=1"
+Environment="HF_HOME=/root/.cache/huggingface"
+
+# Override NVIDIA Container Runtime cgroup restrictions
+Environment="NVIDIA_VISIBLE_DEVICES=all"
+Environment="NVIDIA_DRIVER_CAPABILITIES=all"
+
+# Ensure typical systemd execution space constraints are relaxed
+LimitNOFILE=65536
+TimeoutStartSec=0
+
 ExecStartPre=-/usr/bin/docker stop vllm-server
 ExecStartPre=-/usr/bin/docker rm vllm-server
 ExecStart=/usr/bin/docker run --rm \
