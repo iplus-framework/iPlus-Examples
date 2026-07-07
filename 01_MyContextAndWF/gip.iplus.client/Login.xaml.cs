@@ -302,6 +302,9 @@ namespace gip.iplus.client
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
+            _User = "";
+            _Password = "";   
+
             // VarioiplusLogin schliessen
             this.Close();
 
