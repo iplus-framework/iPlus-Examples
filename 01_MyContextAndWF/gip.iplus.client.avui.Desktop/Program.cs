@@ -14,6 +14,20 @@ sealed class Program
     {
         try
         {
+            if (OperatingSystem.IsLinux())
+            {
+                // Avalonia WebView GTK initialization expects X11 backend.
+                // On Wayland sessions we may inherit GDK_BACKEND=wayland, which makes gtk_init_check fail.
+                var gdkBackend = Environment.GetEnvironmentVariable("GDK_BACKEND");
+                if (string.IsNullOrWhiteSpace(gdkBackend)
+                    || gdkBackend.Contains("wayland", StringComparison.OrdinalIgnoreCase))
+                {
+                    Environment.SetEnvironmentVariable("GDK_BACKEND", "x11");
+                }
+
+                GtkBootstrap.TryInitializeGtkX11();
+            }
+
             BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
         }
@@ -26,8 +40,13 @@ sealed class Program
 
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
-            .UsePlatformDetect()
+    {
+        var builder = AppBuilder.Configure<App>()
+            .UsePlatformDetect();
+
+        builder = AppBuilderHelper.ConfigureLinuxX11Options(builder);
+
+        return builder
             .UseReactiveUI(rxui =>
             {
                 // Optional: add custom registration here via rxui.WithRegistration(...)
@@ -35,4 +54,5 @@ sealed class Program
             .RegisterReactiveUIViewsFromEntryAssembly()
             .WithInterFont()
             .LogToTrace();
+    }
 }
