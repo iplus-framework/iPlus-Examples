@@ -105,7 +105,7 @@ public partial class Material : VBEntityObject, IInsertInfo, IUpdateInfo, IDelet
         }
     }
 
-    public virtual CollectionEntry InOrderPos_MaterialReference
+    public virtual CollectionEntry<Material, InOrderPos> InOrderPos_MaterialReference
     {
         get { return Context.Entry(this).Collection(c => c.InOrderPos_Material); }
     }

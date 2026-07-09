@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +9,8 @@ namespace mycompany.package.datamodel;
 
 public partial class ExampleV5Context : DbContext
 {
+    private static readonly ACMaterializationInterceptor s_materializationInterceptor = new ACMaterializationInterceptor();
+
     public ExampleV5Context()
     {
     }
@@ -26,17 +28,18 @@ public partial class ExampleV5Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.AddInterceptors(new ACMaterializationInterceptor())
+        optionsBuilder.AddInterceptors(s_materializationInterceptor)
             //.UseLazyLoadingProxies()
             //.UseChangeTrackingProxies()
-            .UseModel(ExampleV5ContextModel.Instance)
-            .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning));
+            .UseModel(ExampleV5ContextModel.Instance);
             //Uncomment connection string when generating new CompiledModels
-//.UseSqlServer(ConfigurationManager.ConnectionStrings["ExampleV5_Entities"].ConnectionString);
+            //.UseSqlServer(ConfigurationManager.ConnectionStrings["ExampleV5_Entities"].ConnectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.UseCollation("Latin1_General_CI_AS");
+
         modelBuilder.Entity<InOrder>(entity =>
         {
             entity.ToTable("InOrder");

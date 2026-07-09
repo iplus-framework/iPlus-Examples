@@ -11,7 +11,7 @@ namespace mycompany.package.datamodel
     public partial class ExampleV5ContextModel
     {
         private ExampleV5ContextModel()
-            : base(skipDetectChanges: true, modelId: new Guid("19089ef0-2628-4be0-a74b-9bd00d22e2d5"), entityTypeCount: 3)
+            : base(skipDetectChanges: true, modelId: new Guid("bcafff05-0c39-4234-9f47-faee5c5bd545"), entityTypeCount: 3)
         {
         }
 
@@ -28,7 +28,7 @@ namespace mycompany.package.datamodel
             InOrderPosEntityType.CreateAnnotations(inOrderPos);
             MaterialEntityType.CreateAnnotations(material);
 
-            AddAnnotation("ProductVersion", "9.0.9");
+            AddAnnotation("ProductVersion", "10.0.5");
             AddAnnotation("Relational:MaxIdentifierLength", 128);
             AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
         }

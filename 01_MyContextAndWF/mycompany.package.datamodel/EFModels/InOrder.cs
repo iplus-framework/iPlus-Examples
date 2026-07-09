@@ -98,7 +98,7 @@ public partial class InOrder : VBEntityObject, IInsertInfo, IUpdateInfo
         }
     }
 
-    public virtual CollectionEntry InOrderPos_InOrderReference
+    public virtual CollectionEntry<InOrder, InOrderPos> InOrderPos_InOrderReference
     {
         get { return Context.Entry(this).Collection(c => c.InOrderPos_InOrder); }
     }

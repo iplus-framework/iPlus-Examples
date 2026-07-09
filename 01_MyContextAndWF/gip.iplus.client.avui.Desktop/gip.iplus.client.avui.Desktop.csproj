@@ -40,8 +40,10 @@
 		<PackageReference Include="OxyPlot.Avalonia" />
 		<PackageReference Include="Markdown.Avalonia" />
 		<PackageReference Include="MessageBox.Avalonia" />
-		<PackageReference Include="iPlus.RoslynPad.Editor.Avalonia" />
-		<PackageReference Include="iPlus.RoslynPad.Roslyn.Avalonia" />
+		<!-- <PackageReference Include="iPlus.RoslynPad.Editor.Avalonia" />
+		<PackageReference Include="iPlus.RoslynPad.Roslyn.Avalonia" /> -->
+		<PackageReference Include="RoslynPad.Editor.Avalonia" />
+		<PackageReference Include="RoslynPad.Roslyn.Avalonia" />
 		<PackageReference Include="Avalonia.Markup.Xaml.Loader"  />
 		<PackageReference Include="Simplecto.Avalonia.RichTextBox"  />
 		<PackageReference Include="Tmds.DBus.Protocol" />
