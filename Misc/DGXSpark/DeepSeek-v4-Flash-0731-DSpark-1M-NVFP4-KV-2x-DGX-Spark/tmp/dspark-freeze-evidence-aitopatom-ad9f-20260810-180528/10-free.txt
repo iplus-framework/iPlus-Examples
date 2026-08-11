@@ -1,5 +1,0 @@
-### CMD: free -h
-### TS: 2026-08-10T18:05:28+02:00
-               total        used        free      shared  buff/cache   available
-Mem:           121Gi       3,6Gi       118Gi       640Ki       843Mi       118Gi
-Swap:           15Gi       270Mi        15Gi

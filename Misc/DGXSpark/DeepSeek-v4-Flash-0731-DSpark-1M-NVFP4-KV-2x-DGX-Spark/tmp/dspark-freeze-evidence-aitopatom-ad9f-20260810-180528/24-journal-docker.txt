@@ -1,6 +1,0 @@
-### CMD: timeout 30 sh -lc journalctl -u docker -u containerd --since '-180 min' --no-pager
-### TS: 2026-08-10T18:05:32+02:00
-Aug 10 18:03:57 aitopatom-ad9f dockerd[2169]: time="2026-08-10T18:03:57.816351706+02:00" level=info msg="ignoring event" container=33418fcd13e0a5bfe42f2fb6102ce3d3138c41a344a92b6474d5531132c5aecc module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
-Aug 10 18:03:57 aitopatom-ad9f containerd[1994]: time="2026-08-10T18:03:57.817796874+02:00" level=info msg="shim disconnected" id=33418fcd13e0a5bfe42f2fb6102ce3d3138c41a344a92b6474d5531132c5aecc namespace=moby
-Aug 10 18:03:57 aitopatom-ad9f containerd[1994]: time="2026-08-10T18:03:57.818235706+02:00" level=info msg="cleaning up after shim disconnected" id=33418fcd13e0a5bfe42f2fb6102ce3d3138c41a344a92b6474d5531132c5aecc namespace=moby
-Aug 10 18:03:57 aitopatom-ad9f containerd[1994]: time="2026-08-10T18:03:57.818306922+02:00" level=info msg="cleaning up dead shim" id=33418fcd13e0a5bfe42f2fb6102ce3d3138c41a344a92b6474d5531132c5aecc namespace=moby

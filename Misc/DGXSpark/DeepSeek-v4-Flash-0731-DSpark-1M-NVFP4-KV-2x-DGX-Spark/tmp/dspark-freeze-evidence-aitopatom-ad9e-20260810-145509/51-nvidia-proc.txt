@@ -1,6 +1,0 @@
-### CMD: sh -lc nvidia-smi pmon -c 1
-### TS: 2026-08-10T14:55:16+02:00
-# gpu         pid   type     sm    mem    enc    dec    jpg    ofa    command 
-# Idx           #    C/G      %      %      %      %      %      %    name 
-    0    1568441     G      -      -      -      -      -      -    Xorg           
-    0    1568553     G      -      -      -      -      -      -    gnome-shell    

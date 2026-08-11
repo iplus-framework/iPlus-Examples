@@ -1,2 +1,0 @@
-### CMD: timeout 20 docker stats --no-stream
-### TS: 2026-08-10T18:05:33+02:00
