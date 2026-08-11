@@ -1,0 +1,12 @@
+### CMD: ss -s
+### TS: 2026-08-10T14:55:14+02:00
+Total: 1026
+TCP:   97 (estab 62, closed 3, orphaned 0, timewait 3)
+
+Transport Total     IP        IPv6
+RAW	  1         0         1        
+UDP	  25        18        7        
+TCP	  94        29        65       
+INET	  120       47        73       
+FRAG	  0         0         0        
+

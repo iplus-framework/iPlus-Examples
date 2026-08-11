@@ -1,0 +1,3 @@
+### CMD: sh -lc nvidia-smi --query-gpu=timestamp,name,temperature.gpu,utilization.gpu,utilization.memory,memory.total,memory.used,power.draw,clocks.sm --format=csv,noheader
+### TS: 2026-08-10T14:55:16+02:00
+2026/08/10 14:55:16.714, NVIDIA GB10, 37, 0 %, 0 %, [N/A], [N/A], 4.84 W, 208 MHz

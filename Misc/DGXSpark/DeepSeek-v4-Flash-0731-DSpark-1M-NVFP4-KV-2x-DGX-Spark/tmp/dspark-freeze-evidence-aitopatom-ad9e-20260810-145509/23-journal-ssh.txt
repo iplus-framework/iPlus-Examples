@@ -1,0 +1,35 @@
+### CMD: timeout 30 sh -lc journalctl -u ssh -u sshd --since '-180 min' --no-pager
+### TS: 2026-08-10T14:55:13+02:00
+Aug 10 12:13:15 aitopatom-ad9e sshd[1528347]: Accepted password for gipsoft from 100.82.14.98 port 55842 ssh2
+Aug 10 12:13:15 aitopatom-ad9e sshd[1528347]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 12:13:16 aitopatom-ad9e sshd[1528349]: Accepted password for gipsoft from 100.82.14.98 port 55852 ssh2
+Aug 10 12:13:16 aitopatom-ad9e sshd[1528349]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 12:13:16 aitopatom-ad9e sshd[1528351]: Accepted password for gipsoft from 100.82.14.98 port 55864 ssh2
+Aug 10 12:13:16 aitopatom-ad9e sshd[1528351]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 12:13:16 aitopatom-ad9e sshd[1528350]: Accepted password for gipsoft from 100.82.14.98 port 55856 ssh2
+Aug 10 12:13:16 aitopatom-ad9e sshd[1528350]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 12:13:16 aitopatom-ad9e sshd[1528352]: Accepted password for gipsoft from 100.82.14.98 port 55862 ssh2
+Aug 10 12:13:16 aitopatom-ad9e sshd[1528352]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 12:13:20 aitopatom-ad9e sshd[1528352]: pam_unix(sshd:session): session closed for user gipsoft
+Aug 10 12:14:17 aitopatom-ad9e sshd[1529267]: Accepted password for gipsoft from 100.82.14.98 port 39088 ssh2
+Aug 10 12:14:17 aitopatom-ad9e sshd[1529267]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 12:14:18 aitopatom-ad9e sshd[1529267]: pam_unix(sshd:session): session closed for user gipsoft
+Aug 10 13:01:32 aitopatom-ad9e sshd[1603802]: Accepted password for gipsoft from 100.82.14.98 port 52202 ssh2
+Aug 10 13:01:32 aitopatom-ad9e sshd[1603802]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:25 aitopatom-ad9e sshd[1679793]: Accepted password for gipsoft from 100.82.14.98 port 52364 ssh2
+Aug 10 14:54:25 aitopatom-ad9e sshd[1679795]: Accepted password for gipsoft from 100.82.14.98 port 52386 ssh2
+Aug 10 14:54:25 aitopatom-ad9e sshd[1679795]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:25 aitopatom-ad9e sshd[1679793]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:25 aitopatom-ad9e sshd[1679796]: Accepted password for gipsoft from 100.82.14.98 port 52392 ssh2
+Aug 10 14:54:25 aitopatom-ad9e sshd[1679796]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:25 aitopatom-ad9e sshd[1679794]: Accepted password for gipsoft from 100.82.14.98 port 52376 ssh2
+Aug 10 14:54:25 aitopatom-ad9e sshd[1679794]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:26 aitopatom-ad9e sshd[1680547]: Accepted password for gipsoft from 100.82.14.98 port 52398 ssh2
+Aug 10 14:54:26 aitopatom-ad9e sshd[1680547]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:26 aitopatom-ad9e sshd[1680547]: pam_unix(sshd:session): session closed for user gipsoft
+Aug 10 14:54:27 aitopatom-ad9e sshd[1680731]: Accepted password for gipsoft from 100.82.14.98 port 52416 ssh2
+Aug 10 14:54:27 aitopatom-ad9e sshd[1680731]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:27 aitopatom-ad9e sshd[1680730]: Accepted password for gipsoft from 100.82.14.98 port 52414 ssh2
+Aug 10 14:54:27 aitopatom-ad9e sshd[1680730]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:31 aitopatom-ad9e sshd[1681068]: Accepted password for gipsoft from 100.82.14.98 port 49908 ssh2
+Aug 10 14:54:31 aitopatom-ad9e sshd[1681068]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)

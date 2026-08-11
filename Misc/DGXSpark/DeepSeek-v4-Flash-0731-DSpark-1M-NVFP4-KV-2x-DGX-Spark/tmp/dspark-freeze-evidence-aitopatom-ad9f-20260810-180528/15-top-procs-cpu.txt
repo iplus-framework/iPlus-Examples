@@ -1,0 +1,502 @@
+### CMD: ps -eo pid,ppid,user,%cpu,%mem,rss,vsz,stat,lstart,etime,cmd --sort=-%cpu
+### TS: 2026-08-10T18:05:32+02:00
+    PID    PPID USER     %CPU %MEM   RSS    VSZ STAT                  STARTED     ELAPSED CMD
+ 110041  110021 gdm       105  0.0 48956 3911824 Sl+  Mo Aug 10 09:01:25 2026    09:04:06 /usr/bin/gnome-shell
+ 110212  110041 gdm      52.8  0.0  2220 401676 Sl    Mo Aug 10 09:01:29 2026    09:04:03 ibus-daemon --panel disable --xim
+ 118107       2 root     36.0  0.0     0      0 I     Mo Aug 10 12:34:27 2026    05:31:04 [kworker/u82:4-writeback]
+ 110122  110021 gdm      31.5  0.0  4788 427316 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-color
+ 110170  110021 gdm      28.4  0.0  3804 397916 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-housekeeping
+ 109243       1 root     17.3  0.0 19976  59116 S<s   Mo Aug 10 09:01:00 2026    09:04:31 /usr/lib/systemd/systemd-journald
+    172       2 root     16.5  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [kswapd0]
+      1       0 root     14.2  0.0 10516  23560 Ss    Sa Aug  8 22:58:49 2026  1-19:06:43 /sbin/init splash
+      2       0 root     12.3  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [kthreadd]
+  42491       1 root     11.2  0.0  2732  55120 Ss    So Aug  9 23:59:59 2026    18:05:32 /usr/sbin/cupsd -l
+   1699       1 root     10.6  0.0 11924 1360528 Ssl  Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/sbin/NetworkManager --no-daemon
+  42493       1 cups-br+ 10.0  0.0  5948 273588 Ssl   So Aug  9 23:59:59 2026    18:05:32 /usr/sbin/cups-browsed
+   1593       1 polkitd   9.8  0.0 11288 388288 Ssl   Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/lib/polkit-1/polkitd --no-debug
+   1573       1 root      9.4  0.0  5560 325104 Ssl   Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/libexec/accounts-daemon
+   1575       1 avahi     9.2  0.0  2956   8684 Ss    Sa Aug  8 22:58:56 2026  1-19:06:35 avahi-daemon: running [aitopatom-ad9f.local]
+   1577       1 message+  9.1  0.0  4784  11232 Ss    Sa Aug  8 22:58:56 2026  1-19:06:35 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+   5268       1 root      9.0  0.0  3348  12060 Ss    So Aug  9 08:19:57 2026  1-09:45:34 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+   1747       1 systemd+  7.7  0.0  5224  21508 Ss    Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/lib/systemd/systemd-resolved
+   1644       1 root      6.8  0.0  5572 472724 Ssl   Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/libexec/udisks2/udisksd
+   1994       1 root      6.0  0.0 25300 2531536 Ssl  Sa Aug  8 22:58:58 2026  1-19:06:33 /usr/bin/containerd
+   2006       1 root      4.5  0.0  1680  20416 Ss    Sa Aug  8 22:58:58 2026  1-19:06:33 /usr/sbin/cron -f -P
+   1375       1 systemd+  3.9  0.0  5580  35540 Ss    Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/lib/systemd/systemd-networkd
+   1454       1 systemd+  3.6  0.0  3708  90952 Ssl   Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/lib/systemd/systemd-timesyncd
+   1642       1 root      3.0  0.0  6020  18168 Ss    Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/lib/systemd/systemd-logind
+   2169       1 root      2.9  0.0 42144 2875036 Ssl  Sa Aug  8 22:58:58 2026  1-19:06:33 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+    687       1 root      2.7  0.0  3844  31368 Ss    Sa Aug  8 22:58:55 2026  1-19:06:36 /usr/lib/systemd/systemd-udevd
+   1576       1 root      1.8  0.0  4492  13944 Ss    Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/libexec/bluetooth/bluetoothd
+ 118078       2 root      1.4  0.0     0      0 I     Mo Aug 10 12:20:04 2026    05:45:27 [kworker/u81:0-writeback]
+   1975       1 _lldpd    1.1  0.0  1468  18672 Ss    Sa Aug  8 22:58:58 2026  1-19:06:33 lldpd: monitor. 
+ 119420       1 root      0.7  0.0  6860  16968 Ss    Mo Aug 10 18:05:28 2026       00:04 /usr/lib/systemd/systemd-hostnamed
+ 118100       2 root      0.7  0.0     0      0 I     Mo Aug 10 12:28:58 2026    05:36:33 [kworker/u82:3-flush-259:0]
+ 112472       2 root      0.6  0.0     0      0 I     Mo Aug 10 12:12:46 2026    05:52:45 [kworker/u81:3-ext4-rsv-conversion]
+    149       2 root      0.4  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [kcompactd0]
+ 118336       1 root      0.3  0.0 44444 1355480 Ssl  Mo Aug 10 17:55:50 2026       09:41 /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=41641
+ 118136       2 root      0.2  0.0     0      0 I     Mo Aug 10 15:38:16 2026    02:27:15 [kworker/u82:5-events_unbound]
+ 111386       2 root      0.2  0.0     0      0 I     Mo Aug 10 11:40:46 2026    06:24:45 [kworker/u82:2-events_power_efficient]
+ 118750  118486 gipsoft   0.1  0.0  6528  16696 S     Mo Aug 10 18:02:45 2026       02:46 sshd: gipsoft@pts/0
+     15       2 root      0.0  0.0     0      0 I     Sa Aug  8 22:58:49 2026  1-19:06:43 [rcu_preempt]
+ 118148       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:17 2026    02:27:14 [kworker/18:1-mm_percpu_wq]
+ 118142       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:16 2026    02:27:15 [kworker/11:2-events]
+ 118141       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:16 2026    02:27:15 [kworker/0:1-events]
+ 118144       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:16 2026    02:27:15 [kworker/1:0-events]
+ 118150       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:17 2026    02:27:14 [kworker/10:2-events]
+ 118139       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:16 2026    02:27:15 [kworker/3:0-events]
+ 118146       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:17 2026    02:27:14 [kworker/2:1-events]
+ 118138       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:16 2026    02:27:15 [kworker/7:0-events]
+ 118151       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:17 2026    02:27:14 [kworker/16:2-events]
+ 118152       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:17 2026    02:27:14 [kworker/9:2-events]
+   2019    1975 _lldpd    0.0  0.0  1824  18672 S     Sa Aug  8 22:58:58 2026  1-19:06:33 lldpd: 3 neighbors.
+ 118493       1 gipsoft   0.0  0.0 11524  20860 Ss    Mo Aug 10 18:02:44 2026       02:47 /usr/lib/systemd/systemd --user
+   1750       1 syslog    0.0  0.0  3456 222824 Ssl   Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/sbin/rsyslogd -n -iNONE
+ 112452       2 root      0.0  0.0     0      0 I     Mo Aug 10 12:05:09 2026    06:00:23 [kworker/14:0-events]
+ 113743       2 root      0.0  0.0     0      0 I     Mo Aug 10 12:14:42 2026    05:50:49 [kworker/12:0-mm_percpu_wq]
+ 112991       2 root      0.0  0.0     0      0 I     Mo Aug 10 12:14:07 2026    05:51:24 [kworker/19:0-events]
+ 118149       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:38:17 2026    02:27:14 [kworker/19:2-events]
+ 119167    5268 root      0.0  0.0  9100  16536 Ss    Mo Aug 10 18:03:07 2026       02:24 sshd: gipsoft [priv]
+ 118828    5268 root      0.0  0.0  9120  16536 Ss    Mo Aug 10 18:03:06 2026       02:25 sshd: gipsoft [priv]
+ 110703       2 root      0.0  0.0     0      0 I     Mo Aug 10 09:55:31 2026    08:10:00 [kworker/4:1-events]
+   2754       1 root      0.0  0.0  4588 328556 Ssl   Sa Aug  8 22:59:02 2026  1-19:06:30 /usr/libexec/upowerd
+ 118518  118493 gipsoft   0.0  0.0 17108 421972 Ssl   Mo Aug 10 18:02:44 2026       02:47 /usr/bin/wireplumber
+ 118486    5268 root      0.0  0.0  9072  16536 Ss    Mo Aug 10 18:02:36 2026       02:56 sshd: gipsoft [priv]
+ 118830    5268 root      0.0  0.0  9104  16536 Ss    Mo Aug 10 18:03:07 2026       02:25 sshd: gipsoft [priv]
+ 109213       2 root      0.0  0.0     0      0 I     Mo Aug 10 08:56:01 2026    09:09:31 [kworker/5:2-events]
+   2261       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [irq/485-nvidia]
+ 112119       2 root      0.0  0.0     0      0 I     Mo Aug 10 11:56:33 2026    06:08:59 [kworker/12:2-events]
+    683       1 root      0.0  0.0 24968 290156 SLsl  Sa Aug  8 22:58:55 2026  1-19:06:36 /sbin/multipathd -d -s
+   2550       1 rtkit     0.0  0.0  2684  22864 SNsl  Sa Aug  8 22:59:00 2026  1-19:06:31 /usr/libexec/rtkit-daemon
+ 119336  119167 gipsoft   0.0  0.0  6808  16860 S     Mo Aug 10 18:03:08 2026       02:23 sshd: gipsoft@notty
+ 118155       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:40:37 2026    02:24:54 [kworker/u80:4-ipv6_addrconf]
+   1703       1 root      0.0  0.0  1992  16892 Ss    Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/sbin/wpa_supplicant -u -s -O DIR=/run/wpa_supplicant GROUP=netdev
+   1578       1 root      0.0  0.0  2284 1602800 Ssl  Sa Aug  8 22:58:56 2026  1-19:06:35 /opt/nvidia/dgx-dashboard/dashboard-admin
+ 118753  118750 gipsoft   0.0  0.0  5508  22036 Ss    Mo Aug 10 18:02:45 2026       02:46 -bash
+ 118512  118493 gipsoft   0.0  0.0 10868 125488 Ssl   Mo Aug 10 18:02:44 2026       02:47 /usr/bin/pipewire
+ 110294       1 gdm       0.0  0.0  1472 2879300 Sl+  Mo Aug 10 09:01:29 2026    09:04:03 /usr/bin/gjs -m /usr/share/gnome-shell/org.gnome.ScreenSaver
+ 110100       1 gdm       0.0  0.0  1476 2879308 Sl+  Mo Aug 10 09:01:29 2026    09:04:03 /usr/bin/gjs -m /usr/share/gnome-shell/org.gnome.Shell.Notifications
+ 118161       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:46 2026       09:45 [kworker/u80:1-gid-cache-wq]
+ 118481       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:02:02 2026       03:29 [kworker/1:2-events]
+   1968       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:57 2026  1-19:06:35 [psimon]
+   1579       1 dgx-das+  0.0  0.0  1588 1838716 Ssl  Sa Aug  8 22:58:56 2026  1-19:06:35 /opt/nvidia/dgx-dashboard-service/dashboard-service -port 11000 serve
+ 110006  110004 gdm       0.0  0.0 13152 25390160 Sl+ Mo Aug 10 09:01:24 2026    09:04:08 /usr/lib/xorg/Xorg vt1 -displayfd 3 -auth /var/lib/gdm3/.cache/gdm/Xauthority -nolisten tcp -background none -noreset -keeptty -novtswitch -verbose 3
+ 110061  110041 gdm       0.0  0.0  2232 834440 Sl+   Mo Aug 10 09:01:27 2026    09:04:05 /usr/libexec/mutter-x11-frames
+ 118156       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:46 2026       09:45 [kworker/u81:2-events_unbound]
+   1790       1 root      0.0  0.0  6440 398872 Ssl   Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/sbin/ModemManager
+ 112467       2 root      0.0  0.0     0      0 I     Mo Aug 10 12:10:46 2026    05:54:46 [kworker/u80:0-mlx5_fc]
+    569       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:54 2026  1-19:06:37 [jbd2/nvme0n1p2-8]
+   1582       1 gnome-r+  0.0  0.0  4732 443308 Ssl   Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/libexec/gnome-remote-desktop-daemon --system
+ 110178  110021 gdm       0.0  0.0  6120 538304 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-power
+ 110115  110021 gdm       0.0  0.0  6556 556636 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-sharing
+      6       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-kvfree_rcu_reclaim]
+   1602       1 root      0.0  0.0  1060   3308 Ss    Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/bin/nvidia-persistenced --persistence-mode --verbose
+     18       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/0]
+     23       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/1]
+     29       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/2]
+     30       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/2]
+     77       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/10]
+     35       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/3]
+     41       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/4]
+    103       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/14]
+ 110021  110019 gdm       0.0  0.0  6152 538604 Sl+   Mo Aug 10 09:01:25 2026    09:04:07 /usr/libexec/gnome-session-binary --autostart /usr/share/gdm/greeter/autostart
+    441       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:52 2026  1-19:06:39 [ptp3]
+     60       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/7]
+     84       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/11]
+    419       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:51 2026  1-19:06:40 [ptp2]
+    372       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:50 2026  1-19:06:41 [ptp0]
+    395       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:51 2026  1-19:06:41 [ptp1]
+     90       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/12]
+    102       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/14]
+ 110130  110021 gdm       0.0  0.0  4160 543352 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-rfkill
+     96       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/13]
+    165       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [watchdogd]
+     71       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/9]
+     59       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/7]
+    108       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/15]
+     24       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/1]
+     47       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/5]
+     53       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/6]
+    277       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/13:1H-kblockd]
+    111       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/15:0H-kblockd]
+    120       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/17]
+    132       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/19]
+     65       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/8]
+    273       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/4:1H-kblockd]
+    114       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/16]
+    126       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [migration/18]
+ 110237       1 gdm       0.0  0.0  1972 434060 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-printer
+    109       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/15]
+    237       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:42 [kworker/0:1H-kblockd]
+    281       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/12:1H-kblockd]
+    283       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/14:1H-kblockd]
+    255       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/3:1H-kblockd]
+    151       2 root      0.0  0.0     0      0 SN    Sa Aug  8 22:58:49 2026  1-19:06:43 [khugepaged]
+     14       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/0]
+    133       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/19]
+    185       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:42 [kworker/19:1H-kblockd]
+    284       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/2:1H-kblockd]
+    279       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/11:1H-kblockd]
+    253       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:42 [kworker/1:1H-kblockd]
+    722       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:55 2026  1-19:06:36 [psimon]
+    115       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/16]
+    282       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/6:1H-kblockd]
+    171       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/5:1H-kblockd]
+     72       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/9]
+    121       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/17]
+     80       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/10:0H-kblockd]
+    274       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/8:1H-kblockd]
+     97       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/13]
+    127       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/18]
+     48       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/5]
+    280       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/17:1H-kblockd]
+     85       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/11]
+    285       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/18:1H-kblockd]
+    286       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/16:1H-kblockd]
+     54       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/6]
+    275       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/7:1H-kblockd]
+     42       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/4]
+     78       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/10]
+     91       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/12]
+     36       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/3]
+     66       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ksoftirqd/8]
+    287       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/9:1H-kblockd]
+ 110145  110021 gdm       0.0  0.0  5872 683404 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-media-keys
+ 110020  110019 gdm       0.0  0.0  3628   9936 S+    Mo Aug 10 09:01:25 2026    09:04:07 dbus-daemon --nofork --print-address 4 --session
+   1629       1 root      0.0  0.0  2808  11636 Ss    Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/sbin/smartd -n
+    145       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [khungtaskd]
+    321       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:50 2026  1-19:06:42 [hwrng]
+ 110128  110021 gdm       0.0  0.0  2036 337420 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-print-notifications
+ 110119  110021 gdm       0.0  0.0  1940 351232 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-wacom
+   2508       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:59:00 2026  1-19:06:31 [UVM Tools Event Queue]
+ 110125  110021 gdm       0.0  0.0  1908 424452 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-keyboard
+   2704       1 colord    0.0  0.0  2020 333088 Ssl   Sa Aug  8 22:59:01 2026  1-19:06:30 /usr/libexec/colord
+   2505       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:59:00 2026  1-19:06:31 [UVM global queue]
+    429       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_fc]
+    382       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_fc]
+     13       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-mm_percpu_wq]
+    146       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [oom_reaper]
+   2066       1 root      0.0  0.0  2564 327468 Ssl   Sa Aug  8 22:58:58 2026  1-19:06:33 /usr/sbin/gdm3
+ 109992    2066 root      0.0  0.0  2228 255272 Sl    Mo Aug 10 09:01:24 2026    09:04:08 gdm-session-worker [pam/gdm-launch-environment]
+    451       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_fc]
+     17       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [rcu_exp_gp_kthread_worker]
+    405       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_fc]
+     16       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [rcu_exp_par_gp_kthread_worker/1]
+   1632       1 root      0.0  0.0  1460 321644 Ssl   Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/libexec/switcheroo-control
+      3       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [pool_workqueue_release]
+      4       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-rcu_gp]
+      5       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-sync_wq]
+      7       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-slub_flushwq]
+      8       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-netns]
+     10       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/0:0H-events_highpri]
+     19       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/0]
+     20       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/0]
+     21       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/1]
+     22       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/1]
+     26       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/1:0H-events_highpri]
+     27       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/2]
+     28       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/2]
+     32       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/2:0H-events_highpri]
+     33       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/3]
+     34       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/3]
+     38       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/3:0H-events_highpri]
+     39       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/4]
+     40       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/4]
+     44       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/4:0H-events_highpri]
+     45       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/5]
+     46       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/5]
+     50       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/5:0H-events_highpri]
+     51       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/6]
+     52       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/6]
+     56       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/6:0H-events_highpri]
+     57       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/7]
+     58       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/7]
+     62       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/7:0H-events_highpri]
+     63       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/8]
+     64       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/8]
+     68       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/8:0H-events_highpri]
+     69       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/9]
+     70       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/9]
+     74       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/9:0H-events_highpri]
+     75       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/10]
+     76       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/10]
+     81       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [rcu_exp_par_gp_kthread_worker/2]
+     82       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/11]
+     83       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/11]
+     87       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/11:0H-events_highpri]
+     88       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/12]
+     89       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/12]
+     93       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/12:0H-events_highpri]
+     94       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/13]
+     95       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/13]
+     99       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/13:0H-events_highpri]
+    100       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/14]
+    101       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/14]
+    105       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/14:0H-events_highpri]
+    106       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/15]
+    107       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/15]
+    112       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/16]
+    113       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/16]
+    117       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/16:0H-events_highpri]
+    118       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/17]
+    119       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/17]
+    123       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/17:0H-events_highpri]
+    124       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/18]
+    125       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/18]
+    129       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/18:0H-events_highpri]
+    130       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [cpuhp/19]
+    131       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [idle_inject/19]
+    135       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/19:0H-events_highpri]
+    139       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [kdevtmpfs]
+    140       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-inet_frag_wq]
+    141       2 root      0.0  0.0     0      0 I     Sa Aug  8 22:58:49 2026  1-19:06:43 [rcu_tasks_kthread]
+    142       2 root      0.0  0.0     0      0 I     Sa Aug  8 22:58:49 2026  1-19:06:43 [rcu_tasks_rude_kthread]
+    143       2 root      0.0  0.0     0      0 I     Sa Aug  8 22:58:49 2026  1-19:06:43 [rcu_tasks_trace_kthread]
+    144       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [kauditd]
+    148       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-writeback]
+    150       2 root      0.0  0.0     0      0 SN    Sa Aug  8 22:58:49 2026  1-19:06:43 [ksmd]
+    152       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-kblockd]
+    153       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-blkcg_punt_bio]
+    154       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-kintegrityd]
+    157       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-tpm_dev_wq]
+    158       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-ata_sff]
+    159       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-md]
+    160       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-md_bitmap]
+    161       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-edac-poller]
+    163       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-devfreq_wq]
+    168       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-quota_events_unbound]
+    170       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-ffa_pcpu_irq_notification]
+    173       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [ecryptfs-kthread]
+    174       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-kthrotld]
+    175       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:43 [kworker/R-acpi_thermal_pm]
+    177       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [irq/29-arm-smmu-v3-evtq]
+    178       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:43 [irq/30-arm-smmu-v3-priq]
+    180       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/33-arm-smmu-v3-evtq]
+    181       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/34-arm-smmu-v3-priq]
+    182       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/37-arm-smmu-v3-evtq]
+    183       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:42 [kworker/R-mld]
+    184       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:42 [kworker/R-ipv6_addrconf]
+    186       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:42 [kworker/R-kstrp]
+    197       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:42 [kworker/u84:0]
+    198       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:42 [kworker/u85:0]
+    201       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/326-aerdrv]
+    203       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/329-aerdrv]
+    204       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/332-aerdrv]
+    205       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/331-pciehp]
+    206       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/335-aerdrv]
+    207       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/334-pciehp]
+    208       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/338-aerdrv]
+    209       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/337-pciehp]
+    210       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:49 2026  1-19:06:42 [irq/341-aerdrv]
+    211       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:49 2026  1-19:06:42 [kworker/R-charger_manager]
+    276       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/10:1H]
+    278       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/15:1H]
+    298       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/R-tls-strp]
+    304       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/R-nvme-wq]
+    305       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/R-nvme-reset-wq]
+    307       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/R-nvme-delete-wq]
+    308       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/R-nvme-auth-wq]
+    355       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/R-mlx5_cmd_0000:01:00.0]
+    356       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/R-mlx5_health0000:01:00.0]
+    357       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:42 [kworker/R-mlx5_page_allocator]
+    370       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_events]
+    371       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_fw_reset_events]
+    373       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_esw_wq]
+    374       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_vhca_event0]
+    375       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_vhca_event1]
+    376       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_vhca_event2]
+    377       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_vhca_event3]
+    378       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_vhca_event4]
+    379       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_vhca_event5]
+    380       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_vhca_event6]
+    381       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_vhca_event7]
+    383       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_fw_tracer]
+    384       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_hv_vhca]
+    386       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5e]
+    387       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5e_tls_tx_pool]
+    388       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5e_arfs]
+    389       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5e_tls_rx]
+    390       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_cmd_0000:01:00.1]
+    391       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_health0000:01:00.1]
+    392       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:50 2026  1-19:06:41 [kworker/R-mlx5_page_allocator]
+    393       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_events]
+    394       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_fw_reset_events]
+    396       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_esw_wq]
+    397       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_vhca_event0]
+    398       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_vhca_event1]
+    399       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_vhca_event2]
+    400       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_vhca_event3]
+    401       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_vhca_event4]
+    402       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_vhca_event5]
+    403       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_vhca_event6]
+    404       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_vhca_event7]
+    406       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_fw_tracer]
+    407       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5_hv_vhca]
+    409       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5e]
+    410       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5e_tls_tx_pool]
+    411       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:41 [kworker/R-mlx5e_arfs]
+    412       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5e_tls_rx]
+    414       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_cmd_0002:01:00.0]
+    415       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_health0002:01:00.0]
+    416       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_page_allocator]
+    417       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_events]
+    418       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_fw_reset_events]
+    420       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_esw_wq]
+    421       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_vhca_event0]
+    422       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_vhca_event1]
+    423       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_vhca_event2]
+    424       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_vhca_event3]
+    425       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_vhca_event4]
+    426       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_vhca_event5]
+    427       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_vhca_event6]
+    428       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_vhca_event7]
+    430       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_fw_tracer]
+    431       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_hv_vhca]
+    432       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5e]
+    433       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5e_tls_tx_pool]
+    434       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5e_arfs]
+    435       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5e_tls_rx]
+    436       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_cmd_0002:01:00.1]
+    437       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_health0002:01:00.1]
+    438       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:51 2026  1-19:06:40 [kworker/R-mlx5_page_allocator]
+    439       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_events]
+    440       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_fw_reset_events]
+    442       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_esw_wq]
+    443       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_vhca_event0]
+    444       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_vhca_event1]
+    445       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_vhca_event2]
+    446       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_vhca_event3]
+    447       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_vhca_event4]
+    448       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_vhca_event5]
+    449       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_vhca_event6]
+    450       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_vhca_event7]
+    452       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_fw_tracer]
+    453       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5_hv_vhca]
+    454       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5e]
+    455       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5e_tls_tx_pool]
+    456       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5e_arfs]
+    457       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mlx5e_tls_rx]
+    458       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-ib-comp-wq]
+    459       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-ib-comp-unb-wq]
+    460       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-ib_mcast]
+    461       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-ib_nl_sa_wq]
+    462       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-ib_mad1]
+    463       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mkey_cache]
+    464       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-ib_mad1]
+    465       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mkey_cache]
+    466       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-ib_mad1]
+    467       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mkey_cache]
+    469       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-ib_mad1]
+    470       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:52 2026  1-19:06:39 [kworker/R-mkey_cache]
+    497       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:54 2026  1-19:06:38 [kworker/R-raid5wq]
+    570       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:54 2026  1-19:06:37 [kworker/R-ext4-rsv-conversion]
+    672       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:55 2026  1-19:06:36 [kworker/R-ipmi-msghandler-remove-wq]
+    674       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:55 2026  1-19:06:36 [kworker/R-kmpathd]
+    675       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:55 2026  1-19:06:36 [kworker/R-kmpath_handlerd]
+    948       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:55 2026  1-19:06:36 [irq/195-pcie_hotplug]
+    949       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:55 2026  1-19:06:36 [irq/196-pcie_hotplug]
+    954       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:55 2026  1-19:06:36 [cppc_fie]
+    983       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:55 2026  1-19:06:36 [kworker/R-cfg80211]
+   1038       1 root      0.0  0.0  1972   6180 Ss    Sa Aug  8 22:58:55 2026  1-19:06:36 /usr/sbin/rdma-ndd --systemd
+   1181       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:55 2026  1-19:06:36 [kworker/R-iw_cm_wq]
+   1268       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:55 2026  1-19:06:36 [kworker/R-rdma_cm]
+   1269       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:55 2026  1-19:06:36 [nv_queue]
+   1271       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:55 2026  1-19:06:36 [nv_queue]
+   1275       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:55 2026  1-19:06:36 [nv_open_q]
+   1276       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:55 2026  1-19:06:36 [kworker/R-iscsi_conn_cleanup]
+   1278       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:55 2026  1-19:06:36 [kworker/R-rpciod]
+   1279       2 root      0.0  0.0     0      0 I<    Sa Aug  8 22:58:55 2026  1-19:06:36 [kworker/R-xprtiod]
+   1284       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:55 2026  1-19:06:36 [napi/phy0-0]
+   1285       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:55 2026  1-19:06:36 [napi/phy0-0]
+   1601       1 root      0.0  0.0  1116   5076 Ss    Sa Aug  8 22:58:56 2026  1-19:06:35 /usr/sbin/rasdaemon -f -r
+   1688    1575 avahi     0.0  0.0   688   8392 S     Sa Aug  8 22:58:56 2026  1-19:06:35 avahi-daemon: chroot helper
+   1959       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:56 2026  1-19:06:35 [mt76-tx phy0]
+   2259       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [irq/483-nvidia]
+   2260       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [irq/484-nvidia]
+   2262       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [irq/486-nvidia]
+   2263       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [irq/487-nvidia]
+   2264       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [irq/488-nvidia]
+   2265       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [irq/489-nvidia]
+   2266       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [irq/490-nvidia]
+   2267       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [nvidia]
+   2268       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [nv_queue]
+   2269       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [nvidia-modeset/kthread_q]
+   2270       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:58:58 2026  1-19:06:33 [nvidia-modeset/deferred_close_kthread_q]
+   2507       2 root      0.0  0.0     0      0 S     Sa Aug  8 22:59:00 2026  1-19:06:31 [UVM deferred release queue]
+   2573       2 root      0.0  0.0     0      0 S<    Sa Aug  8 22:59:00 2026  1-19:06:31 [krfcommd]
+  85055       2 root      0.0  0.0     0      0 I     Mo Aug 10 07:06:18 2026    10:59:13 [kworker/3:2-mm_percpu_wq]
+ 109177       2 root      0.0  0.0     0      0 I     Mo Aug 10 08:44:12 2026    09:21:19 [kworker/6:1-events]
+ 109372       1 root      0.0  0.0  1000  18960 Ss+   Mo Aug 10 09:01:00 2026    09:04:31 /sbin/agetty -o -p -- \u --keep-baud 115200,57600,38400,9600 - vt220
+ 109617       2 root      0.0  0.0     0      0 I     Mo Aug 10 09:01:03 2026    09:04:29 [kworker/13:1-events]
+ 110004  109992 gdm       0.0  0.0  1352 247404 Ssl+  Mo Aug 10 09:01:24 2026    09:04:08 /usr/libexec/gdm-x-session dbus-run-session -- gnome-session --autostart /usr/share/gdm/greeter/autostart
+ 110014  110004 gdm       0.0  0.0  2228   9368 S+    Mo Aug 10 09:01:25 2026    09:04:07 dbus-daemon --print-address 4 --session
+ 110019  110004 gdm       0.0  0.0  1476   6308 S+    Mo Aug 10 09:01:25 2026    09:04:07 dbus-run-session -- gnome-session --autostart /usr/share/gdm/greeter/autostart
+ 110024       1 gdm       0.0  0.0  2164 384640 Sl+   Mo Aug 10 09:01:25 2026    09:04:07 /usr/libexec/at-spi-bus-launcher
+ 110030  110024 gdm       0.0  0.0  2292   9500 S+    Mo Aug 10 09:01:25 2026    09:04:07 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 11 --address=unix:path=/var/lib/gdm3/.cache/at-spi/bus_0
+ 110064       1 gdm       0.0  0.0  1844 237732 Sl+   Mo Aug 10 09:01:28 2026    09:04:03 /usr/libexec/at-spi2-registryd --use-gnome-session
+ 110086       1 gdm       0.0  0.0  1368 320952 Sl+   Mo Aug 10 09:01:28 2026    09:04:03 /usr/libexec/xdg-permission-store
+ 110136  110021 gdm       0.0  0.0  1368 398520 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-smartcard
+ 110139  110021 gdm       0.0  0.0  1932 446168 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-datetime
+ 110148  110021 gdm       0.0  0.0  1368 321372 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-screensaver-proxy
+ 110153  110021 gdm       0.0  0.0  1908 407624 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-sound
+ 110164  110021 gdm       0.0  0.0  1352 395776 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/gsd-a11y-settings
+ 110270  110212 gdm       0.0  0.0  1304 322476 Sl    Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/ibus-dconf
+ 110273       1 gdm       0.0  0.0  1828 277420 Sl    Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/ibus-x11 --kill-daemon
+ 110275       1 gdm       0.0  0.0  3976 322372 Sl+   Mo Aug 10 09:01:29 2026    09:04:03 /usr/libexec/ibus-portal
+ 110331  110212 gdm       0.0  0.0  1304 248524 Sl    Mo Aug 10 09:01:29 2026    09:04:02 /usr/libexec/ibus-engine-simple
+ 111160       2 root      0.0  0.0     0      0 I     Mo Aug 10 10:26:13 2026    07:39:19 [kworker/9:0-events]
+ 111383       2 root      0.0  0.0     0      0 I     Mo Aug 10 11:40:01 2026    06:25:30 [kworker/16:1-events]
+ 111513       2 root      0.0  0.0     0      0 I<    Mo Aug 10 11:50:59 2026    06:14:33 [kworker/u83:2-hci0]
+ 111514       2 root      0.0  0.0     0      0 I     Mo Aug 10 11:50:59 2026    06:14:33 [kworker/8:0-events]
+ 112117       2 root      0.0  0.0     0      0 I     Mo Aug 10 11:56:15 2026    06:09:16 [kworker/0:0-events]
+ 112471       2 root      0.0  0.0     0      0 I     Mo Aug 10 12:12:33 2026    05:52:58 [kworker/17:1-cgroup_free]
+ 113336       2 root      0.0  0.0     0      0 I     Mo Aug 10 12:14:16 2026    05:51:15 [kworker/10:1-events]
+ 118116       2 root      0.0  0.0     0      0 I<    Mo Aug 10 13:34:59 2026    04:30:32 [kworker/u83:0-hci0]
+ 118125       2 root      0.0  0.0     0      0 I     Mo Aug 10 15:08:55 2026    02:56:36 [kworker/15:1-mm_percpu_wq]
+ 118158       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:46 2026       09:45 [kworker/15:0-mm_percpu_wq]
+ 118162       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:46 2026       09:45 [kworker/8:2-mm_percpu_wq]
+ 118163       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:46 2026       09:45 [kworker/17:0-cgroup_release]
+ 118224       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:47 2026       09:44 [kworker/0:2-events]
+ 118225       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:47 2026       09:44 [kworker/13:2-events]
+ 118246       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:47 2026       09:44 [kworker/18:2-cgroup_free]
+ 118265       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:47 2026       09:44 [kworker/7:2-mm_percpu_wq]
+ 118287       1 gdm       0.0  0.0  9112 328640 Sl+   Mo Aug 10 17:55:48 2026       09:44 /usr/bin/gnome-keyring-daemon --start --foreground --components=secrets
+ 118306       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:49 2026       09:42 [kworker/14:2-events]
+ 118320       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:50 2026       09:42 [kworker/1:1-events]
+ 118368       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:52 2026       09:39 [kworker/4:0-events]
+ 118443       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:55:57 2026       09:34 [kworker/11:1-cgroup_free]
+ 118460       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:56:20 2026       09:11 [kworker/2:0-events]
+ 118465       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:57:40 2026       07:51 [kworker/5:0-events]
+ 118468       2 root      0.0  0.0     0      0 I     Mo Aug 10 17:58:41 2026       06:50 [kworker/6:0-mm_percpu_wq]
+ 118476       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:01:33 2026       03:59 [kworker/u80:2-mlx5_cmd_0002:01:00.0]
+ 118477       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:01:33 2026       03:58 [kworker/4:2-events]
+ 118482       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:02:18 2026       03:14 [kworker/u80:3-mlx5_fc]
+ 118500  118493 gipsoft   0.0  0.0  3400  22340 S     Mo Aug 10 18:02:44 2026       02:47 (sd-pam)
+ 118505       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:02:44 2026       02:47 [kworker/11:0-events]
+ 118514  118493 gipsoft   0.0  0.0  5344 109108 Ssl   Mo Aug 10 18:02:44 2026       02:47 /usr/bin/pipewire -c filter-chain.conf
+ 118521  118493 gipsoft   0.0  0.0  9784 123640 Ssl   Mo Aug 10 18:02:44 2026       02:47 /usr/bin/pipewire-pulse
+ 118543  118493 gipsoft   0.0  0.0  4392   9500 Ss    Mo Aug 10 18:02:44 2026       02:47 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+ 118567       2 root      0.0  0.0     0      0 I<    Mo Aug 10 18:02:45 2026       02:47 [kworker/u83:1-hci0]
+ 118569       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:02:45 2026       02:47 [kworker/0:3]
+ 118774  118493 gipsoft   0.0  0.0  6876 548544 Ssl   Mo Aug 10 18:02:45 2026       02:46 /usr/libexec/xdg-document-portal
+ 118778  118493 gipsoft   0.0  0.0  5728 320952 Ssl   Mo Aug 10 18:02:45 2026       02:46 /usr/libexec/xdg-permission-store
+ 118785  118774 root      0.0  0.0  1696   2288 Ss    Mo Aug 10 18:02:45 2026       02:46 fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc
+ 118827       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:03:04 2026       02:28 [kworker/2:2-events]
+ 118998  118828 gipsoft   0.0  0.0  6544  16696 S     Mo Aug 10 18:03:07 2026       02:24 sshd: gipsoft@notty
+ 118999  118998 gipsoft   0.0  0.0  2372   3788 Ss    Mo Aug 10 18:03:07 2026       02:24 /usr/lib/openssh/sftp-server
+ 119166  118830 gipsoft   0.0  0.0  6528  16696 S     Mo Aug 10 18:03:07 2026       02:24 sshd: gipsoft@notty
+ 119169  119166 gipsoft   0.0  0.0  1684   2340 Ss    Mo Aug 10 18:03:07 2026       02:24 /usr/lib/openssh/sftp-server
+ 119337  119336 gipsoft   0.0  0.0  1992   2508 Ss    Mo Aug 10 18:03:08 2026       02:23 /usr/lib/openssh/sftp-server
+ 119338       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:03:14 2026       02:17 [kworker/16:0-mm_percpu_wq]
+ 119343       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:03:36 2026       01:55 [kworker/13:0-events]
+ 119344       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:03:47 2026       01:45 [kworker/3:1-mm_percpu_wq]
+ 119383       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:03:57 2026       01:34 [kworker/u81:1]
+ 119384       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:03:57 2026       01:34 [kworker/u81:4-ext4-rsv-conversion]
+ 119385       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:03:57 2026       01:34 [kworker/19:1-events]
+ 119397       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:04:32 2026       01:00 [kworker/14:1-mm_percpu_wq]
+ 119402       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:04:58 2026       00:33 [kworker/9:1-events]
+ 119410       2 root      0.0  0.0     0      0 I     Mo Aug 10 18:05:19 2026       00:13 [kworker/5:1-mm_percpu_wq]
+ 119411  118753 root      0.0  0.0  6352  31100 S+    Mo Aug 10 18:05:28 2026       00:04 sudo bash ./collect-freeze-evidence.sh
+ 119412  119411 root      0.0  0.0  2412  31100 Ss    Mo Aug 10 18:05:28 2026       00:04 sudo bash ./collect-freeze-evidence.sh
+ 119413  119412 root      0.0  0.0  3576  20716 S+    Mo Aug 10 18:05:28 2026       00:04 bash ./collect-freeze-evidence.sh
+ 119442  119413 root      0.0  0.0  4520  24504 R+    Mo Aug 10 18:05:32 2026       00:00 ps -eo pid,ppid,user,%cpu,%mem,rss,vsz,stat,lstart,etime,cmd --sort=-%cpu

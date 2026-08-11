@@ -1,0 +1,2 @@
+### CMD: sh -lc docker logs --tail 500 dspark-worker 2>/dev/null || true
+### TS: 2026-08-10T18:05:33+02:00

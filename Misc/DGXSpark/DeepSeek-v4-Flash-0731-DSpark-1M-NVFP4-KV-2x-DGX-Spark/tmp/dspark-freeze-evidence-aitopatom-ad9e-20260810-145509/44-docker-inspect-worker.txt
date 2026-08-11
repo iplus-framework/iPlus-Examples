@@ -1,0 +1,3 @@
+### CMD: sh -lc docker inspect dspark-worker 2>/dev/null || true
+### TS: 2026-08-10T14:55:16+02:00
+[]

@@ -1,0 +1,26 @@
+### CMD: sh -lc systemctl status docker --no-pager || true
+### TS: 2026-08-10T18:05:33+02:00
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; preset: enabled)
+    Drop-In: /etc/systemd/system/docker.service.d
+             └─docker-override.conf
+     Active: active (running) since Sat 2026-08-08 22:58:58 CEST; 1 day 19h ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 2169 (dockerd)
+      Tasks: 14
+     Memory: 56.2M (peak: 259.3M swap: 27.8M swap peak: 31.3M)
+        CPU: 1h 16min 44.745s
+     CGroup: /system.slice/docker.service
+             └─2169 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Aug 10 07:14:35 aitopatom-ad9f dockerd[2169]: time="2026-08-10T07:14:35.247542794+02:00" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=31144c038fe6 ep=dspark-worker net=host nid=1d37167568fe
+Aug 10 07:18:00 aitopatom-ad9f dockerd[2169]: time="2026-08-10T07:18:00.758806880+02:00" level=info msg="ignoring event" container=fbd6af1f62f15c272d558484b83e6adec155effa4b597fcddc84799aae8f6009 module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Aug 10 07:19:29 aitopatom-ad9f dockerd[2169]: time="2026-08-10T07:19:29.511158654+02:00" level=warning msg="Refreshing the CDI registry generated errors" error="failed to monitor for changes: no such file or directory\nfailed to monitor for changes: no such file or directory"
+Aug 10 07:19:29 aitopatom-ad9f dockerd[2169]: time="2026-08-10T07:19:29.511213086+02:00" level=warning msg="Ignoring previous errors updating spec" error="CDI device injection failed: unresolvable CDI devices nvidia.com/gpu=all"
+Aug 10 07:19:29 aitopatom-ad9f dockerd[2169]: time="2026-08-10T07:19:29.646580489+02:00" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=463ae56bc10b ep=dspark-worker net=host nid=1d37167568fe
+Aug 10 12:14:43 aitopatom-ad9f dockerd[2169]: time="2026-08-10T12:14:43.266150091+02:00" level=info msg="ignoring event" container=daa3a872b85982bc5e8fe16a789ef67e57397f3220075f12f568a861cac304fb module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
+Aug 10 12:14:44 aitopatom-ad9f dockerd[2169]: time="2026-08-10T12:14:44.040767878+02:00" level=warning msg="Refreshing the CDI registry generated errors" error="failed to monitor for changes: no such file or directory\nfailed to monitor for changes: no such file or directory"
+Aug 10 12:14:44 aitopatom-ad9f dockerd[2169]: time="2026-08-10T12:14:44.040955046+02:00" level=warning msg="Ignoring previous errors updating spec" error="CDI device injection failed: unresolvable CDI devices nvidia.com/gpu=all"
+Aug 10 12:14:44 aitopatom-ad9f dockerd[2169]: time="2026-08-10T12:14:44.267328441+02:00" level=info msg="sbJoin: gwep4 ''->'', gwep6 ''->''" eid=24667502b6ff ep=dspark-worker net=host nid=1d37167568fe
+Aug 10 18:03:57 aitopatom-ad9f dockerd[2169]: time="2026-08-10T18:03:57.816351706+02:00" level=info msg="ignoring event" container=33418fcd13e0a5bfe42f2fb6102ce3d3138c41a344a92b6474d5531132c5aecc module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"

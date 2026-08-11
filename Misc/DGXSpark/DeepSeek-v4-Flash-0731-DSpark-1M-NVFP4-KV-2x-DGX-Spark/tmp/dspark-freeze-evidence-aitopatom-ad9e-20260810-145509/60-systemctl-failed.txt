@@ -1,0 +1,11 @@
+### CMD: systemctl --failed
+### TS: 2026-08-10T14:55:16+02:00
+  UNIT                                     LOAD   ACTIVE SUB    DESCRIPTION
+● nvidia-nvme-interrupt-coalescing.service loaded failed failed Configure NVMe Interrupt Coalescing
+● vllm-deepseekV4Flash.service             loaded failed failed Dual-node DeepSeek-V4-Flash-0731 DSpark vLLM service (head orchestrator)
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
+        SUB    → The low-level unit activation state, values depend on unit type.
+
+2 loaded units listed.

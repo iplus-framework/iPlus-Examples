@@ -1,0 +1,10 @@
+### CMD: docker ps -a
+### TS: 2026-08-10T14:55:14+02:00
+CONTAINER ID   IMAGE                                          COMMAND                  CREATED        STATUS                      PORTS     NAMES
+f99fc6ddfe34   vllm-dspark-runtime:dspark-nvfp4-stage-c       "/bin/bash -c 'sleep…"   3 hours ago    Up 3 hours                            dspark-head
+c1d6d72f40fd   ghcr.io/home-assistant/home-assistant:stable   "/init"                  6 weeks ago    Up 42 hours                           homeassistant
+dacfd63b5e85   nicolargo/glances:latest-full                  "/bin/sh -c '/venv/b…"   6 weeks ago    Up 42 hours                           glances
+ee3b48072ec7   alexxit/go2rtc:latest                          "/sbin/tini -- go2rt…"   6 weeks ago    Up 42 hours                           go2rtc
+7f6a09e6b9b7   hello-world                                    "/hello"                 3 months ago   Exited (0) 3 months ago               goofy_pascal
+2bc0d3f5974a   nvcr.io/nvidia/vllm:26.04-py3                  "/opt/nvidia/nvidia_…"   3 months ago   Exited (137) 3 months ago             vllm
+4f377d58b977   hello-world                                    "/hello"                 3 months ago   Exited (0) 3 months ago               boring_rosalind

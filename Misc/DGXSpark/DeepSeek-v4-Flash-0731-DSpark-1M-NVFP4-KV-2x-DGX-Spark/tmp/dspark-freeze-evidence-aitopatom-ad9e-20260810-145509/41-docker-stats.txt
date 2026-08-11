@@ -1,0 +1,7 @@
+### CMD: timeout 20 docker stats --no-stream
+### TS: 2026-08-10T14:55:14+02:00
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O   BLOCK I/O         PIDS
+f99fc6ddfe34   dspark-head     6.06%     628.2MiB / 119.6GiB   0.51%     0B / 0B   595GB / 73.3GB    823
+c1d6d72f40fd   homeassistant   0.07%     323.8MiB / 119.6GiB   0.26%     0B / 0B   28.7GB / 7.42GB   54
+dacfd63b5e85   glances         0.19%     130.5MiB / 119.6GiB   0.11%     0B / 0B   39.3GB / 8.33GB   4
+ee3b48072ec7   go2rtc          0.00%     1.77MiB / 119.6GiB    0.00%     0B / 0B   1.76GB / 32.3MB   9

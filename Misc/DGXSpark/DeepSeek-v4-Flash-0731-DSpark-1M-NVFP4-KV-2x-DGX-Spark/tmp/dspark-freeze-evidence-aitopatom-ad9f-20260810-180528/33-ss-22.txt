@@ -1,0 +1,5 @@
+### CMD: sh -lc ss -ltnp | egrep ':22\b|State'
+### TS: 2026-08-10T18:05:33+02:00
+State  Recv-Q Send-Q               Local Address:Port  Peer Address:PortProcess                                                 
+LISTEN 0      4096                       0.0.0.0:22         0.0.0.0:*    users:(("sshd",pid=5268,fd=3),("systemd",pid=1,fd=225))
+LISTEN 0      4096                          [::]:22            [::]:*    users:(("sshd",pid=5268,fd=4),("systemd",pid=1,fd=226))

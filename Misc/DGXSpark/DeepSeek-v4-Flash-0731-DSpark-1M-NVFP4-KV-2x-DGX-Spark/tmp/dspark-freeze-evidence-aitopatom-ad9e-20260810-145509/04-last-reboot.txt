@@ -1,0 +1,24 @@
+### CMD: last -x -n 20
+### TS: 2026-08-10T14:55:09+02:00
+gipsoft  pts/0        100.82.14.98     Mon Aug 10 13:01   still logged in
+runlevel (to lvl 5)   6.17.0-1026-nvid Mon Aug 10 07:29   still running
+gipsoft  pts/3        100.82.14.98     Mon Aug 10 06:57 - 08:16  (01:19)
+gipsoft  pts/1        100.82.14.98     Mon Aug 10 06:52 - 08:16  (01:23)
+gipsoft  pts/2        100.82.14.98     Mon Aug 10 06:18 - 12:51  (06:33)
+gipsoft  pts/0        100.82.14.98     Mon Aug 10 06:03 - 12:53  (06:49)
+gipsoft  pts/1        100.82.14.98     Sun Aug  9 08:46 - 21:49  (13:02)
+gipsoft  pts/0        100.82.14.98     Sun Aug  9 08:21 - 21:49  (13:27)
+reboot   system boot  6.17.0-1026-nvid Sat Aug  8 21:14   still running
+gipsoft  pts/1        100.82.14.98     Sat Aug  8 20:09 - 20:27  (00:17)
+gipsoft  pts/0        100.82.14.98     Sat Aug  8 18:52 - 20:27  (01:34)
+reboot   system boot  6.17.0-1026-nvid Sat Aug  8 18:46   still running
+shutdown system down  6.17.0-1026-nvid Sat Aug  8 18:46 - 18:46  (00:00)
+gipsoft  pts/0        100.82.14.98     Sat Aug  8 18:46 - 18:46  (00:00)
+gipsoft  pts/1        100.82.14.98     Sat Aug  8 13:39 - 18:29  (04:49)
+gipsoft  pts/1        100.82.14.98     Sat Aug  8 08:52 - 08:53  (00:00)
+gipsoft  pts/0        100.82.14.98     Sat Aug  8 07:43 - 18:34  (10:51)
+runlevel (to lvl 5)   6.17.0-1026-nvid Sat Aug  8 04:26 - 18:46  (14:19)
+gipsoft  pts/0        100.82.14.98     Wed Aug  5 20:28 - 20:54  (00:26)
+gipsoft  pts/1        100.82.14.98     Tue Aug  4 13:25 - 16:20  (02:55)
+
+wtmp begins Wed Mar 18 06:11:11 2026

@@ -1,0 +1,8 @@
+### CMD: cat /proc/pressure/cpu /proc/pressure/memory /proc/pressure/io
+### TS: 2026-08-10T14:55:13+02:00
+some avg10=0.00 avg60=0.00 avg300=0.00 total=1334672814
+full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+some avg10=0.00 avg60=0.00 avg300=0.00 total=3746776719
+full avg10=0.00 avg60=0.00 avg300=0.00 total=3543113038
+some avg10=0.04 avg60=0.03 avg300=0.00 total=1629754089
+full avg10=0.04 avg60=0.03 avg300=0.00 total=1222241497

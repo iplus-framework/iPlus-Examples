@@ -1,0 +1,25 @@
+### CMD: sh -lc systemctl status ssh --no-pager || systemctl status sshd --no-pager || true
+### TS: 2026-08-10T14:55:16+02:00
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; disabled; preset: enabled)
+     Active: active (running) since Sat 2026-08-08 21:19:22 CEST; 1 day 17h ago
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 47367 (sshd)
+      Tasks: 1 (limit: 153553)
+     Memory: 13.9M (peak: 94.1M swap: 992.0K swap peak: 6.5M)
+        CPU: 8.003s
+     CGroup: /system.slice/ssh.service
+             └─47367 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Aug 10 14:54:25 aitopatom-ad9e sshd[1679794]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:26 aitopatom-ad9e sshd[1680547]: Accepted password for gipsoft from 100.82.14.98 port 52398 ssh2
+Aug 10 14:54:26 aitopatom-ad9e sshd[1680547]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:26 aitopatom-ad9e sshd[1680547]: pam_unix(sshd:session): session closed for user gipsoft
+Aug 10 14:54:27 aitopatom-ad9e sshd[1680731]: Accepted password for gipsoft from 100.82.14.98 port 52416 ssh2
+Aug 10 14:54:27 aitopatom-ad9e sshd[1680731]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:27 aitopatom-ad9e sshd[1680730]: Accepted password for gipsoft from 100.82.14.98 port 52414 ssh2
+Aug 10 14:54:27 aitopatom-ad9e sshd[1680730]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)
+Aug 10 14:54:31 aitopatom-ad9e sshd[1681068]: Accepted password for gipsoft from 100.82.14.98 port 49908 ssh2
+Aug 10 14:54:31 aitopatom-ad9e sshd[1681068]: pam_unix(sshd:session): session opened for user gipsoft(uid=1000) by gipsoft(uid=0)

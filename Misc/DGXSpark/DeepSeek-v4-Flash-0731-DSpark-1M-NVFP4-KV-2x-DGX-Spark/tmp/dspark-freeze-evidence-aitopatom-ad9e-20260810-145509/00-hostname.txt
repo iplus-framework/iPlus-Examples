@@ -1,0 +1,15 @@
+### CMD: hostnamectl
+### TS: 2026-08-10T14:55:09+02:00
+ Static hostname: aitopatom-ad9e
+       Icon name: computer-server
+         Chassis: server 🖳
+      Machine ID: 8acc664d83164a01a49232aae1e60540
+         Boot ID: 95b531b660cd47ef9fdbea154993806d
+Operating System: Ubuntu 24.04.4 LTS
+          Kernel: Linux 6.17.0-1026-nvidia
+    Architecture: arm64
+ Hardware Vendor: GIGABYTE
+  Hardware Model: AI TOP ATOM
+Firmware Version: 5.36_0ACUM05
+   Firmware Date: Fri 2025-11-07
+    Firmware Age: 9month 2d
