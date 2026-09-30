@@ -1,8 +1,6 @@
 # AI Server Setup with Incus & Lemonade
 
-This guide covers setting up a high-performance local AI server using **Lemonade** inside an Incus container. The critical factor for performance is successfully passing through the GPU and NPU to the container.
-
-> **Update (March 2026):** Linux NPU support is now available for **AMD XDNA 2** devices through **FastFlowLM**. On current Ryzen AI Linux systems, the practical setup is to keep **Lemonade + llama.cpp** for GPU-backed serving and add **FastFlowLM** when you want to run supported models directly on the NPU. See the FastFlowLM Linux guides for the current support matrix and package sources.
+This guide covers running **Lemonade** in an Incus container, with GPU-backed models served through llama.cpp and supported AMD XDNA 2 models served on the NPU through FastFlowLM. The examples below reflect the current container setup; check the linked release pages for newer compatible packages and supported models.
 
 ## 1. Container Configuration
 
@@ -84,7 +82,7 @@ FastFlowLM can now use the AMD XDNA 2 NPU directly on Linux. This is separate fr
 **References:**
 - [Lemonade: LLMs on Linux with FastFlowLM](https://lemonade-server.ai/flm_npu_linux.html)
 - [FastFlowLM Linux install docs](https://fastflowlm.com/docs/install_lin/)
-- [FastFlowLM releases](https://github.com/FastFlowLM/FastFlowLM/releases)
+- [FastFlowLM releases](https://github.com/ROCm/FastFlowLM/releases)
 
 #### Host prerequisites
 Install the AMD XRT and XDNA kernel driver packages on the **host** so the NPU device is available and passed through to the container:
@@ -107,12 +105,15 @@ sudo reboot
 ```
 
 #### Install FastFlowLM
-Download the current Ubuntu package from the FastFlowLM releases page. For example:
+Download the Ubuntu package that matches the container release and architecture from the FastFlowLM releases page. This container uses FastFlowLM 1.0.2 on Ubuntu 24.04 amd64:
 
 ```bash
-wget https://github.com/FastFlowLM/FastFlowLM/releases/download/v0.9.35/fastflowlm_0.9.35_ubuntu24.04_amd64.deb
-sudo apt install ./fastflowlm*.deb
+wget https://github.com/ROCm/FastFlowLM/releases/download/v1.0.2/fastflowlm_1.0.2_ubuntu24.04_amd64.deb
+sudo apt install ./fastflowlm_1.0.2_ubuntu24.04_amd64.deb
+flm version
 ```
+
+If installing a later release, use its matching asset from the releases page rather than reusing the example version above.
 
 #### Required memlock configuration
 FastFlowLM validation will fail if the container cannot lock enough memory for NPU execution.
@@ -165,8 +166,22 @@ Example output:
 
 If `flm validate` does not report the NPU or shows a finite memlock limit, re-check the host driver installation, the Incus device passthrough, and the systemd/limits configuration above before troubleshooting FastFlowLM itself.
 
+To confirm models installed by FastFlowLM are available:
+
+```bash
+flm list
+```
+
+The Lemonade service must use the same FLM model directory. In this container, the `lemond.service` override sets `FLM_MODEL_PATH=/root/.config/flm`, so FLM models are stored under `/root/.config/flm/models`. After pulling a model with `flm`, restart Lemonade to refresh its model list, then refresh the web app:
+
+```bash
+sudo systemctl restart lemond.service
+```
+
+See [Using FastFlowLM models in Lemonade](#using-fastflowlm-models-in-lemonade) for the CLI checks.
+
 ### ROCm Drivers
-Install the AMD ROCm drivers (essential for GPU acceleration).
+The commands below pin ROCm 7.1.1 for Ubuntu 24.04 (`noble`); they are an example, not a claim that this is the latest release. Check AMD's current guide before changing the ROCm version or Ubuntu release. With Incus GPU passthrough, install the kernel driver on the host and the required user-space packages in the container.
 *Reference: [ROCm Installation on Linux](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/install-methods/package-manager/package-manager-ubuntu.html)*
 
 ```bash
@@ -211,8 +226,6 @@ sudo add-apt-repository ppa:lemonade-team/stable
 sudo apt install lemonade-server
 sudo update-pciids
 ```
-
-Arrows fixed, async Dialog, TimeSeries with OxyPlot, FillLevel still bugy
 
 ## 3. BIOS & System Tuning (Optional / Troubleshooting)
 
@@ -262,23 +275,23 @@ Configuration and model locations when lemonade is started with systemd:
 /var/lib/lemonade/.cache/lemonade/user_models.json
 /var/lib/lemonade/.cache/lemonade/config.json
 /var/lib/lemonade/.cache/huggingface/hub
-/var/lib/lemonade/.config/flm/models
+/root/.config/flm/models
 ```
 
-When you download models using the Lemonade application, they are downloaded either to your home directory—if you launch Lemonade from the shell—or to `/var/lib/lemonade/*` if it is started as a systemd service. However, to use a shared directory, you can specify the paths within the `config.json` file using the `models_dir` and `extra_models_dir` parameters. Please note that there are two separate `config.json` files: one located in your home directory, and another in `/var/lib/lemonade` for the systemd service.
+Lemonade's model cache and FLM's model directory are separate. Lemonade models downloaded by the systemd service use `/var/lib/lemonade/.cache`; FLM models use the path in `FLM_MODEL_PATH`. This installation runs `lemond.service` as root and sets `FLM_MODEL_PATH=/root/.config/flm`. If you change the service user or FLM path, update the environment variable and permissions so both `flm` and Lemonade use the same directory.
 
-Ensure you expose the server to the network with `"host": "0.0.0.0",` in `config.json` file. 
+The systemd service reads its server settings from `/var/lib/lemonade/.cache/lemonade/config.json`. Set `host` to `0.0.0.0` and `port` to `8080` there to expose the server on the container network. The shell-launched service may use a different config file under the launching user's cache directory.
 
 To ensure that the GPU is utilized when Lemonade is launched via systemd, you must provide the necessary environment variables to the service:
 
 ```bash
-sudo systemctl edit lemond
+sudo systemctl edit lemond.service
 ```
 Copy this text and save:
 ```
 [Service]
 User=root
-Environment="LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:/usr/local/lib:/opt/rocm/lib:/usr/local/share/lemonade-server/llama/roc:/root/.cache/lemonade/bin/llamacpp/vulkan"
+Environment="FLM_MODEL_PATH=/root/.config/flm"
 Environment="HSA_OVERRIDE_GFX_VERSION=11.5.0"
 Environment="HIP_VISIBLE_DEVICES=0"
 LimitMEMLOCK=infinity
@@ -290,68 +303,64 @@ sudo systemctl restart lemond.service
 ```
 
 
-Lemonade can run in **Service Mode** (awaits client requests to load models - recommended) or **Run Mode** (pre-loads a specific model).   
+This service runs in **Service Mode** and loads models when requested. The `lemonade` CLI is the client for managing and loading models; `lemond` runs the server.
 
 
-Starting Server
+Starting or checking the server
 ```bash
 # As service
-systemctl start lemond.service
-# Or from shell
-lemond --host 0.0.0.0 --port 8080
+sudo systemctl start lemond.service
+sudo systemctl status lemond.service
+# Run in the foreground instead of using systemd
+lemond
 ```
 
-### Optional: Examples manual run of an explicit model
+### Using FastFlowLM models in Lemonade
+
+For this container, the Lemonade API is on port 8080 and requires the API key configured for the service. Set the CLI connection options in the shell (use the same key configured on the service):
+
+```bash
+export LEMONADE_HOST=127.0.0.1
+export LEMONADE_PORT=8080
+export LEMONADE_API_KEY="<service-api-key>"
+```
+
+List FLM-installed models and Lemonade's downloaded models:
+
+```bash
+flm list
+lemonade list --downloaded
+```
+
+If a newly installed FLM model appears in `flm list` but not in Lemonade, restart `lemond.service` and refresh the browser app. For example, the Qwen 3.6 model installed in this container is listed as `builtin.qwen3.6-moe-35b-a3b-FLM`. Select it in the app or load it from the CLI:
+
+```bash
+lemonade load builtin.qwen3.6-moe-35b-a3b-FLM
+```
+
+### Optional: Run an explicit llama.cpp model
 
 **1. Nemotron (Vulkan Backend)**
 ROCm may be unstable with certain models like Nemotron. Use Vulkan in these cases. Note that "Reasoning" features are currently disabled (`--reasoning-budget 0`) for stability.
 
 ```bash
-lemonade-server pull Nemotron-3-Nano-30B-A3B-GGUF
-lemonade-server run Nemotron-3-Nano-30B-A3B-GGUF --host 0.0.0.0 --port 8080 --log-level debug --llamacpp vulkan --llamacpp-args "-c 16384 --reasoning-budget 0"
+lemonade pull Nemotron-3-Nano-30B-A3B-GGUF
+lemonade run Nemotron-3-Nano-30B-A3B-GGUF --llamacpp vulkan --llamacpp-args "-c 16384 --reasoning-budget 0"
 ```
 
 **2. Qwen (ROCm Backend)**
 Qwen 3 works well with ROCm and supports reasoning features.
 
 ```bash
-lemonade-server pull Qwen3-30B-A3B-Instruct-2507-GGUF
-lemonade-server run Qwen3-30B-A3B-Instruct-2507-GGUF --host 0.0.0.0 --port 8080 --log-level debug --llamacpp rocm --llamacpp-args "-c 16384 --reasoning-budget -1"
+lemonade pull Qwen3-30B-A3B-Instruct-2507-GGUF
+lemonade run Qwen3-30B-A3B-Instruct-2507-GGUF --llamacpp rocm --llamacpp-args "-c 16384 --reasoning-budget -1"
 ```
 
-**3. Directly usage of llama.cpp** 
-To load a model directly with llama.cpp find the snapshot location where the model is downloaded from huggingface: 
+**3. Run llama.cpp directly**
+Prefer the Lemonade CLI above so Lemonade can manage model loading. For direct llama.cpp use, find the model snapshot and the version-specific `llama-server` binary installed by Lemonade:
 ```bash
-find ~/.cache/huggingface/hub -name "*.gguf"
-```
-Then decide if you want to use the vulkan or ROCm backend, which are installed in different locations of lemonade.   
-With Vulkan (replace the snapshot id with yours!):
-```bash
-/usr/local/share/lemonade-server/llama/vulkan/build/bin/llama-server -m /root/.cache/huggingface/hub/models--unsloth--Nemotron-3-Nano-30B-A3B-GGUF/snapshots/9ad8b366c308f931b2a96b9306f0b41aef9cd405/Nemotron-3-Nano-30B-A3B-UD-Q4_K_XL.gguf --ctx-size 32768 --temp 0.6 --top-p 0.9 --host 0.0.0.0
-```
-With ROCm (replace the snapshot id with yours!):
-```bash
-/usr/local/share/lemonade-server/llama/rocm/llama-server -m /root/.cache/huggingface/hub/models--unsloth--Nemotron-3-Nano-30B-A3B-GGUF/snapshots/9ad8b366c308f931b2a96b9306f0b41aef9cd405/Nemotron-3-Nano-30B-A3B-UD-Q4_K_XL.gguf --ctx-size 32768 --temp 0.6 --top-p 0.9 --host 0.0.0.0
-```
-The Server may not start if the ROCm libraries are not found. Either you switch to the '/usr/local/share/lemonade-server/llama/rocm/' directory and run the llama-server command there.   
-Or you temprary set environment variables of the library path to:
-```bash
-export LD_LIBRARY_PATH=/opt/rocm/lib:/usr/local/share/lemonade-server/llama/rocm:
-```
-
-**4. glm-4.7-flash from hugging face**
-```bash
-lemonade-server pull user.GLM-4.7-Flash-GGUF --checkpoint unsloth/GLM-4.7-Flash-GGUF:UD-Q4_K_XL --recipe llamacpp
-lemonade-server run user.GLM-4.7-Flash-GGUF --host 0.0.0.0 --port 8080 --log-level debug --llamacpp rocm --llamacpp-args "-c 32768 --temp 0.7 --min-p 0.01 --top-p 1.00 --dry-multiplier 1.1 --fit on"
-```
-For function calling --jinja has to be used. Unfortunately this is currently not supported by the lemonade-server. This will not work:
-```bash
-lemonade-server run user.GLM-4.7-Flash-GGUF --host 0.0.0.0 --port 8080 --log-level debug --llamacpp rocm --llamacpp-args "-c 32768 --chat-template-file /root/glm4_template.jinja  --jinja --temp 0.7 --min-p 0.01 --top-p 1.00 --reasoning-budget -1 --dry-multiplier 1.1 --fit on"
-```
-You only can run it directly with llama-server at the moment:
-```bash
-/usr/local/share/lemonade-server/llama/vulkan/build/bin/llama-server -m /root/.cache/huggingface/hub/models--unsloth--GLM-4.7-Flash-GGUF/snapshots/218bcb725e428c5b8c4153bcf5bf7ead738a9799/GLM-4.7-Flash-UD-Q4_K_XL.gguf --jinja --threads -1 --ctx-size 32768 --temp 0.7 --min-p 0.01 --top-p 1.00 --dry-multiplier 1.1 --fit on --host 0.0.0.0
-/usr/local/share/lemonade-server/llama/rocm/llama-server -m /root/.cache/huggingface/hub/models--unsloth--GLM-4.7-Flash-GGUF/snapshots/218bcb725e428c5b8c4153bcf5bf7ead738a9799/GLM-4.7-Flash-UD-Q4_K_XL.gguf --jinja --threads -1 --ctx-size 32768 --temp 0.7 --min-p 0.01 --top-p 1.00 --dry-multiplier 1.1 --fit on --host 0.0.0.0
+find /var/lib/lemonade/.cache/huggingface/hub -name "*.gguf"
+find /var/cache/lemonade/bin -type f -name llama-server
 ```
 
 ### Client Integration
@@ -369,12 +378,12 @@ You only can run it directly with llama-server at the moment:
 		"apiType": "chat-completions",
 		"models": [
 			{
-				"id": "Qwen3.6-35B-A3B-MTP-GGUF",
+        "id": "builtin.qwen3.6-moe-35b-a3b-FLM",
 				"name": "lemonade-local-Qwen3.6",
 				"url": "http://myhost:8080/api/v1/chat/completions",
 				"toolCalling": true,
-				"vision": false,
-				"maxInputTokens": 131072,
+        "vision": true,
+        "maxInputTokens": 32768,
 				"maxOutputTokens": 16000,
 				"settings": {
 					"temperature": 0.6,
@@ -395,12 +404,12 @@ You only can run it directly with llama-server at the moment:
         {
             "models": [
                 {
-                    "id": "Qwen3.6-35B-A3B-MTP-GGUF",
+                    "id": "builtin.qwen3.6-moe-35b-a3b-FLM",
                     "capabilities": {
                         "toolCalling": true
                     },
                     "name": "lemonade-local-Qwen3.6",
-                    "maxInputTokens": 131072,
+                    "maxInputTokens": 32768,
                     "settings": {
                         "temperature": 0.6,
                         "top_p": 0.95,
