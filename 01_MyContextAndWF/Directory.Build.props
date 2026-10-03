@@ -9,4 +9,13 @@
 		<!-- Override to false when building in Visual Studio (iPlusMES base projects aren't in .sln) -->
 		<UseProjectReferences Condition="'$(UseProjectReferences)' == 'true' AND '$(BuildingInsideVisualStudio)' == 'true'">false</UseProjectReferences>
 	</PropertyGroup>
+	<ItemGroup>
+		<!-- Unify assembly versions to avoid MSB3277 conflicts with iPlus binaries -->
+		<PackageReference Include="Microsoft.IdentityModel.Abstractions" />
+		<PackageReference Include="Microsoft.IdentityModel.Logging" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens.Saml" />
+		<PackageReference Include="Microsoft.IdentityModel.Xml" />
+		<PackageReference Include="System.Security.Cryptography.Pkcs" />
+	</ItemGroup>
 </Project>
