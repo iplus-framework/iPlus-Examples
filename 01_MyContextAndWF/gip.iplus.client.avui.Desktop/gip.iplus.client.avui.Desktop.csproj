@@ -14,25 +14,26 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<!-- Explicitly exclude the regular Linux native assets to ensure that the right version from skiasharp.nativeassets.linux.nodependencies/3.119.0 is taken 
-    and not the wrong from skiasharp.nativeassets.linux/2.88.9  -->
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux">
+		<!-- Use the full SkiaSharp Linux native assets (with fontconfig) so system fonts
+        (e.g. Segoe UI fallbacks) can be resolved. NoDependencies lacks fontconfig and
+        causes "Could not create glyphTypeface" exceptions at runtime. -->
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies">
 			<ExcludeAssets>all</ExcludeAssets>
 		</PackageReference>
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" />
 		<PackageReference Include="ReactiveUI" />
 	</ItemGroup>
 
 	<!-- Use Avalonia Nuget -->
 	<ItemGroup Condition="'$(UseAvaloniaFork)' == 'False'">
-		<PackageReference Include="Avalonia" />
-		<PackageReference Include="Avalonia.Controls.ColorPicker"  />
-		<PackageReference Include="Avalonia.Controls.DataGrid"  />
+		<PackageReference Include="$(AvaloniaPackagePrefix)Avalonia" />
+		<PackageReference Include="$(AvaloniaPackagePrefix)Avalonia.Controls.ColorPicker"  />
+		<PackageReference Include="$(AvaloniaPackagePrefix)Avalonia.Controls.DataGrid"  />
 		<PackageReference Include="ReactiveUI.Avalonia"  />
 		<PackageReference Include="Avalonia.Labs.CommandManager"  />
-		<PackageReference Include="Avalonia.Desktop" />
-		<PackageReference Include="Avalonia.Themes.Fluent" />
-		<PackageReference Include="Avalonia.Fonts.Inter" />
+		<PackageReference Include="$(AvaloniaPackagePrefix)Avalonia.Desktop" />
+		<PackageReference Include="$(AvaloniaPackagePrefix)Avalonia.Themes.Fluent" />
+		<PackageReference Include="$(AvaloniaPackagePrefix)Avalonia.Fonts.Inter" />
 		<PackageReference Include="Dock.Avalonia.Themes.Fluent" />
 		<PackageReference Include="Avalonia.AvaloniaEdit" />
 		<PackageReference Include="Dock.Avalonia" />
@@ -44,10 +45,10 @@
 		<PackageReference Include="iPlus.RoslynPad.Roslyn.Avalonia" /> -->
 		<PackageReference Include="RoslynPad.Editor.Avalonia" />
 		<PackageReference Include="RoslynPad.Roslyn.Avalonia" />
-		<PackageReference Include="Avalonia.Markup.Xaml.Loader"  />
+		<PackageReference Include="$(AvaloniaPackagePrefix)Avalonia.Markup.Xaml.Loader"  />
 		<PackageReference Include="Simplecto.Avalonia.RichTextBox"  />
 		<PackageReference Include="Tmds.DBus.Protocol" />
-		<PackageReference Include="Xaml.Behaviors"  />
+		<PackageReference Include="iPlus.Xaml.Behaviors.Avalonia"  />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Include="Avalonia.Diagnostics">
 			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>

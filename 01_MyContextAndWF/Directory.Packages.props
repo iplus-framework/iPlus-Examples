@@ -1,7 +1,13 @@
 <Project>
-  <Import Project="..\..\iPlus\Directory.Packages.props" />
-
-  <ItemGroup>
-    <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="10.0.6" />
-  </ItemGroup>
+	<Import Project="..\..\iPlus\Directory.Packages.props" />
+	<ItemGroup>
+		<!-- Resolve MSB3277: iPlus binaries (CoreWCF.Primitives, Microsoft.IdentityModel.Tokens.Saml, ...)
+		require Microsoft.IdentityModel.* 8.19.1 and System.Security.Cryptography.Pkcs 10.0.x -->
+		<PackageVersion Include="Microsoft.IdentityModel.Abstractions" Version="8.19.1" />
+		<PackageVersion Include="Microsoft.IdentityModel.Logging" Version="8.19.1" />
+		<PackageVersion Include="Microsoft.IdentityModel.Tokens" Version="8.19.1" />
+		<PackageVersion Include="Microsoft.IdentityModel.Tokens.Saml" Version="8.19.1" />
+		<PackageVersion Include="Microsoft.IdentityModel.Xml" Version="8.19.1" />
+		<PackageVersion Include="System.Security.Cryptography.Pkcs" Version="10.0.11" />
+	</ItemGroup>
 </Project>
