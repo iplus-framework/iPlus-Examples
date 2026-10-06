@@ -12,7 +12,12 @@
     <IPlusIncludeDir>..\..\..\iPlus\bin\Release\$(DefaultNetCoreTargetFramework)</IPlusIncludeDir>
     <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(UseIPlusPackages)' == 'true'">
+    <PackageReference Include="iPlus.gip.core.autocomponent" />
+    <PackageReference Include="iPlus.gip.core.datamodel" />
+    <PackageReference Include="iPlus.gip.core.processapplication" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseIPlusPackages)' != 'true'">
     <Reference Include="gip.core.autocomponent">
       <HintPath>$(IPlusIncludeDir)\gip.core.autocomponent.dll</HintPath>
     </Reference>

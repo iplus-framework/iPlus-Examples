@@ -104,7 +104,24 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
-	<ItemGroup Condition="'$(UseProjectReferences)' == 'false'">
+	<ItemGroup Condition="'$(UseIPlusPackages)' == 'true'">
+		<PackageReference Include="iPlus.gip.core.autocomponent" />
+		<PackageReference Include="iPlus.gip.core.datamodel" />
+		<PackageReference Include="iPlus.gip.core.reporthandler" />
+		<PackageReference Include="iPlus.gip.core.layoutengine" />
+		<PackageReference Include="iPlus.gip.core.wpfservices" />
+		<PackageReference Include="iPlus.gip.bso.iplus" />
+		<PackageReference Include="iPlus.gip.core.communication" />
+		<PackageReference Include="iPlus.gip.core.archiver" />
+		<PackageReference Include="iPlus.gip.core.ControlScriptSync" />
+		<PackageReference Include="iPlus.gip.core.dbsyncer" />
+		<PackageReference Include="iPlus.gip.core.processapplication" />
+		<PackageReference Include="iPlus.gip.core.manager" />
+		<PackageReference Include="iPlus.gip.core.reporthandlerwpf" />
+		<PackageReference Include="iPlus.gip.core.visualcontrols" />
+		<PackageReference Include="iPlus.gip.core.webservices" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(UseProjectReferences)' != 'true' and '$(UseIPlusPackages)' != 'true'">
 		<Reference Include="gip.core.autocomponent">
 			<HintPath>$(IPlusIncludeDir)\gip.core.autocomponent.dll</HintPath>
 		</Reference>
@@ -197,18 +214,18 @@
 		<Copy SourceFiles="$(IPlusIncludeDir)\matrix.ini" DestinationFolder="$(OutDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" Condition="Exists('$(IPlusIncludeDir)\matrix.ini')" />
 
 		<Message Text="Checking for VBControlScripts at: $(IPlusIncludeDir)\VBControlScripts" Importance="high" />
-		<CreateItem Include="$(IPlusIncludeDir)\VBControlScripts\*.*" Condition="Exists('$(IPlusIncludeDir)\VBControlScripts')">
+		<CreateItem Include="$(IPlusIncludeDir)\VBControlScripts\*.*" Condition="'$(UseIPlusPackages)' != 'true' and Exists('$(IPlusIncludeDir)\VBControlScripts')">
 			<Output TaskParameter="Include" ItemName="VBControlScripts" />
 		</CreateItem>
 		<Copy SourceFiles="@(VBControlScripts)" DestinationFolder="$(OutDir)VBControlScripts" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" Condition="'@(VBControlScripts)' != ''" />
 
 		<Message Text="Checking for DbScripts at: $(IPlusIncludeDir)\DbScripts" Importance="high" />
-		<CreateItem Include="$(IPlusIncludeDir)\DbScripts\**\*.*" Condition="Exists('$(IPlusIncludeDir)\DbScripts')">
+		<CreateItem Include="$(IPlusIncludeDir)\DbScripts\**\*.*" Condition="'$(UseIPlusPackages)' != 'true' and Exists('$(IPlusIncludeDir)\DbScripts')">
 			<Output TaskParameter="Include" ItemName="DbScriptsFiles" />
 		</CreateItem>
 		<Message Text="Found DbScripts files: @(DbScriptsFiles-&gt;Count())" Importance="high" Condition="'@(DbScriptsFiles)' != ''" />
 		<Copy SourceFiles="@(DbScriptsFiles)" DestinationFolder="$(OutDir)DbScripts\%(RecursiveDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" Condition="'@(DbScriptsFiles)' != ''" />
-		<Warning Text="DbScripts folder not found at: $(IPlusIncludeDir)\DbScripts" Condition="!Exists('$(IPlusIncludeDir)\DbScripts')" />
+		<Warning Text="DbScripts folder not found at: $(IPlusIncludeDir)\DbScripts" Condition="'$(UseIPlusPackages)' != 'true' and !Exists('$(IPlusIncludeDir)\DbScripts')" />
 	</Target>
 	<Target Name="CopyToNet7Windows" AfterTargets="Build" Condition="'$(OS)' == 'Windows_NT'">
 		<ItemGroup>

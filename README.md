@@ -34,13 +34,41 @@ These example projects serve to explain the most important programming concepts 
 
 1. **A common directory** Make sure to clone this repository into the same root path as iplus-framework. So that our repositories are all in a common directory, so that the specified relative paths match.
 
-2. **Compile the release version of iplus-framework** ([GitHub Repository][8]), because the example projects use the compiled dll's from the bin directory. Otherwise, you have to adjust the paths in the csproj files.
+   ```
+   <root>/
+   ├── iPlus/                  <- github.com/iplus-framework/iPlus
+   ├── iPlusMES/               <- optional
+   └── iPlus-Examples/
+   ```
+
+2. **Choose a reference mode** How the iPlus assemblies are resolved is controlled per example via `Directory.Build.props`. The three modes are mutually exclusive:
+
+   | Mode | Command | For whom |
+   |------|---------|----------|
+   | **NuGet packages** (default) | `dotnet build` | No iPlus clone needed |
+   | **Source (ProjectReferences)** | `dotnet build -p:UseProjectReferences=true` | iPlus/iPlusMES cloned as sibling folder |
+   | **Compiled binaries** | `dotnet build -p:UseIPlusPackages=false` | Assemblies copied manually (paths in the `.csproj` files) |
+
+   ```bash
+   # default: NuGet packages
+   dotnet build 01_MyContextAndWF/gip.iplus.client.avui.Desktop/gip.iplus.client.avui.Desktop.csproj
+
+   # compile against the iPlus source repos
+   dotnet build 01_MyContextAndWF/gip.iplus.client.avui.Desktop/gip.iplus.client.avui.Desktop.csproj -p:UseProjectReferences=true
+
+   # use compiled binaries from iPlus/bin
+   dotnet build 01_MyContextAndWF/gip.iplus.client.avui.Desktop/gip.iplus.client.avui.Desktop.csproj -p:UseIPlusPackages=false
+   ```
+
+   Previously, compiling the release version of iplus-framework was mandatory because the examples used the compiled dll's from the `bin` directory. With the NuGet package mode this is no longer necessary — just build the example.
 
 3. **Unzip the database file** from the database folder and restore the database on a SQL Server instance.
 
-4. **Adjust the connection string** in the "gip.iplus.client" project and set it as the startup project.
+4. **Adjust the connection string** in the client project (`ConnectionStrings.config`) and set it as the startup project.
 
 5. **Compile the example and start the application.** Login with "superuser":"superuser".
+
+   > **Tip:** After pulling a newer version, hold down the **CTRL key** while clicking the login button so that your local databases are updated. Otherwise, the application will not be able to start.
 
 ---
 

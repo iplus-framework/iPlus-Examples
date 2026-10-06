@@ -3,12 +3,64 @@
 	<PropertyGroup>
 		<SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)</SolutionDir>
 
-		<!-- Default to true for VS Code/OmniSharp (better IntelliSense and Go-to-Definition) -->
-		<UseProjectReferences Condition="'$(UseProjectReferences)' == ''">true</UseProjectReferences>
+		<!-- How iPlus assemblies are resolved (three mutually exclusive modes):
+		     1. UseProjectReferences=true  -> compile against the iPlus source repos
+		     2. UseIPlusPackages=true      -> NuGet packages (DEFAULT; local feed via
+		                                      nuget.config, later nuget.org)
+		     3. both false                 -> compiled binaries via IPlusIncludeDir
+		                                      (set per project/configuration) -->
+		<UseProjectReferences Condition="'$(UseProjectReferences)' == ''">false</UseProjectReferences>
+		<UseIPlusPackages Condition="'$(UseIPlusPackages)' == '' and '$(UseProjectReferences)' != 'true'">true</UseIPlusPackages>
 
-		<!-- Override to false when building in Visual Studio (iPlusMES base projects aren't in .sln) -->
-		<UseProjectReferences Condition="'$(UseProjectReferences)' == 'true' AND '$(BuildingInsideVisualStudio)' == 'true'">false</UseProjectReferences>
+		<!-- Must match the iPlus package mode: the gip.* NuGet packages are
+		     built with UseAvaloniaFork=false and bind to the iPlus.Avalonia.*
+		     / iPlus.Xaml.Behaviors.* NuGet packages. Mixing fork binaries
+		     (Avalonia.Base 12.2.999) with NuGet packages (Avalonia.Skia 12.1.3)
+		     causes TypeLoadException at runtime.
+		     Only enable the fork when UseProjectReferences=true. -->
+		<UseAvaloniaFork Condition="'$(UseProjectReferences)' == 'true'">true</UseAvaloniaFork>
+		<UseAvaloniaFork Condition="'$(UseProjectReferences)' != 'true'">false</UseAvaloniaFork>
+
+		<!-- Recompute the prefix: iPlus's Avalonia.Version.props evaluated it
+		     before we forced UseAvaloniaFork above. -->
+		<AvaloniaPackagePrefix Condition="'$(UseAvaloniaFork)' != 'True' and '$(UseAvaloniaIPlusPackages)' == 'True'">iPlus.</AvaloniaPackagePrefix>
+		<AvaloniaPackagePrefix Condition="'$(UseAvaloniaFork)' == 'True'"></AvaloniaPackagePrefix>
 	</PropertyGroup>
+
+	<!-- In package mode, third-party Avalonia packages (Dock.Avalonia,
+	     Avalonia.Controls.WebView, Avalonia.Labs.CommandManager, ...) transitively
+	     pull the ORIGINAL Avalonia.* packages (e.g. Avalonia.Skia 12.1.3). Both
+	     they and the iPlus.Avalonia.* fork packages (assembly version 12.2.999)
+	     provide the same dll names; whichever copies last wins, causing
+	     TypeLoadException. Exclude the originals' assets so only fork assemblies
+	     deploy. -->
+	<ItemGroup Condition="'$(UseAvaloniaFork)' != 'True' and '$(UseAvaloniaIPlusPackages)' == 'True'">
+		<PackageReference Include="Avalonia" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.Native" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.Android" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.Browser" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.Desktop" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.FreeDesktop" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.FreeDesktop.AtSpi" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.Skia" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.Markup.Xaml.Loader" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.Remote.Protocol" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.Controls.ColorPicker" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.Themes.Fluent" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.Themes.Simple" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.Fonts.Inter" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.HarfBuzz" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.Headless" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.Headless.XUnit" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.Headless.NUnit" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.Headless.Vnc" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.LinuxFramebuffer" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.Win32" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.Win32.Interoperability" ExcludeAssets="all" />
+		<PackageReference Include="Avalonia.X11" ExcludeAssets="runtime" />
+		<PackageReference Include="Avalonia.Wayland" ExcludeAssets="all" />
+	</ItemGroup>
 	<ItemGroup>
 		<!-- Unify assembly versions to avoid MSB3277 conflicts with iPlus binaries -->
 		<PackageReference Include="Microsoft.IdentityModel.Abstractions" />

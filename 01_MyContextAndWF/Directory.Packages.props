@@ -10,4 +10,99 @@
 		<PackageVersion Include="Microsoft.IdentityModel.Xml" Version="8.19.1" />
 		<PackageVersion Include="System.Security.Cryptography.Pkcs" Version="10.0.11" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<!-- iPlus / iPlusMES suite packages (pre-release).
+		     Versions are maintained in iPlus/build/iPlus.Package.props
+		     (IPlusPackageVersion / IPlusMESPackageVersion) and flow in via
+		     Directory.Build.props. Local feed: nuget.config -->
+		<!-- iPlus core suite -->
+		<PackageVersion Include="iPlus.gip.core.autocomponent" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.datamodel" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.manager" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.communication" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.crypto" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.dbsyncer" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.archiver" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.media" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.webservices" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.processapplication" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.reporthandler" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.reporthandlerwpf" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.layoutengine" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.wpfservices" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.visualcontrols" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.ControlScriptSync" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.scichart" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.tcClient" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.tcShared" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.iplus" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.tcStudio" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.iplus.client.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.chart" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.design" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.designer" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.fluent" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.graphics" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.opctoolbox" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.widgets" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.xamldom" Version="$(IPlusPackageVersion)" />
+		<!-- iPlus Avalonia UI suite -->
+		<PackageVersion Include="iPlus.gip.core.layoutengine.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.wpfservices.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.visualcontrols.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.reporthandler.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.core.scichart.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.chart.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.design.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.designer.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.fluent.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.graphics.avui" Version="$(IPlusPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.ext.xamldom.avui" Version="$(IPlusPackageVersion)" />
+		<!-- iPlusMES suite -->
+		<PackageVersion Include="iPlus.gip.mes.datamodel" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.autocomponent" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.manager" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.facility" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.maintenance" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.archiver" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.webservices" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.processapplication" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.wpfservices" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.wpfservices.avui" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.reporthandler.avui" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.mes.reporthandlerwpf" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.facility" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.logistics" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.manufacturing" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.masterdata" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.purchasing" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.sales" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.sales.avui" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.saleswpf" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="iPlus.gip.bso.test" Version="$(IPlusMESPackageVersion)" />
+		<PackageVersion Include="gip2006.variobatch.processapplication" Version="$(IPlusMESPackageVersion)" />
+	</ItemGroup>
+	<!-- Versions for original Avalonia packages that are excluded via
+	     ExcludeAssets="all" in package mode (Directory.Build.props); CPM still
+	     requires a matching PackageVersion.
+	     NOTE: Packages already defined in ..\..\iPlus\Directory.Packages.props
+	     (Avalonia, Avalonia.Android, Avalonia.Browser, Avalonia.Desktop,
+	     Avalonia.Skia, Avalonia.Markup.Xaml.Loader, Avalonia.Controls.ColorPicker,
+	     Avalonia.Controls.DataGrid, Avalonia.Themes.Fluent, Avalonia.Fonts.Inter,
+	     Avalonia.HarfBuzz, Avalonia.Headless, Avalonia.Headless.XUnit,
+	     Avalonia.Headless.NUnit) must NOT be repeated here (NU1506). -->
+	<ItemGroup>
+		<PackageVersion Include="Avalonia.Native" Version="12.1.3" />
+		<PackageVersion Include="Avalonia.FreeDesktop" Version="12.1.3" />
+		<PackageVersion Include="Avalonia.FreeDesktop.AtSpi" Version="12.1.3" />
+		<PackageVersion Include="Avalonia.Remote.Protocol" Version="12.1.3" />
+		<PackageVersion Include="Avalonia.Themes.Simple" Version="12.1.3" />
+		<PackageVersion Include="Avalonia.Headless.Vnc" Version="12.1.3" />
+		<PackageVersion Include="Avalonia.LinuxFramebuffer" Version="12.1.3" />
+		<PackageVersion Include="Avalonia.Win32" Version="12.1.3" />
+		<PackageVersion Include="Avalonia.Win32.Interoperability" Version="12.1.3" />
+		<PackageVersion Include="Avalonia.X11" Version="12.1.3" />
+		<PackageVersion Include="Avalonia.Wayland" Version="12.1.3" />
+	</ItemGroup>
 </Project>
