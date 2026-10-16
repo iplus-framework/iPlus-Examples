@@ -245,3 +245,54 @@ To ensure the correct JDK is used for the iPlus (Avalonia) project, edit the `Di
    ```
 3. Allow the connection inside the Waydroid UI if prompted.
 4. Unfortunately, VS Code doesn't show that the device is now reachable. Open "Run and Debug" (Ctrl+Shift+D) in the left-hand panel. Select the "Debug - Android" option (the name comes from launch.json) and start the build debug process.
+
+### 8. Attaching Without Rebuilding ("Attach - Android")
+
+The `Debug - Android` configuration builds, deploys and starts the app with the Mono debugger agent enabled. The `Attach - Android` configuration only connects to an already running app — but this only works if the app was started with the debugger agent enabled.
+
+The agent is controlled by the Android system property `debug.mono.extra`, which the build task sets **with a one-shot absolute timeout** (an epoch timestamp, now + 30 seconds) before launching the app. If you start the app manually later, the stale timeout has already expired and the agent never starts. The app then logs to logcat:
+
+```
+monodroid-debug: Not starting the debugger as the timeout value has been reached
+```
+
+To attach to a manually started app (no compile), set a fresh property with a far-future timeout and restart the app:
+
+```bash
+adb shell am force-stop com.CompanyName.gip.iplus.client.avui
+adb shell setprop debug.mono.extra 'debug=127.0.0.1:10000,timeout=$(($(date +%s)+86400)),loglevel=0,server=y'
+adb forward tcp:10000 tcp:10000
+adb shell am start -n com.CompanyName.gip.iplus.client.avui/crc64dbf5ba2d7712a4dc.MainActivity
+```
+
+Then start the `Attach - Android` configuration in VS Code. The agent waits 30 seconds for the debugger to connect after app start, so attach promptly.
+
+**Important notes:**
+- The app must be **restarted** after setting the property — the agent only initializes at process start.
+- System properties are **reset when Waydroid restarts**, so re-run the commands above after a Waydroid restart.
+- The ADB connection (`adb connect <WAYDROID_IP>:5555`) may also need to be re-established if the IP changes.
+
+### 9. Restarting Waydroid
+
+```bash
+# Stop the container and its session
+waydroid session stop
+sudo waydroid container stop
+
+# Start again
+sudo waydroid container start   # or it's started by the systemd service
+waydroid session start
+```
+
+If Waydroid runs as a systemd service (common setup), the container restarts automatically:
+
+```bash
+sudo systemctl restart waydroid-container
+waydroid session start
+```
+
+Then show the window:
+
+```bash
+waydroid show-full-ui
+```
