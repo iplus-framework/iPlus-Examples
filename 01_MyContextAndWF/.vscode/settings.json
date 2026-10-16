@@ -7,5 +7,5 @@
     "chat.tools.terminal.enableAutoApprove": false,
     "iplus.defaultNetCoreTargetFramework": "net10.0",
     "iplus.uiTargetFramework": "net10.0-windows",
-    "dotnet.defaultSolution": "Examples_AvaloniaUI.slnx"
+    "dotnet.defaultSolution": "Examples.slnx"
 }

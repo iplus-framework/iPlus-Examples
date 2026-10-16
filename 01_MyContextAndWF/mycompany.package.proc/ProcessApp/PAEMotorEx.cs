@@ -62,5 +62,18 @@ namespace mycompany.package.proc
             return HandleExecuteACMethod_PAEEMotor1D(out result, acComponent, acMethodName, acClassMethod, acParameter);
         }
         #endregion
+
+        public override IEnumerable<string> GetPropsToObserveForIsEnabled(string acMethodName)
+        {
+            switch (acMethodName)
+            {
+                // IncreaseMyExtProp is autoEnabled ([ACMethodInteraction(..., true, ...)])
+                // and IsEnabledIncreaseMyExtProp() always returns true -> no property observation needed
+                case nameof(IncreaseMyExtProp):
+                    return new string[] { nameof(InitState) };
+                default:
+                    return base.GetPropsToObserveForIsEnabled(acMethodName);
+            }
+        }
     }
 }

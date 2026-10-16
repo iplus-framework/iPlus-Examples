@@ -615,6 +615,34 @@ namespace mycompany.bso.erp
             return base.HandleExecuteACMethod(out result, invocationMode, acMethodName, acClassMethod, acParameter);
         }
 
+        /// <summary>
+        /// Specifies which properties should be observed when the IsEnabled-method of a command should be re-evaluated
+        /// from a IVBContent UI Control via System.Reactive.ReactiveCommand.
+        /// Note: acMethodName is the command name WITHOUT the "IsEnabled" prefix (see ACCommandHelper.ApplyACCommand).
+        /// </summary>
+        public override IEnumerable<string> GetPropsToObserveForIsEnabled(string acMethodName)
+        {
+            switch (acMethodName)
+            {
+                case nameof(Save):
+                case nameof(UndoSave):
+                    return new string[] { nameof(DbChangeCount) };
+                case nameof(Load):
+                    return new string[] { nameof(SelectedInOrder) };
+                case nameof(New):
+                case nameof(NewInOrderPos):
+                    return new string[] { nameof(InitState) };
+                case nameof(Delete):
+                    return new string[] { nameof(CurrentInOrder) };
+                case nameof(DeleteInOrderPos):
+                    return new string[] { nameof(CurrentInOrder), nameof(CurrentInOrderPos) };
+                case nameof(StartExampleWorkflow):
+                    return new string[] { nameof(CurrentInOrder), nameof(DbChangeCount) };
+                default:
+                    return base.GetPropsToObserveForIsEnabled(acMethodName);
+            }
+        }
+
         #endregion
     }
 }

@@ -1,0 +1,79 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>$(DefaultNetCoreTargetFramework)-android</TargetFramework>
+    <SupportedOSPlatformVersion>23</SupportedOSPlatformVersion>
+    <Nullable>enable</Nullable>
+    <!-- Own application id so the example can be installed NEXT TO the iPlus/MES apps. -->
+    <ApplicationId>com.mycompany.example.client</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <DefineConstants Condition="'$(UseAvaloniaFork)' == 'True'">AVALONIAFORK</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Label="Avalonia">
+    <EnableAvaloniaXamlCompilation>True</EnableAvaloniaXamlCompilation>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|$(DefaultNetCoreTargetFramework)-android|AnyCPU'">
+    <_AndroidIsDebuggable>True</_AndroidIsDebuggable>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AndroidResource Include="Icon.png">
+      <Link>Resources\drawable\Icon.png</Link>
+    </AndroidResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen" />
+    <PackageReference Include="ReactiveUI" />
+    <PackageReference Include="CoreWCF.Primitives" />
+  </ItemGroup>
+
+  <!-- Swashbuckle.AspNetCore.Swagger (transitive dependency) adds a FrameworkReference to
+       Microsoft.AspNetCore.App, which has no runtime pack for android-* RIDs (NETSDK1082).
+       The Android client does not host ASP.NET Core services, so remove the framework
+       reference before runtime pack resolution. -->
+  <Target Name="RemoveAspNetCoreFrameworkReference" BeforeTargets="ResolveFrameworkReferences">
+    <ItemGroup>
+      <FrameworkReference Remove="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Use Avalonia Nuget -->
+  <ItemGroup Condition="'$(UseAvaloniaFork)' == 'False'">
+    <PackageReference Include="$(AvaloniaPackagePrefix)Avalonia.Android" />
+  </ItemGroup>
+
+  <!-- Use Avalonia Fork -->
+  <ItemGroup Condition="'$(UseAvaloniaFork)' == 'True'">
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" />
+    <PackageReference Include="Xamarin.AndroidX.Window" />
+  </ItemGroup>
+  <Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaInclude.props" />
+  <Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaBaseAndroidInclude.props" />
+  <Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../../iPlus/build/AvaloniaBaseReactiveInclude.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="../../../iPlus/gip.iplus.client.avui/gip.iplus.client.avui.csproj" />
+    <ProjectReference Include="../mycompany.package.datamodel/mycompany.package.datamodel.csproj" />
+    <ProjectReference Include="../../../iPlus/gip.bso.iplus/gip.bso.iplus.csproj" />
+    <ProjectReference Include="../../../iPlus/gip.core.autocomponent/gip.core.autocomponent.csproj" />
+    <ProjectReference Include="../../../iPlus/gip.core.processapplication/gip.core.processapplication.csproj" />
+    <ProjectReference Include="../../../iPlus/gip.core.reporthandler/gip.core.reporthandler.csproj" />
+    <ProjectReference Include="../mycompany.bso.erp/mycompany.bso.erp.csproj" />
+  </ItemGroup>
+
+  <Target Name="RemoveSatelliteAssemblies" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.DestinationSubDirectory)' != '' and '%(ReferenceCopyLocalPaths.DestinationSubDirectory)' != 'en/'" />
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="'%(ResolvedFileToPublish.RelativePath)' != '' and $([System.String]::Copy('%(ResolvedFileToPublish.RelativePath)').Contains('\cs\'))" />
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="'%(ResolvedFileToPublish.RelativePath)' != '' and $([System.String]::Copy('%(ResolvedFileToPublish.RelativePath)').Contains('/cs/'))" />
+    </ItemGroup>
+  </Target>
+</Project>

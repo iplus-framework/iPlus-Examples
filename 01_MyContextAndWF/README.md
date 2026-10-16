@@ -84,6 +84,15 @@ dotnet run --project gip.iplus.client.avui.Desktop
 
 # WPF client (Windows, or Linux via WINE)
 dotnet build gip.iplus.client/gip.iplus.client.csproj -c Debug
+
+# Android client (requires -p:UseProjectReferences=true like all UI clients here)
+dotnet build gip.iplus.client.avui.Android/gip.iplus.client.avui.Android.csproj \
+  -c Debug -p:UseProjectReferences=true
+
+# Browser client (WASM)
+dotnet build gip.iplus.client.avui.Browser/gip.iplus.client.avui.Browser.csproj \
+  -c Debug -p:UseProjectReferences=true
+dotnet run --project gip.iplus.client.avui.Browser
 ```
 
 In VS Code, ready-made build tasks are available
@@ -91,6 +100,36 @@ In VS Code, ready-made build tasks are available
 
 > **Tip:** After pulling a newer version, hold the **CTRL key** while clicking
 > the login button so your local databases get updated.
+
+---
+
+## Multiple databases: `AdditionalConnectionContainerNames`
+
+The example uses **two databases on the same SQL server**:
+
+| Connection string name | Initial catalog | Content |
+|------------------------|-----------------|---------|
+| `iPlusV5_Entities` | `iPlusExampleV5` | iPlus framework runtime tables |
+| `ExampleV5_Entities` | `ExampleV5` | your application tables (`MyCompanyDB`) |
+
+On the **desktop** this works out of the box: `ConnectionStrings.config` carries
+the correct catalog per context and the login flow rewrites it in place.
+
+On **Android and in the browser** there is no `ConnectionStrings.config`. The
+login flow therefore *derives* each additional context's connection string from
+the default container — including its initial catalog. To point a derived
+context at a **different database**, register it with the `Name|Catalog` syntax
+in the static constructor of `Application.cs` (Android) / `Program.cs` (browser):
+
+```csharp
+// "ExampleV5_Entities|ExampleV5"  ->  initial catalog=ExampleV5
+gip.iplus.client.avui.LoginView.AdditionalConnectionContainerNames.Add(
+    "ExampleV5_Entities|ExampleV5");
+```
+
+The SQL Tunnel relay is a blind TCP proxy to one server, so the initial catalog
+travels inside the TDS login packet — **one tunnel serves any number of
+contexts**, each with its own database.
 
 ---
 
@@ -104,5 +143,7 @@ In VS Code, ready-made build tasks are available
 | `mycompany.package.proc` | Process application (server-side service components, workflows) |
 | `gip.iplus.client` | WPF client (Windows / WINE) |
 | `gip.iplus.client.avui.Desktop` | Avalonia UI client (cross-platform) |
+| `gip.iplus.client.avui.Android` | Avalonia UI client (Android) |
+| `gip.iplus.client.avui.Browser` | Avalonia UI client (WebAssembly) |
 
 Further documentation: [iPlus documentation](https://iplus-framework.com/en/documentation/Home/Schema/View/bce1702a-7637-4b98-83db-01a9d7a3a156).

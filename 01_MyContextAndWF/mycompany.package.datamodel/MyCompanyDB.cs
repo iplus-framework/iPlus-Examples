@@ -11,8 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Data.SqlClient;
 using System.ComponentModel.DataAnnotations.Schema;
-using Azure.Core;
-using Microsoft.CodeAnalysis;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.Globalization;
 using System.Runtime.CompilerServices;

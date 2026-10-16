@@ -98,7 +98,9 @@
 	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
-		<PackageReference Include="Microsoft.Data.SqlClient" />
+		<!-- Use the iPlus fork of SqlClient (browser tunnel transport); the official
+		     id has deliberately no CPM entry in this repo (see Directory.Packages.props). -->
+		<PackageReference Include="iPlus.Microsoft.Data.SqlClient" />
 		<PackageReference Include="System.Data.DataSetExtensions"/>
 		<PackageReference Include="System.ComponentModel.Annotations" />
 		<PackageReference Include="System.Configuration.ConfigurationManager" />

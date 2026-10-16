@@ -3,6 +3,8 @@
     <File Path="Directory.Build.props" />
   </Folder>
   <Project Path="gip.iplus.client.avui.Desktop/gip.iplus.client.avui.Desktop.csproj" />
+  <Project Path="gip.iplus.client.avui.Android/gip.iplus.client.avui.Android.csproj" />
+  <Project Path="gip.iplus.client.avui.Browser/gip.iplus.client.avui.Browser.csproj" />
   <Project Path="mycompany.bso.erp/mycompany.bso.erp.csproj" />
   <Project Path="mycompany.package.datamodel/mycompany.package.datamodel.csproj" />
   <Project Path="mycompany.package.demo/mycompany.package.demo.csproj" />
