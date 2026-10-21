@@ -1,5 +1,26 @@
 <Project>
-	<Import Project="..\..\iPlus\Directory.Build.props" />
+	<Import Project="..\..\iPlus\Directory.Build.props" Condition="Exists('..\..\iPlus\Directory.Build.props')" />
+	<!-- Standalone mode (iPlus repo not cloned): provide the properties that the
+	     iPlus repo's Directory.Build.props / build/*.props would normally supply.
+	     Keep these in sync with iPlus/build/iPlus.Package.props and
+	     iPlus/build/Avalonia.Version.props when publishing new package versions. -->
+	<PropertyGroup Condition="!Exists('..\..\iPlus\Directory.Build.props')">
+		<IPlusPackageVersion Condition="'$(IPlusPackageVersion)' == ''">5.0.0-preview.3</IPlusPackageVersion>
+		<IPlusMESPackageVersion Condition="'$(IPlusMESPackageVersion)' == ''">5.0.0-preview.3</IPlusMESPackageVersion>
+		<IPlusSuitePackageVersion Condition="'$(IPlusSuitePackageVersion)' == ''">$(IPlusPackageVersion)</IPlusSuitePackageVersion>
+		<UseAvaloniaIPlusPackages Condition="'$(UseAvaloniaIPlusPackages)' == ''">True</UseAvaloniaIPlusPackages>
+		<AvaloniaPackagePrefix Condition="'$(UseAvaloniaFork)' != 'True' and '$(UseAvaloniaIPlusPackages)' == 'True'">iPlus.</AvaloniaPackagePrefix>
+		<AvaloniaIPlusPackageVersion Condition="'$(AvaloniaIPlusPackageVersion)' == ''">12.2.903</AvaloniaIPlusPackageVersion>
+		<!-- Package mode: consume iPlus.Microsoft.Data.SqlClient from NuGet instead
+		     of the fork ProjectReference (which requires the SqlClient repo). -->
+		<UseSqlClientForkProjectReference Condition="'$(UseSqlClientForkProjectReference)' == ''">False</UseSqlClientForkProjectReference>
+		<!-- Target frameworks (normally from iPlus/build/EntityFramework.Build.props) -->
+		<DefaultNetCoreTargetFramework Condition="'$(DefaultNetCoreTargetFramework)' == ''">net10.0</DefaultNetCoreTargetFramework>
+		<UITargetFramework Condition="'$(UITargetFramework)' == ''">net10.0-windows</UITargetFramework>
+		<!-- Linux settings (normally from iPlus/Directory.Build.props) -->
+		<SatelliteResourceLanguages Condition="$([MSBuild]::IsOSPlatform('Linux'))">en</SatelliteResourceLanguages>
+		<EnableWindowsTargeting Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</EnableWindowsTargeting>
+	</PropertyGroup>
 	<PropertyGroup>
 		<SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)</SolutionDir>
 

@@ -1,5 +1,9 @@
 <Project>
-	<Import Project="..\..\iPlus\Directory.Packages.props" />
+	<!-- Use the iPlus repo's central version list when the repo is cloned next to
+	     this solution; otherwise fall back to the standalone snapshot so the
+	     Examples build works from NuGet packages alone. -->
+	<Import Project="..\..\iPlus\Directory.Packages.props" Condition="Exists('..\..\iPlus\Directory.Packages.props')" />
+	<Import Project="$(MSBuildThisFileDirectory)Directory.Packages.standalone.props" Condition="!Exists('..\..\iPlus\Directory.Packages.props')" />
 	<ItemGroup>
 		<!-- Resolve MSB3277: iPlus binaries (CoreWCF.Primitives, Microsoft.IdentityModel.Tokens.Saml, ...)
 		require Microsoft.IdentityModel.* 8.19.1 and System.Security.Cryptography.Pkcs 10.0.x -->
@@ -8,7 +12,9 @@
 		<PackageVersion Include="Microsoft.IdentityModel.Tokens" Version="8.19.1" />
 		<PackageVersion Include="Microsoft.IdentityModel.Tokens.Saml" Version="8.19.1" />
 		<PackageVersion Include="Microsoft.IdentityModel.Xml" Version="8.19.1" />
-		<PackageVersion Include="System.Security.Cryptography.Pkcs" Version="10.0.11" />
+		<!-- NOTE: System.Security.Cryptography.Pkcs is defined in ..\..\iPlus\Directory.Packages.props
+		     (10.0.13) when the repo is cloned; in standalone mode it comes from
+		     Directory.Packages.standalone.props. Defining it here as well causes NU1506. -->
 	</ItemGroup>
 
 	<ItemGroup>
