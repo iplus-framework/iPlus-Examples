@@ -5,8 +5,8 @@
 	     Keep these in sync with iPlus/build/iPlus.Package.props and
 	     iPlus/build/Avalonia.Version.props when publishing new package versions. -->
 	<PropertyGroup Condition="!Exists('..\..\iPlus\Directory.Build.props')">
-		<IPlusPackageVersion Condition="'$(IPlusPackageVersion)' == ''">5.0.0-preview.3</IPlusPackageVersion>
-		<IPlusMESPackageVersion Condition="'$(IPlusMESPackageVersion)' == ''">5.0.0-preview.3</IPlusMESPackageVersion>
+		<IPlusPackageVersion Condition="'$(IPlusPackageVersion)' == ''">5.0.0-preview.4</IPlusPackageVersion>
+		<IPlusMESPackageVersion Condition="'$(IPlusMESPackageVersion)' == ''">5.0.0-preview.4</IPlusMESPackageVersion>
 		<IPlusSuitePackageVersion Condition="'$(IPlusSuitePackageVersion)' == ''">$(IPlusPackageVersion)</IPlusSuitePackageVersion>
 		<UseAvaloniaIPlusPackages Condition="'$(UseAvaloniaIPlusPackages)' == ''">True</UseAvaloniaIPlusPackages>
 		<AvaloniaPackagePrefix Condition="'$(UseAvaloniaFork)' != 'True' and '$(UseAvaloniaIPlusPackages)' == 'True'">iPlus.</AvaloniaPackagePrefix>
